@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageCore", "ImageCore\ImageCore.csproj", "{831C9B58-D18C-4B52-B90E-73F3C1EBAB2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{831C9B58-D18C-4B52-B90E-73F3C1EBAB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831C9B58-D18C-4B52-B90E-73F3C1EBAB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831C9B58-D18C-4B52-B90E-73F3C1EBAB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831C9B58-D18C-4B52-B90E-73F3C1EBAB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94D2B575-9280-4C43-805E-A54379722417}
+	EndGlobalSection
+EndGlobal
