@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - ImageCore</title>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="">Toggle navigation</span>
+                <span class=""></span>
+                <span class=""></span>
+                <span class=""></span>
+            </button>
+            <a asp-page="/Index" class="">ImageCore</a>
+        </div>
+        <div class="">
+            <ul class="">
+                <li>
+                    <a asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/About">About</a>
+                </li>
+                <li>
+                    <a asp-page="/Contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="renderBody">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; 2021 - ImageCore</p>
+    </footer>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/site.min.js" asp-append-version="true"></script>
+
+</body>
+</html>
