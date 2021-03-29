@@ -4,45 +4,45 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - ImageCore</title>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
 <nav>
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="">Toggle navigation</span>
-                <span class=""></span>
-                <span class=""></span>
-                <span class=""></span>
-            </button>
-            <a asp-page="/Index" class="">ImageCore</a>
+    <div class="navbarContainer">
+        <div class="navbar-header" class="navImage" onclick="document.getElementById('logolink').click()">
+            <a id="logolink" asp-controller="Home" asp-action="Index" class=""></a>
         </div>
-        <div class="">
-            <ul class="">
+        <ul class="navbarRouteList">
                 <li>
-                    <a asp-page="/Index">Home</a>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li>
-                    <a asp-page="/About">About</a>
+                    <a asp-controller="Project" asp-action="Index">Projects</a>
                 </li>
                 <li>
-                    <a asp-page="/Contact">Contact</a>
+                    <a asp-controller="Contact" asp-action="Index">Contacts</a>
                 </li>
             </ul>
+        <div class="navImage" onclick="document.getElementById('profileLink').click()">
+            <a id="profileLink" asp-controller="User" asp-action="Show"></a>
         </div>
     </div>
 </nav>
 <div class="renderBody">
     @RenderBody()
-    <hr/>
     <footer>
-        <p>&copy; 2021 - ImageCore</p>
+        <div class="footerChildWrapper">
+            <div class="footerLinkWrapper">
+                <a id="profileLink" asp-controller="Contact" asp-action="Index">Impressum</a>
+                <a id="profileLink" asp-controller="Contact" asp-action="Index">About us</a>  
+            </div>
+            <p>Copyright by ImageCore 2021</p>
+        </div>
     </footer>
 </div>
 
 <script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/js/site.min.js" asp-append-version="true"></script>
 
 </body>
 </html>

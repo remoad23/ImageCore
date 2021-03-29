@@ -12,5 +12,11 @@ namespace ImageCore.Controllers
         {
             return View();
         }
+        
+        public IActionResult Show()
+        {
+            return View();
+            
+        }
     }
 }

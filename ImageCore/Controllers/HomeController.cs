@@ -11,6 +11,8 @@ namespace ImageCore.Controllers
         public IActionResult Index()
         {
             return View();
+            
         }
+        
     }
 }
