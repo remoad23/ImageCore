@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - ImageCore</title>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body>
+<div class="renderBody">
+    @RenderBody()
+    <footer>
+        <div class="footerChildWrapper">
+            <div class="footerLinkWrapper">
+                <a id="profileLink" asp-controller="Contact" asp-action="Index">Impressum</a>
+                <a id="profileLink" asp-controller="Contact" asp-action="Index">About us</a>  
+            </div>
+            <p>Copyright by ImageCore 2021</p>
+        </div>
+    </footer>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>

@@ -22,6 +22,8 @@ nav
 {
     width: 100vw;
     height: 6vh;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
+    z-index: -1;
 }
 
 .navbarContainer
@@ -75,9 +77,15 @@ nav
     font-size: 1.2em;
 }
 
+.navbarRouteList > li > a:hover 
+{
+    color: blue;
+}
+
 .navbarRouteList > li > a 
 {
     color: white;
+    transition: 0.2s color;
 }
 
 /* --------------------------------------navbar end --------------------------- */
@@ -109,6 +117,10 @@ footer{
     display: flex;
     justify-content: space-around;
 }
+
+.footerLinkWrapper > a:hover, .footerChildWrapper > p:first-child:hover
+{
+    color: blue;
 }
 
 .footerLinkWrapper > a, .footerChildWrapper > p
@@ -280,17 +292,20 @@ footer{
     margin-right: 2vw;
     margin-top: 10vh;
     margin-bottom: 10vh;
-    border-radius: 25px;
-    background-color: #C4B52C;
 }
 
 .projectHeader
 {
-    height: 20vh;
-    width: 100%;
+    height: 14vh;
+    width: 97%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+    border-radius: 15px;
+    background-color: #C4B52C;
+    align-items: center;
+    padding-left: 3%;
+    margin-bottom: 10vh;
 }
 
 .projectHeader > ul
@@ -323,11 +338,12 @@ footer{
 
 .searchInput
 {
-    height: 25%;
+    height: 30%;
     width: 30%;
-    margin-right: 8vw;
+    margin-right: 5vw;
     border-radius: 25px;
     padding-left: 2vw;
+    border: none;
 }
 
 
@@ -342,17 +358,83 @@ footer{
 
 .projectListEntry
 {
-    height: 25vh;
+    height: 40vh;
     margin-bottom: 5vh;
     margin-right: 5%;
-    border: 1px solid black;
-    width: 19%;
+    width: 20%;
+    border-radius: 15px;
+    background-color: #C4B52C;
 }
 
-.projectListEntry:hover
+.projectListEntry > img:hover
 {
     cursor: pointer;
 }
+
+.projectListEntry > img
+{
+    height: 60%;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.projectListEntryText
+{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.projectEntryInformation
+{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    width: 90%;
+    padding-right: 10%;
+    border-radius: 15px;
+}
+.projectListEntryText > p
+{
+    color: white;
+    width: 90%;
+    padding-left: 5%;
+    font-size: 1.8em;
+    padding-top: 0;
+    font-weight: 600;
+    margin: 0;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.projectEntryInformation > p
+{
+    color: white;
+    font-size: 1em;
+}
+
+.viewIcon
+{
+    background-image: url("../images/visibility-24px.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    height: 100%;
+    width: 18%;
+    background-position: center;
+}
+
+.userIcon
+{
+    background-image: url("../images/perm_identity-24px.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    height: 100%;
+    width: 18%;
+    background-position: center;
+}
+
 
 /* -------------------------------------project end --------------------------- */
 
@@ -362,9 +444,9 @@ footer{
 {
     display: flex;
     flex-direction: column;
-    width: 60vw;
+    width: 45vw;
     height: auto;
-    margin-left: 20%;
+    margin-left: 28%;
     margin-right: 20%;
     border-radius: 20px;
     margin-top: 10vh;
@@ -389,22 +471,23 @@ footer{
     padding-left: 20px;
     margin-right: 5%;
     margin-top: 20px;
-    width: 30%;
+    width: 38%;
     border-radius: 15px;
+    border: none;
 }
 
 .contactHeader > ul{
     display: flex;
     flex-flow: row;
     margin-left: 2%;
-    width: 35%;
+    width: 40%;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .contactHeader > ul > li{
     list-style: none;
-    font-size: 1.7em;
+    font-size: 1.5em;
     color: white;
     transition: 0.2s color;
 }
@@ -469,3 +552,361 @@ footer{
 
 
 /* -------------------------------------contact end --------------------------- */
+
+/* -------------------------------------user start --------------------------- */
+
+.userWrapper
+{
+    display: flex;
+    flex-flow: column;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    border-radius: 20px;
+}
+
+.user
+{
+    width: 90%;
+    padding: 5vh 5vh 5vw 5vw;
+    display: flex;
+    flex-flow: row;
+    height: 30vh;
+    background-color: #C4B52C;
+    border-radius: 20px;
+    margin-bottom: 10vh;
+}
+
+.userImage
+{
+    width: 20%;
+    margin-right: 5%;
+    height: 100%;
+    background-image: url("../images/Abstract-Background-Best-Wallpaper-14092.jpg");
+    background-size: contain;
+    border-radius: 20px;
+}
+
+.userDescription
+{
+    width: 60%;
+    color: white;
+}
+
+.userInformation > ul > li
+{
+    list-style: none;
+    font-size: 1.3em;
+}
+
+.userInformation
+{
+    height: 100%;
+}
+
+.userInformation > h1
+{
+    font-size: 1.8emem;
+}
+
+.userInformation > ul
+{
+    height: 50%;
+    margin: 0px;
+    padding: 0;
+}
+
+.userActions
+{
+    
+}
+
+.userActions > button
+{
+    height: 50%;
+    width: 15%;
+}
+
+.userProjects
+{
+    background-color: #C4B52C;
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 5vh 5vh 5vw 5vw;
+    border-radius: 20px;
+}
+
+.userProject
+{
+    height: 25vh;
+    width: 13vw;
+    border: 1px solid;
+    margin-right: 7vw;
+    margin-bottom: 5vh;
+}
+
+.userProjects > h1
+{
+    color: white;
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 5vh;
+}
+
+.userProjectList
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    
+    flex-wrap: wrap;
+}
+
+/* -------------------------------------user end --------------------------- */
+
+/* -------------------------------------login and register start --------------------------- */
+
+.loginArea
+{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBlock
+{
+    width: 20%;
+    height: auto;
+    background-color: #C4B52C;
+    border-radius: 20px;
+    display: flex;
+    flex-flow: column;
+    padding: 4vh 4vh 4vw 4vw;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
+.loginBlock > input
+{
+    height: 5vh;
+    margin-bottom: 2vh;
+    width: 90%;
+    padding-left: 2%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid white !important;
+    font-size: 1.5em;
+    color: white;
+}
+
+.loginBlock > h1
+{
+    color: white;
+    font-size: 3em;
+    align-self: center;
+    font-weight: 600;
+}
+
+.loginBlock > button
+{
+    width: 90%;
+    height: 50px;
+    border-radius: 25px;
+    border:none;
+    margin-top: 30px;
+    background-color: #FED9FF;
+    color: white;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.loginBlock > button:hover
+{
+    cursor: pointer;
+}
+
+.loginBlock > input::placeholder{
+    opacity: 0;
+}
+
+.loginBlock > span
+{
+    color: white;    
+    margin-top: 20px;
+}
+
+.loginBlock > input:focus{
+    border:none !important;
+    border-bottom: 3px solid white !important;
+    outline: none !important;
+}
+
+
+/* -------------------------------------login and register end --------------------------- */
+
+/* -------------------------------------policy end --------------------------- */
+
+.impressum
+{
+    width: 50vw;
+    margin: 5vh 5vh 5vw 5vw;
+    font-size: 1.5em;
+}
+
+.impressumtext
+{
+    width: 70vw;
+    padding-right: 10%;
+}
+
+/* -------------------------------------policy end --------------------------- */
+
+/* -------------------------------------settings start ------------------------ */
+
+.settingsWrapper
+{
+    height: auto;
+    width: 100vw;
+    display: flex;
+    flex-flow: row;
+}
+
+.settingsSidebar
+{
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    background-color: #C4B52C;
+    width: 17%;
+    align-items: center;
+    padding: 4vh 0vh 2vw 0vw;
+    box-shadow: 0 0 15px rgba(0 ,0, 0, 0.7);
+    clip-path: inset(0px -15px 0px 0px);
+}
+
+.settingsSidebar  > ul{
+    margin: 0px;
+    padding: 0;
+}
+
+.settingsSidebar > ul > li 
+{
+    color: white;
+    list-style: none;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    transition: 0.1s color;
+}
+
+.settingsSidebar > h1
+{
+    color: white;
+    font-size: 2em;
+}
+
+.settingsSidebar > ul > li:hover
+{
+    cursor: pointer;
+    color: blue;
+}
+
+
+.settingsContent
+{
+    width: 74%;
+    padding: 5vh 5vh 5vw 5vw;
+}
+
+/* -------------------------------------settings end --------------------------- */
+
+/* -------------------------------------Aboutus start --------------------------- */
+
+.AboutUsWrapper
+{
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+}
+
+.aboutUsRow
+{
+    height: 80vh;
+    width: 100%;
+    flex-flow: row;
+    display: flex;
+    margin-bottom: 25vh;
+}
+
+.aboutUsRow:first-child,.aboutUsSubImage:nth-child(1),
+.aboutUsSubImage:nth-child(2),
+.aboutUsSubImage:nth-child(3)
+{
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.aboutUsRow:first-child
+{
+    height: 70vh !important;
+    margin-bottom: 15vh;
+    background-image: url("../images/Abstract-Background-Best-Wallpaper-14092.jpg");
+}
+
+.aboutUsSubImage:nth-child(1)
+{
+    background-image: url("../images/woman-3083379_1920.jpg");
+}
+
+.aboutUsSubImage:nth-child(2)
+{
+    background-image: url("../images/woman-1594711_1920.jpg");
+}
+
+.aboutUsSubImage:nth-child(3)
+{
+    background-image: url("../images/workplace-1245776_1920.jpg");
+}
+
+.aboutUsRow:first-child > h1
+{
+    margin-left: 7%;
+    color: white;
+    font-size: 10em;
+    margin-top: 6%;
+}
+
+.aboutUsSubImage{
+    width: 50%;
+    height: 100%;
+}
+
+
+.WrapText
+{
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.WrapText > p
+{
+
+}
+
+.WrapText > h1
+{
+
+}
+
+/* -------------------------------------Aboutus end --------------------------- */
