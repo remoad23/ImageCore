@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace ImageCore.Models
 {
-    public class ProjectModel
+    public class ProjectModel 
     {
+        public static void Seed()
+        {
+            //
+        }
     }
 }

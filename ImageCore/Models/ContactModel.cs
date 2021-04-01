@@ -7,5 +7,9 @@ namespace ImageCore.Models
 {
     public class ContactModel
     {
+        public static void Seed()
+        {
+            //
+        }
     }
 }
