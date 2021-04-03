@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace ImageCore.Models
 {
-    public class ProjectModel 
+    public class ProjectModel
     {
+        public long Id { get; private set; }
+        public string name { get; set; }
+        public int participatornumber { get; set; }
+        public int views { get; set; }
+        
         public static void Seed()
         {
             //

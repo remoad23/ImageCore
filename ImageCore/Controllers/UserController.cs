@@ -18,5 +18,11 @@ namespace ImageCore.Controllers
             return View();
             
         }
+
+        [Route("UserSettings/DeleteAccount")]
+        public IActionResult Delete()
+        {
+            return View("~/Views/UserSettings/DeleteAccount/Index.cshtml");
+        }
     }
 }

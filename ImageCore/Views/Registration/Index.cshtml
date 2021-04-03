@@ -6,13 +6,16 @@
     <form class="loginBlock">
         <h1>Registration</h1>
         <span>Username</span>
-        <input type="text" placeholder="username">
+        <input type="text" placeholder="username" minlength="8" maxlength="30" pattern="[^A-Za-z0-9]+" required
+               title="Benutzername muss mindestens 8 Zeichen und maximal 30 Zeichen lang sein">
         <span>E-Mail</span>
-        <input type="email" placeholder="email">
+        <input type="email" placeholder="email" minlength="5"  required >
         <span>Passwort</span>
-        <input type="password">
+        <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])"  minlength="8"
+               title="Passwort muss mindestens ein kleines Zeichen,ein großes Zeichen,eine Zahl und einen extra Zeichen" required>
         <span>Passwort wiederholen</span>
-        <input type="password">
+        <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])"  minlength="8"
+               title="Passwort muss mindestens ein kleines Zeichen,ein großes Zeichen,eine Zahl und einen extra Zeichen" required>
         <button type="submit">Registrieren</button>
     </form>
 </div>

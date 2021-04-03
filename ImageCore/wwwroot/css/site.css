@@ -824,6 +824,68 @@ footer{
     padding: 5vh 5vh 5vw 5vw;
 }
 
+.settingsSidebarLink
+{
+    color: white;
+    transition: 0.2s color;
+}
+
+.settingsSidebarLink:hover
+{
+    color: blue;
+}
+
+.settingsTable
+{
+    
+}
+
+.settingsForm
+{
+    display: flex;
+    flex-flow: column;
+    
+}
+
+.settingsInput
+{
+    height: 5vh;
+    margin-bottom: 2vh;
+    width: 20vw;
+    padding-left: 2%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid #C4B52C !important;
+    font-size: 1.5em;
+}
+
+.settingsInput:focus{
+    border-radius: 9px;
+}
+
+.settingsForm > button
+{
+    width: 10vw;
+    height: 50px;
+    border-radius: 9px;
+    border:none;
+    margin-top: 30px;
+    background-color: #FED9FF;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.settingsForm > button:hover
+{
+    cursor:pointer;
+}
+
+.settingsTitle
+{
+    margin-bottom: 5vh;    
+}
+
 /* -------------------------------------settings end --------------------------- */
 
 /* -------------------------------------Aboutus start --------------------------- */
@@ -910,3 +972,17 @@ footer{
 }
 
 /* -------------------------------------Aboutus end --------------------------- */
+
+/* -------------------------------------Validation start --------------------------- */
+
+/*
+input:valid{
+    background-color: green;
+}
+ */
+/*
+input:invalid:not(:focus):not(:placeholder-shown) {
+    background-color:red;
+} */
+
+/* -------------------------------------Validation end --------------------------- */
