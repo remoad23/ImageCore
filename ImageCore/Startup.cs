@@ -2,12 +2,11 @@ using ImageCore.Controllers.api.SignalR;
 using ImageCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-
 namespace ImageCore
 {
     public class Startup
@@ -33,7 +32,9 @@ namespace ImageCore
                 configuration.RootPath = "ClientApp/dist";
              });
             
-            
+            services.AddIdentity<UserModel, IdentityRole>()
+                .AddEntityFrameworkStores<ImageCoreDB>()
+                .AddDefaultTokenProviders();
             
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -65,9 +66,13 @@ namespace ImageCore
             {
                 app.UseSpaStaticFiles();
             }
-
+            
             app.UseRouting();
             app.UseCors("MyPolicy");
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -76,6 +81,7 @@ namespace ImageCore
                 endpoints.MapHub<ChatHUB>("/chatHub");
                 endpoints.MapHub<ObjectHUB>("/ObjectHub");
             });
+            
 
             
             app.UseSpa(spa =>
