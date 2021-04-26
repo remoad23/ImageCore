@@ -12,9 +12,6 @@ namespace ImageCore.Models
         public int participatornumber { get; set; }
         public int views { get; set; }
         
-        public static void Seed()
-        {
-            //
-        }
+    
     }
 }

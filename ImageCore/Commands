@@ -1,0 +1,12 @@
+﻿Migrations ( Settet erst einzelne Tables und Datenbank in Source Corde):
+dotnet ef migrations add InitialCreateIdentity --context ContextDb
+
+Migration Add ( Addet die Seeder und trägt tables in Datenbank ein)
+dotnet ef database update --context ContextDb
+
+
+run project and run:
+dotnet watch run
+
+run angular and watch:
+npm start watch

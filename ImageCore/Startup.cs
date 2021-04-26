@@ -1,12 +1,15 @@
+using System.Threading.Tasks;
 using ImageCore.Controllers.api.SignalR;
 using ImageCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+
 namespace ImageCore
 {
     public class Startup
@@ -22,20 +25,23 @@ namespace ImageCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ImageCoreDB>(options =>
-                options.UseSqlite("Data Source=ImageCore.db"));
-            
+  
+            services.AddDbContext<ContextDb>(options =>
+                options.UseSqlite("Data Source=Identity.db"));
+
+            services.AddIdentity<UserModel, RoleModel>()
+                .AddEntityFrameworkStores<ContextDb>()
+                .AddDefaultTokenProviders();
+
+
             services.AddSignalR();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
              });
-            
-            services.AddIdentity<UserModel, IdentityRole>()
-                .AddEntityFrameworkStores<ImageCoreDB>()
-                .AddDefaultTokenProviders();
-            
+
+
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
@@ -73,6 +79,7 @@ namespace ImageCore
             app.UseAuthentication();
             app.UseAuthorization();
             
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -97,5 +104,6 @@ namespace ImageCore
                 }
             }); 
         }
+        
     }
 }

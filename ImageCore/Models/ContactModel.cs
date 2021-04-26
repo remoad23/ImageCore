@@ -11,9 +11,5 @@ namespace ImageCore.Models
         public int user_id { get; set; }
         public int contact_id { get; set; }
         
-        public static void Seed()
-        {
-            //
-        }
     }
 }
