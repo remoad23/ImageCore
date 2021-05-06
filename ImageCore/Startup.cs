@@ -27,14 +27,15 @@ namespace ImageCore
             services.AddControllersWithViews();
   
             services.AddDbContext<ContextDb>(options =>
-                options.UseSqlite("Data Source=Identity.db"));
+                options.UseSqlite("Data Source=ImageCore.db"));
 
             services.AddIdentity<UserModel, RoleModel>()
+          //      .AddRoles<UserRoleModel>()
                 .AddEntityFrameworkStores<ContextDb>()
                 .AddDefaultTokenProviders();
 
-
             services.AddSignalR();
+            
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -78,8 +79,8 @@ namespace ImageCore
             
             app.UseAuthentication();
             app.UseAuthorization();
-            
-            
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

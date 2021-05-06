@@ -11,12 +11,13 @@ namespace ImageCore.Seeder
     public static class Seeder
     {
         #nullable enable
-        public static void SeedIdentityDb(ModelBuilder? modelBuilder = null)
+        public static void SeedDb(ModelBuilder? modelBuilder = null)
         {
             UserSeeder.Seed(modelBuilder);
-            ProjectSeeder.Seed();
             RoleSeeder.Seed(modelBuilder);
+           // UserRoleSeeder.Seed(modelBuilder);
             ContactSeeder.Seed();
+            ProjectSeeder.Seed();
         }
 
     }

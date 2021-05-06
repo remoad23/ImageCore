@@ -33,6 +33,10 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\services" />
+    <Folder Include="Services\Authentication\Policies" />
+    <Folder Include="Services\Authorization\Policies" />
+    <Folder Include="Services\Filters" />
+    <Folder Include="Services\Middlewares" />
   </ItemGroup>
 
   <ItemGroup>

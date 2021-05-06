@@ -13,7 +13,11 @@ namespace ImageCore.Models
      */
     public class ContextDb : IdentityDbContext<UserModel>
     {
-        
+        public DbSet<FilterModel> FilterModels { get; set; }
+        public DbSet<ImageComponentModel> ImageComponent { get; set; }
+        public DbSet<ImageLayerModel> ImageLayer { get; set; }
+        public DbSet<ProjectModel> Project { get; set; }
+        public DbSet<ProjectParticipatorModel> ProjectParticipator { get; set; }
         public ContextDb(DbContextOptions<ContextDb> options): base(options)
         {
 
@@ -28,7 +32,7 @@ namespace ImageCore.Models
         {
             base.OnModelCreating(modelBuilder);
             RenameDefaultTables(modelBuilder);
-            Seeder.Seeder.SeedIdentityDb(modelBuilder);
+            Seeder.Seeder.SeedDb(modelBuilder);
         }
 
         /**
