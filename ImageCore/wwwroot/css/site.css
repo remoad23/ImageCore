@@ -100,7 +100,6 @@ footer{
     justify-content: center;
     align-items: center;
 }
-}
 
 .footerChildWrapper
 {
@@ -608,7 +607,7 @@ footer{
 
 .userInformation > h1
 {
-    font-size: 1.8emem;
+    font-size: 1.8em;
 }
 
 .userInformation > ul
@@ -973,6 +972,247 @@ footer{
 
 /* -------------------------------------Aboutus end --------------------------- */
 
+/* -------------------------------------UserList start --------------------------- */
+
+.UserListWrapper
+{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100vw;
+}
+
+.UserListHeader
+{
+    padding-top: 10vh;
+    height: 40vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userListHeaderUpper
+{
+    height: 10vh;
+    width: 80%;
+}
+
+.userListHeaderUpper > h1 
+{
+    font-size: 4em;
+    color: #C4B52C;
+}
+
+.UserListHeaderLower
+{
+    height: 6vh;
+    padding-top: 10vh;
+    width: 80%;
+    flex-direction: row;
+    display: flex;
+    border-bottom: 4px solid #C4B52C;
+}
+
+.UserListHeaderLower > input
+{
+    width: 40%;
+    height: 60%;
+    border: 5px solid #C4B52C;
+    border-radius: 7px;
+    outline: none;
+}
+
+.UserListHeaderLower > input:focus 
+{
+    opacity: 0.7;
+}
+
+.filterOptionWrapper
+{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    padding-left: 20%;
+    justify-content: space-evenly;
+}
+
+.filterOption
+{
+    display: flex;
+    flex-direction: row;
+    width: 15%;
+    justify-content: space-evenly;
+    color: #C4B52C;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.filterOption > p
+{
+    color: white;
+    transition: color 0.2s;
+}
+
+.filterOption :hover
+{
+    color: blue;
+    cursor: pointer;
+}
+
+.arrowDown
+{
+    background-image: url("../images/arrow_downside.svg");
+    width: 2vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    height: 80%;
+    align-self: flex-end;
+}
+
+.UserListList
+{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.UserListEntry
+{
+    height: 15vh;
+    width: 80%;
+    background-color: #C4B52C;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
+    margin-bottom: 5vh;
+    transition: opacity 0.2s;
+}
+
+.UserListEntry:hover
+{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.UserListEntryHeader
+{
+    background-color: transparent;
+    height: 5vh !important;
+    box-shadow: none;
+    align-items: center;
+}
+
+.userEntryHeaderHeader
+{
+    color: #C4B52C !important;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.userEntryImage
+{
+    border-radius: 70px;
+    width: 6%;
+    align-self: center;
+    height: 65%;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.UserEntryVerticalWrapper
+{
+    width: 10%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    margin-right: 5%;
+}
+
+.userEntryHeader
+{
+    color: white;
+    opacity: 0.7;
+}
+
+.userEntryValue
+{
+    color: white;
+}
+
+.UserListPaginationWrapper
+{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10vh;
+}
+
+.UserPagination
+{
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    justify-content: center;
+}
+
+
+.UserPagionationNumbers
+{
+    display: flex;
+    flex-direction: row;
+    width: 10vw;
+    justify-content: space-evenly;
+    font-size: 1.3em;
+    align-items: center;
+}
+
+.UserPagionationNumbers > p:hover
+{
+        cursor: pointer;
+}
+
+.UserPaginationBack , .UserPaginationForward
+{
+    height: 100%;
+    width: 9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    background-color: #C4B52C;
+    color: white;
+    transition: color 0.1s;
+}
+
+.UserPaginationBack:hover , .UserPaginationForward:hover 
+{
+    color: blue;
+}
+
+.UserPaginationBack
+{
+    margin-right: 2vw;
+}
+
+.UserPaginationForward
+{
+    margin-left: 2vw;
+}
+
+.UserPaginationForward:hover,.UserPaginationBack:hover
+{
+    cursor: pointer;
+}
+
+/* -------------------------------------UserList end --------------------------- */
+
 /* -------------------------------------Validation start --------------------------- */
 
 /*
@@ -986,3 +1226,586 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 } */
 
 /* -------------------------------------Validation end --------------------------- */
+
+
+
+/* lowest ------------------- */
+@media only screen
+and (min-device-width : 768px)
+{
+    nav{
+       height: 8vh !important;
+    }
+    
+    .navbar-header
+    {
+        margin-left: 2vw;
+    }
+    
+    .navImage
+    {
+        margin-right: 3vw;
+    }
+
+    .feature1 > h1, .feature2 > h1, .feature3 > h1 {
+        height: 100px;
+    }
+    
+    .featureWrapper
+    {
+        width: 75vw;   
+    }
+    
+    .imageBlock{
+        background-size: 90%;
+    }
+
+    .blockTextWrapper > p {
+        font-size: 1.2em;
+    }
+
+    .imageblockBtn {
+        height: 8vh;
+        width: 18vw;
+    }
+    
+    .projectListEntry
+    {
+        width: 45%;
+        height: 60vh;
+    }
+
+    .projectHeader > ul {
+        font-size: 1.5em;
+        width: 45%;
+    }
+
+    .contactBlock {
+        width: 100%;
+    }
+    
+    .contactList
+    {
+        margin-top: 5vh;
+    }
+
+    .contactHeader {
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 20vh;
+    }
+    .contactHeader > input {
+        width: 80%;
+        height: 6vh;
+        margin-right: 0;
+    }
+
+    .contactHeader > ul {
+        width: 85%;
+        margin-top: 25px;
+        margin-right: 10%;
+    }
+    
+    .settingsSidebar
+    {
+        width: 26%;
+    }
+    
+    .settingsInput
+    {
+        width: 30vw
+    }
+
+    .settingsForm > button
+    {
+        width: 30vw;
+    }
+    
+    .loginBlock
+    {
+        width: 30%;
+    }
+    
+    .loginArea
+    {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+    
+    .userEntryValue
+    {
+        margin: 0;
+        margin-top: -2vh;
+    }
+
+    .UserEntryVerticalWrapper {
+        width: 15%;
+    }
+    
+    .userEntryImage
+    {
+        height: 60%;
+    }
+    .filterOption > p{
+        align-self: center;
+    }
+    
+    .filterOptionWrapper {
+        width: 70%;
+    }
+    .projectListEntryText > p {
+        margin-bottom: 8%;
+    }
+
+    .user {
+        height: 25vh;
+        padding-bottom: 15vh;
+    }
+}
+
+/* medium ------------------ */
+@media only screen
+and (min-width : 1025px)
+{
+    nav{
+        height: 8vh !important;
+    }
+
+    .navbar-header
+    {
+        margin-left: 2vw;
+    }
+
+    .navImage
+    {
+        margin-right: 3vw;
+    }
+
+    .feature1 > h1, .feature2 > h1, .feature3 > h1 {
+        height: 100px;
+    }
+
+    .featureWrapper
+    {
+        width: 75vw;
+    }
+
+    .imageBlock{
+        background-size: 90%;
+    }
+
+    .blockTextWrapper > p {
+        font-size: 1.2em;
+    }
+
+    .imageblockBtn {
+        height: 8vh;
+        width: 18vw;
+    }
+
+    .projectListEntry
+    {
+        width: 45%;
+        height: 60vh;
+    }
+
+    .projectHeader > ul {
+        font-size: 1.5em;
+        width: 45%;
+    }
+
+    .contactBlock {
+        width: 100%;
+    }
+
+    .contactList
+    {
+        margin-top: 5vh;
+    }
+
+    .contactHeader {
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 20vh;
+    }
+    .contactHeader > input {
+        width: 80%;
+        height: 6vh;
+        margin-right: 0;
+    }
+
+    .contactHeader > ul {
+        width: 85%;
+        margin-top: 25px;
+        margin-right: 10%;
+    }
+
+    .settingsSidebar
+    {
+        width: 26%;
+    }
+
+    .settingsInput
+    {
+        width: 30vw
+    }
+
+    .settingsForm > button
+    {
+        width: 30vw;
+    }
+
+    .loginBlock
+    {
+        width: 30%;
+    }
+
+    .loginArea
+    {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+
+    .userEntryValue
+    {
+        margin: 0;
+        margin-top: -2vh;
+    }
+
+    .UserEntryVerticalWrapper {
+        width: 15%;
+    }
+
+    .userEntryImage
+    {
+        height: 60%;
+    }
+    .filterOption > p{
+        align-self: center;
+    }
+
+    .filterOptionWrapper {
+        width: 70%;
+    }
+    .projectListEntryText > p {
+        margin-bottom: 8%;
+    }
+
+    .user {
+        height: 25vh;
+        padding-bottom: 15vh;
+    }
+}
+
+/* Desktops ------------------ */
+@media only screen
+and (min-width : 1201px)
+{
+    nav{
+        height: 7vh !important;
+    }
+
+    .navbar-header
+    {
+        margin-left: 2vw;
+    }
+
+    .navImage
+    {
+        margin-right: 3vw;
+    }
+
+    .feature1 > h1, .feature2 > h1, .feature3 > h1 {
+        height: 100px;
+    }
+
+    .featureWrapper
+    {
+        width: 65vw;
+    }
+
+    .imageBlock{
+        background-size: 90%;
+    }
+
+    .blockTextWrapper > p {
+        font-size: 1.2em;
+    }
+
+    .imageblockBtn {
+        height: 8vh;
+        width: 18vw;
+        margin-top: 5vh;
+    }
+
+    .projectListEntry
+    {
+        width: 28%;
+        height: 45vh;
+    }
+
+    .projectHeader > ul {
+        font-size: 1.5em;
+        width: 45%;
+    }
+    
+    .contactWrapper
+    {
+        width: 50%;
+    }
+
+    .contactHeader > ul > li {
+        font-size: 1.3em;
+    }
+
+    .contactBlock {
+        width: 40%;
+    }
+
+    .contactList
+    {
+        margin-top: 5vh;
+    }
+
+    .contactHeader
+    {
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .contactHeader > input{
+        height: 4vh;
+        padding-left: 20px;
+        margin-right: 5%;
+        margin-top: 20px;
+        width: 38%;
+        border-radius: 15px;
+        border: none;
+    }
+
+    .contactHeader > ul{
+        display: flex;
+        flex-flow: row;
+        margin-left: 2%;
+        width: 40%;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .settingsSidebar
+    {
+        width: 26%;
+    }
+
+    .settingsInput
+    {
+        width: 30vw
+    }
+
+    .settingsForm > button
+    {
+        width: 30vw;
+    }
+
+    .loginBlock
+    {
+        width: 25%;
+    }
+
+    .loginArea
+    {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+
+    .userEntryValue
+    {
+        margin: 0;
+    }
+
+    .UserEntryVerticalWrapper {
+        width: 15%;
+    }
+
+    .userEntryImage
+    {
+        height: 60%;
+    }
+    .filterOption > p{
+        align-self: center;
+        color: #C4B52C;
+    }
+
+    .filterOptionWrapper {
+        width: 50%;
+    }
+    .projectListEntryText > p {
+        margin-bottom: 8%;
+    }
+
+    .user {
+        height: 30vh;
+        padding-bottom: 10vh;
+    }
+
+    .footerLinkWrapper {
+        width: 65%;
+    }
+}
+
+
+@media only screen
+and (min-width : 1920px)
+{
+    nav{
+        height: 6vh !important;
+    }
+
+    .navbar-header
+    {
+        margin-left: 2vw;
+    }
+
+    .navImage
+    {
+        margin-right: 3vw;
+    }
+
+    .feature1 > h1, .feature2 > h1, .feature3 > h1 {
+        height: 100px;
+    }
+
+    .featureWrapper
+    {
+        width: 65vw;
+    }
+
+    .imageBlock{
+        background-size: 90%;
+    }
+
+    .blockTextWrapper > p {
+        font-size: 1.2em;
+    }
+
+    .imageblockBtn {
+        height: 8vh;
+        width: 18vw;
+        margin-top: 5vh;
+    }
+
+    .projectListEntry
+    {
+        width: 20%;
+        height: 40vh;
+    }
+
+    .projectHeader > ul {
+        font-size: 1.5em;
+        width: 45%;
+    }
+
+    .contactBlock {
+        width: 40%;
+    }
+
+    .contactList
+    {
+        margin-top: 5vh;
+    }
+
+    .contactHeader
+    {
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .contactHeader > input{
+        height: 4vh;
+        padding-left: 20px;
+        margin-right: 5%;
+        margin-top: 20px;
+        width: 38%;
+        border-radius: 15px;
+        border: none;
+    }
+
+    .contactHeader > ul{
+        display: flex;
+        flex-flow: row;
+        margin-left: 2%;
+        width: 40%;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .settingsSidebar
+    {
+        width: 26%;
+    }
+
+    .settingsInput
+    {
+        width: 30vw
+    }
+
+    .settingsForm > button
+    {
+        width: 30vw;
+    }
+
+    .loginBlock
+    {
+        width: 25%;
+    }
+
+    .loginArea
+    {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+
+    .userEntryValue
+    {
+        margin: 0;
+    }
+
+    .UserEntryVerticalWrapper {
+        width: 15%;
+    }
+
+    .userEntryImage
+    {
+        height: 60%;
+    }
+    .filterOption > p{
+        align-self: center;
+        color: #C4B52C;
+    }
+
+    .filterOptionWrapper {
+        width: 50%;
+    }
+    .projectListEntryText > p {
+        margin-bottom: 8%;
+    }
+
+    .user {
+        height: 30vh;
+        padding-bottom: 10vh;
+    }
+
+    .footerLinkWrapper {
+        width: 50%;
+    }
+}

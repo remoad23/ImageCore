@@ -20,10 +20,10 @@
                 <li>
                     <a asp-controller="Project" asp-action="Index">Projects</a>
                 </li>
-                <li>
-                    <a asp-controller="Contact" asp-action="Index">Contacts</a>
-                </li>
-            </ul>
+            <li>
+                <a asp-controller="Contact" asp-action="Index">Contacts</a>
+            </li>
+        </ul>
         <div class="navImage" onclick="document.getElementById('profileLink').click()">
             <a id="profileLink" asp-controller="User" asp-action="Show"></a>
         </div>
@@ -31,17 +31,16 @@
 </nav>
 <div class="renderBody">
     @RenderBody()
-    <footer>
-        <div class="footerChildWrapper">
-            <div class="footerLinkWrapper">
-                <a id="profileLink" asp-controller="Policy" asp-action="Index">Impressum</a>
-                <a id="profileLink" asp-controller="AboutUs" asp-action="Index">About us</a>  
-            </div>
-            <p>Copyright by ImageCore 2021</p>
-        </div>
-    </footer>
 </div>
-
+<footer>
+    <div class="footerChildWrapper">
+        <div class="footerLinkWrapper">
+            <a id="profileLink" asp-controller="Policy" asp-action="Index">Impressum</a>
+            <a id="profileLink" asp-controller="AboutUs" asp-action="Index">About us</a>
+        </div>
+        <p>Copyright by ImageCore 2021</p>
+    </div>
+</footer>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 </body>
