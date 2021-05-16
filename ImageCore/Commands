@@ -4,7 +4,6 @@ dotnet ef migrations add InitialCreateImageCoreDb --context ContextDb
 Migration Add ( Addet die Seeder und trägt tables in Datenbank ein)
 dotnet ef database update --context ContextDb
 
-
 Remove Migration
 dotnet ef migrations remove
 

@@ -3,13 +3,13 @@
 }
 
 <div class="loginArea">
-    <form class="loginBlock">
+    <form class="loginBlock" asp-controller="Login" asp-action="login" method="post">
         <h1>Login</h1>
-        <span>E-Mail</span>
-        <input type="email" id="mail" required  title="Test" placeholder=" " >
+        <span>Username</span>
+        <input name="userName" type="text" placeholder=" " value="User1">
         <span>Password</span>
         <!-- mindestens ein: kleinen letter,großen letter,special character,zahl und mind 8 character lang oder mehr -->
-        <input type="password" required placeholder=" ">
+        <input type="password" name="password" required placeholder=" " value="passworduser1">
         <button type="submit">Login</button>
     </form>
 </div>

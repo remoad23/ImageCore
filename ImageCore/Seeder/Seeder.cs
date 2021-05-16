@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ImageCore.Models;
-using ImageCore.Seeder.Factories;
-using ImageCore.Seeder.Relationships;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImageCore.Seeder
@@ -18,6 +16,7 @@ namespace ImageCore.Seeder
         #nullable enable
         public static void SeedDb(ModelBuilder? modelBuilder = null)
         {
+            //Seeder
             UserSeeder.Seed(modelBuilder);
             RoleSeeder.Seed(modelBuilder);
            // UserRoleSeeder.Seed(modelBuilder);

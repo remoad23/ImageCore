@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,9 +9,17 @@ namespace ImageCore.Models
 {
     public class ContactModel
     {
-        public long Id { get; private set; }
-        public int user_id { get; set; }
-        public int contact_id { get; set; }
+        [Key]
+        public int ContactId { get; private set; }
         
+   
+        public string UserId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public string ContactUserId { get; set; }
+        
+        public UserModel User { get; set; }
+        public UserModel ContactUser { get; set; }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,11 +9,17 @@ namespace ImageCore.Models
 {
     public class ProjectModel
     {
-        public long Id { get; private set; }
-        public string name { get; set; }
-        public int participatornumber { get; set; }
-        public int views { get; set; }
+        [Key]
+        public int ProjectId { get; private set; }
+        public string Name { get; set; }
+        public int Views { get; set; }
+        public string UserId { get; set; }
         
-    
+        public UserModel User { get; set; }
+        public List<ProjectParticipatorModel> ProjectParticipators { get; set; }
+        public List<ImageLayerModel> ImageLayers { get; set; }
+        public List<ImageComponentModel> ImageComponents { get; set; }
+        public List<FilterModel> Filters { get; set; }
+
     }
 }

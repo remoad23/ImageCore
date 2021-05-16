@@ -9,22 +9,15 @@ namespace ImageCore.Models
         public int ImageLayerId { get; private set; }
         
         public string Name { get; set; }
-
         public string MaskMat { get; set; }
-
         public float X { get; set; }
-
         public float Y { get; set; }
-
         public float Z { get; set; }
-        
         public byte Opacity { get; set; }
-        
         public bool Visible { get; set; }
-
-        [ForeignKey("ProjectId")]
         public int ProjectId { get; set; }
-        
         public string LayerType { get; set; }
+        
+        public ProjectModel Project{ get; set; }
     }
 }

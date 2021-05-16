@@ -66,7 +66,7 @@ namespace ImageCore
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
 
-                options.LoginPath = "/Login";
+                options.LoginPath = "/login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });

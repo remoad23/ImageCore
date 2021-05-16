@@ -26,25 +26,39 @@ namespace ImageCore.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public async Task login([FromForm]LoginViewModel model)
+        public async Task<IActionResult> login([FromForm]LoginViewModel model)
         {
-            var user = await _signInManager
-                .PasswordSignInAsync(model.email, model.password,false,true);
-            
+            Console.WriteLine(model.password);
+            Console.WriteLine(model.userName);
+            var user = await _signInManager.PasswordSignInAsync(
+                model.userName,
+                model.password,
+                false,
+                true
+                );
+
+            Console.WriteLine(ModelState.IsValid);
+            Console.WriteLine(user.Succeeded);
             if (!ModelState.IsValid || !user.Succeeded) {
+                Console.WriteLine("Passt1");
                 //redirect back if not valid
-                Redirect(HttpContext.Request.Headers["Referer"]);
+                return RedirectToAction("Login","login");
             }
             else if(user.Succeeded){
-                RedirectToAction("Index","Home");
+                Console.WriteLine("Passt2");
+                return RedirectToAction("Index","Home");
             }
             else if(user.IsLockedOut) {
+                Console.WriteLine("Passt3");
                 //redirect back if not valid
-                Redirect(HttpContext.Request.Headers["Referer"]);
+                return Redirect(HttpContext.Request.Headers["Referer"]);
             }
-        }
 
-        public async Task logout()
+            return RedirectToAction("login");
+        }
+        
+        [ValidateAntiForgeryToken]
+        public async Task Logout()
         {
             await _signInManager.SignOutAsync();
             RedirectToAction("Index","Login");

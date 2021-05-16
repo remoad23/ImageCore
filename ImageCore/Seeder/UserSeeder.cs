@@ -17,7 +17,8 @@ namespace ImageCore.Seeder
             {
                Email = "user1@gmail.com",
                UserName = "User1",
-               NormalizedUserName = "User1",
+               NormalizedUserName = "USER1",
+               NormalizedEmail = "USER1@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser1")
             };
             
@@ -25,7 +26,8 @@ namespace ImageCore.Seeder
             {
                Email = "use2r@gmail.com",
                UserName = "User2",
-               NormalizedUserName = "User2",
+               NormalizedUserName = "USER2",
+               NormalizedEmail = "USER2@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser2")
             };
             
@@ -33,7 +35,8 @@ namespace ImageCore.Seeder
             {
                Email = "user3@gmail.com",
                UserName = "User3",
-               NormalizedUserName = "User3",
+               NormalizedUserName = "USER3",
+               NormalizedEmail = "USER3@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser3")
             };
             
@@ -41,7 +44,8 @@ namespace ImageCore.Seeder
             {
                Email = "user4@gmail.com",
                UserName = "User4",
-               NormalizedUserName = "User4",
+               NormalizedUserName = "USER4",
+               NormalizedEmail = "USER4@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser4")
             };
             
@@ -49,7 +53,8 @@ namespace ImageCore.Seeder
             {
                Email = "user5@gmail.com",
                UserName = "User5",
-               NormalizedUserName = "User5",
+               NormalizedEmail = "USER5@GMAIL.COM",
+               NormalizedUserName = "USER5",
                PasswordHash = hasher.HashPassword(null, "passworduser5")
             };
             
@@ -57,7 +62,8 @@ namespace ImageCore.Seeder
             {
                Email = "user6@gmail.com",
                UserName = "User6",
-               NormalizedUserName = "User6",
+               NormalizedUserName = "USER6",
+               NormalizedEmail = "USER6@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser6")
             };
             
@@ -65,7 +71,8 @@ namespace ImageCore.Seeder
             {
                Email = "user7@gmail.com",
                UserName = "User7",
-               NormalizedUserName = "User7",
+               NormalizedUserName = "USER7",
+               NormalizedEmail = "USER7@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser7")
             };
             
@@ -73,7 +80,8 @@ namespace ImageCore.Seeder
             {
                Email = "user8@gmail.com",
                UserName = "User8",
-               NormalizedUserName = "User8",
+               NormalizedUserName = "USER8",
+               NormalizedEmail = "USER8@GMAIL.COM",
                PasswordHash = hasher.HashPassword(null, "passworduser8")
             };
             
@@ -81,7 +89,8 @@ namespace ImageCore.Seeder
             {
                 Email = "user9@gmail.com",
                 UserName = "User9",
-                NormalizedUserName = "User9",
+                NormalizedUserName = "USER9",
+                NormalizedEmail = "USER9@GMAIL.COM",
                 PasswordHash = hasher.HashPassword(null, "passworduser9")
             };
             
@@ -89,7 +98,8 @@ namespace ImageCore.Seeder
             {
                 Email = "user10@gmail.com",
                 UserName = "User10",
-                NormalizedUserName = "User10",
+                NormalizedUserName = "USER10",
+                NormalizedEmail = "USER10@GMAIL.COM",
                 PasswordHash = hasher.HashPassword(null, "passworduser10")
             };
             

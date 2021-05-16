@@ -4,27 +4,57 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - ImageCore</title>
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
+<div id="usernavigation" class="userNavigation">
+    <div class="userNavigationWrapper">
+        <div class="userNavigationHeader">
+            <h1>Navigation</h1> 
+            <h1 class="CloseNavigation" onclick="toggleNavigationSidebar()">X</h1>
+        </div>
+        <ul class="userNavigationList">
+            <li onclick="this.children[1].click()">
+                <i>O</i>
+                <a asp-controller="User" asp-action="Show">Profil</a>
+            </li>
+            <li onclick="this.children[1].click()">
+                <i>O</i>
+                <a asp-controller="Project" asp-action="Index">Projekte</a>
+            </li>
+            <li onclick="this.children[1].click()">
+                <i>O</i>
+                <a asp-controller="Contact" asp-action="Index">Kontakte</a>
+            </li>
+            <li onclick="this.children[1].click()">
+                <i>O</i>
+                <a asp-controller="UserSettings" asp-action="Index">Einstellungen</a>
+            </li>
+            <li onclick="this.children[1].click()">
+                <i>O</i>
+                <a asp-controller="Login" asp-action="Logout">Abmelden</a>
+            </li>
+        </ul>
+    </div>
+</div>
 <nav>
     <div class="navbarContainer">
         <div class="navbar-header" class="navImage" onclick="document.getElementById('logolink').click()">
             <a id="logolink" asp-controller="Home" asp-action="Index" class=""></a>
         </div>
         <ul class="navbarRouteList">
-                <li>
-                    <a asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li>
-                    <a asp-controller="Project" asp-action="Index">Projects</a>
-                </li>
+            <li>
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li>
+                <a asp-controller="Project" asp-action="Index">Projects</a>
+            </li>
             <li>
                 <a asp-controller="Contact" asp-action="Index">Contacts</a>
             </li>
         </ul>
-        <div class="navImage" onclick="document.getElementById('profileLink').click()">
+        <div class="navImage" onclick="toggleNavigationSidebar()">
             <a id="profileLink" asp-controller="User" asp-action="Show"></a>
         </div>
     </div>
@@ -45,3 +75,12 @@
 
 </body>
 </html>
+
+<script>
+    document.getElementById("usernavigation").style.right = "-100vw"
+    function toggleNavigationSidebar()
+    {
+        let rightProp = document.getElementById("usernavigation").style.right;
+        document.getElementById("usernavigation").style.right =  (rightProp === "0px") ? "-100vw" : "0px";
+    }
+</script>

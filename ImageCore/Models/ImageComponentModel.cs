@@ -7,16 +7,14 @@ namespace ImageCore.Models
     {
         [Key]
         public int ImageComponentId { get; private set; }
-        
         public float LocalX { get; set; }
-        
         public float LocalY { get; set; }
-        
         public float LocalZ { get; set; }
-        
         public string ColorMat { get; set; }
-        
-        [ForeignKey("ImageLayerId")]
         public int ImageLayerId { get; set; }
+        public int ProjectId { get; set; }
+        
+        public ImageLayerModel ImageLayer { get; set; }
+        public ProjectModel Project { get; set; }
     }
 }

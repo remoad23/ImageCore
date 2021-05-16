@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ImageCore.Models
@@ -7,10 +8,10 @@ namespace ImageCore.Models
     {
         [Key]
         public int ProjectParticipatorId { get; private set; }
-        
-        [ForeignKey("ProjectId")]
         public int ProjectId { get; set; }
+        public string UserId { get; set; }
         
-        
+        public UserModel User { get; set; }
+        public ProjectModel Project { get; set; }
     }
 }
