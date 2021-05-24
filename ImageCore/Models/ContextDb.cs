@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Twilio.Rest.Api.V2010.Account.Usage.Record;
 
 namespace ImageCore.Models
 {
@@ -19,9 +20,10 @@ namespace ImageCore.Models
         public DbSet<ProjectModel> Project { get; set; }
         public DbSet<ProjectParticipatorModel> ProjectParticipator { get; set; }
         public DbSet<ContactModel> Contact { get; set; }
+        
         public ContextDb(DbContextOptions<ContextDb> options): base(options)
         {
-
+            
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +36,6 @@ namespace ImageCore.Models
             base.OnModelCreating(modelBuilder);
             RenameDefaultTables(modelBuilder);
             Seeder.Seeder.SeedDb(modelBuilder);
-
         }
 
         /**

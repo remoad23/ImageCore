@@ -10,7 +10,7 @@ namespace ImageCore.Models
     public class ProjectModel
     {
         [Key]
-        public int ProjectId { get; private set; }
+        public int ProjectId { get; set; }
         public string Name { get; set; }
         public int Views { get; set; }
         public string UserId { get; set; }

@@ -3,12 +3,12 @@
 }
 
 <h1 class="settingsTitle">Password ändern</h1>
-<form class="settingsForm">
+<form class="settingsForm" asp-controller="ChangePassword" asp-action="Update">
     <span>Alte Passwort</span>
-    <input class="settingsInput" type="password" required name="oldPassword">
+    <input class="settingsInput" type="password" required name="CurrentPassword">
     <span>Neue Passwort</span>
-    <input class="settingsInput" type="password" required name="newPassword" >
+    <input class="settingsInput" type="password" required name="NewPassword" >
     <span>Neue Passwort wiederholen</span>
-    <input class="settingsInput" type="email" required name="newPasswordRepeat" >
+    <input class="settingsInput" type="email" required name="NewPasswordRepeat" >
     <button type="submit">Senden</button>
 </form>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ImageCore.Controllers
 {
@@ -6,6 +7,7 @@ namespace ImageCore.Controllers
     {
         // GET
         [Route("UserSettings/UserSessionList")]
+        [Authorize]
         public IActionResult Index()
         {
             return View("~/Views/UserSettings/UserSessionList/Index.cshtml");

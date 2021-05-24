@@ -1,13 +1,15 @@
 ﻿@{
     Layout = "_Layout";
 }
+@using Microsoft.AspNetCore.Routing
+@model ImageCore.Models.ViewModel.User.UserViewModel;
 
 <div class="userWrapper">
     <div class="user">
         <div class="userImage"></div>
         <div class="userDescription">
             <div class="userInformation">
-                <h1>David d. Waelsch</h1>
+                <h1>@Model.Username</h1>
                 <ul>
                     <li>Information 1</li>
                     <li>Information 2</li>
@@ -15,85 +17,111 @@
                 </ul>
             </div>
             <div class="userActions">
-                <button>Action 1</button>
+                @if (!Model.isUser)
+                {
+                    if (Model.isContact)
+                    {
+                        <button onclick="fetchConctact(@Url.Action("Destroy", "Contact", Model.UserId))">
+                            Kontakt Entfernen
+                        </button>
+                    }
+                    else
+                    {
+                        <button onclick="fetchConctact(@Url.Action("Store", "Contact", Model.UserId))">
+                            Kontakt hinzufügen
+                        </button>
+                    }
+                }
                 <button>Action 2</button>
                 <button>Action 3</button>
                 <button>Action 4</button>
             </div>
         </div>
     </div>
-     <div class="projectList">
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="projectListEntry">
-                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-                <div class="projectListEntryText">
-                    <p>Projektname</p>
-                    <div class="projectEntryInformation">
-                        <div class="viewIcon"></div>
-                        <p>5</p>
-                        <div class="userIcon"></div>
-                        <p>5</p>
-                    </div>
+    <div class="projectList">
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
                 </div>
             </div>
         </div>
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
+                </div>
+            </div>
+        </div>
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
+                </div>
+            </div>
+        </div>
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
+                </div>
+            </div>
+        </div>
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
+                </div>
+            </div>
+        </div>
+        <div class="projectListEntry">
+            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntryText">
+                <p>Projektname</p>
+                <div class="projectEntryInformation">
+                    <div class="viewIcon"></div>
+                    <p>5</p>
+                    <div class="userIcon"></div>
+                    <p>5</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function fetchConctact(url)
+    {
+        fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+        });
+    }
+        
+</script>

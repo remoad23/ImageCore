@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_LayoutSettings";
+}
+
+<h1 class="settingsTitle">Handynummer ändern</h1>
+<form class="settingsForm" asp-controller="ChangePhonenumber" asp-action="Update">
+    <span>Alte Handynummer</span>
+    <input class="settingsInput" type="tel" required name="CurrentPhoneNumber">
+    <span>Neue Handynummer</span>
+    <input class="settingsInput" type="tel" required name="NewPhoneNumber" >
+    <span>Neue Handynummer wiederholen</span>
+    <input class="settingsInput" type="tel" required name="NewPhoneNumberRepeat" >
+    <button type="submit">Senden</button>
+</form>

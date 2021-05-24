@@ -17,15 +17,15 @@ namespace ImageCore.Seeder
         public static void SeedDb(ModelBuilder? modelBuilder = null)
         {
             //Seeder
-            UserSeeder.Seed(modelBuilder);
+            var users = UserSeeder.Seed(modelBuilder);
             RoleSeeder.Seed(modelBuilder);
            // UserRoleSeeder.Seed(modelBuilder);
-            ContactSeeder.Seed();
-            ProjectSeeder.Seed();
+            ContactSeeder.Seed(modelBuilder,users);
+            ProjectSeeder.Seed(modelBuilder,users);
             FilterSeeder.Seed();
             ImageComponentSeeder.Seed();
             ImageLayerSeeder.Seed();
-            ProjectParticipatorSeeder.Seed();
+            ProjectParticipatorSeeder.Seed(modelBuilder,users);
             FilterSeeder.Seed();
         }
 

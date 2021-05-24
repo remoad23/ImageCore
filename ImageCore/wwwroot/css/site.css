@@ -1311,6 +1311,37 @@ footer{
 
 /* -------------------------------------UserList end --------------------------- */
 
+/* ------------------------------------- Error messages -------------------------------*/
+
+.errorForm
+{
+    width: 25vw;
+    background-color: rgba(221, 44, 0, 0.87);
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+
+.errorWarning
+{
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    width: 10%;
+    text-align: center;
+}
+
+.errorMessage
+{
+    color: white;
+    font-size: 1.2em;
+    width: 90%;
+}
+
+/* --------------------------------------- Error messages ---------------------------- */
+
 /* -------------------------------------Validation start --------------------------- */
 
 /*

@@ -3,13 +3,13 @@
 }
 
 <h1 class="settingsTitle">Email ändern</h1>
-<form class="settingsForm">
+<form class="settingsForm" asp-controller="ChangeEmail" asp-action="Update">
     <span>Alte E-Mail</span>
-    <input class="settingsInput" type="email" required name="oldEmail">
+    <input class="settingsInput" type="email" required name="CurrentEmail">
     <span>Neue E-Mail</span>
-    <input class="settingsInput" type="email" required name="newEmail" >
+    <input class="settingsInput" type="email" required name="NewEmail" >
     <span>Neue E-Mail wiederholen</span>
-    <input class="settingsInput" type="email" required name="newEmailRepeat" >
+    <input class="settingsInput" type="email" required name="NewEmailRepeat" >
     <span>Passwort</span>
     <input class="settingsInput" type="password" name="password">
     <button type="submit">Senden</button>

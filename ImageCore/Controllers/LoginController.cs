@@ -28,17 +28,13 @@ namespace ImageCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> login([FromForm]LoginViewModel model)
         {
-            Console.WriteLine(model.password);
-            Console.WriteLine(model.userName);
             var user = await _signInManager.PasswordSignInAsync(
                 model.userName,
                 model.password,
                 false,
                 true
                 );
-
-            Console.WriteLine(ModelState.IsValid);
-            Console.WriteLine(user.Succeeded);
+            
             if (!ModelState.IsValid || !user.Succeeded) {
                 Console.WriteLine("Passt1");
                 //redirect back if not valid
@@ -57,11 +53,10 @@ namespace ImageCore.Controllers
             return RedirectToAction("login");
         }
         
-        [ValidateAntiForgeryToken]
-        public async Task Logout()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            RedirectToAction("Index","Login");
+            return RedirectToAction("Index","Login");
         }
     }
 }

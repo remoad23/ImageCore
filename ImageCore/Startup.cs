@@ -2,6 +2,9 @@ using System;
 using System.Threading.Tasks;
 using ImageCore.Controllers.api.SignalR;
 using ImageCore.Models;
+using ImageCore.Options;
+using ImageCore.Services;
+using ImageCore.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -59,6 +62,9 @@ namespace ImageCore
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
             });
+            
+            services.AddTransient<ISmsSender, SmsAuth>();
+            services.Configure<SmsOptions>(Configuration);
 
             services.ConfigureApplicationCookie(options =>
             {

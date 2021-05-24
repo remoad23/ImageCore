@@ -1,0 +1,22 @@
+@{
+    Layout = "_LayoutSettings";
+}
+
+<h1 class="settingsTitle">Aktion bestätigen</h1>
+
+@if (ViewData["error"] is not null)
+{
+    <div class="errorForm">
+        <p class="errorWarning">!</p>
+        <p class="errorMessage">
+            @ViewData["error"]
+        </p>
+    </div>
+    
+}
+
+<form class="settingsForm" asp-controller="ChangePassword" asp-action="Store">
+    <span>Code</span>
+    <input class="settingsInput" type="number" required name="token">
+    <button type="submit">Senden</button>
+</form>

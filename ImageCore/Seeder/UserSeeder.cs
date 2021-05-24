@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ImageCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace ImageCore.Seeder
 {
     public class UserSeeder : ISeeder
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        public static List<UserModel> Seed(ModelBuilder modelBuilder)
         {
            var hasher = new PasswordHasher<UserModel>();
 
@@ -102,6 +103,7 @@ namespace ImageCore.Seeder
                 NormalizedEmail = "USER10@GMAIL.COM",
                 PasswordHash = hasher.HashPassword(null, "passworduser10")
             };
+
             
             //Seeding the User to AspNetUsers table
             modelBuilder.Entity<UserModel>().HasData(
@@ -116,7 +118,36 @@ namespace ImageCore.Seeder
                 user9,
                 user10
             );
+
+            var users = new List<UserModel>();
+            users.Add(user1);
+            users.Add(user2);
+            users.Add(user3);
+            users.Add(user4);
+            users.Add(user5);
+            users.Add(user6);
+            users.Add(user7);
+            users.Add(user8);
+            users.Add(user9);
+            users.Add(user10);
             
+            
+            for (int x = 11; x <= 20; x++)
+            {
+               var user = new UserModel
+               {
+                  Email = $"user{x}@gmail.com",
+                  UserName = "User" + x,
+                  NormalizedUserName = "USER" +x,
+                  NormalizedEmail = $"USER{x}@GMAIL.COM",
+                  PasswordHash = hasher.HashPassword(null, "passworduser" + x)
+               };
+               modelBuilder.Entity<UserModel>().HasData(user);
+               users.Add(user);
+            }
+            
+            return users;
+
         }
     }
 }

@@ -22,6 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
+    <PackageReference Include="Twilio" Version="5.60.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +34,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\services" />
-    <Folder Include="Services\Authorization\Policies" />
-    <Folder Include="Services\Filters" />
+    <Folder Include="Models\ViewModel\Contacts" />
   </ItemGroup>
 
   <ItemGroup>
