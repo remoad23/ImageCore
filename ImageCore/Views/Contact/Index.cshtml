@@ -10,11 +10,11 @@
             <li>
                 <a asp-controller="Contact" asp-action="ContactRequests">Anfragen</a>
             </li>
-            <li>
-                <a asp-controller="Contact" asp-action="ContactFind">Finden</a>
+            <li style="display: none">
+                <a id="lookForUser" asp-controller="Contact" asp-action="ContactFind"></a>
             </li>
         </ul>
-        <input type="text" placeholder="Kontakt suchen"> 
+        <input id="searchBar" type="text" placeholder="Neue Kontakt suchen"> 
     </div>
     <div class="contactList">
         @for (int x = 0; x < Model.Usernames.Count(); x++)
@@ -41,5 +41,12 @@
              if (res) btn.parentElement.remove()
         }); 
     }
-        
+    
+    document.getElementById("searchBar").addEventListener("keyup",() =>{
+        if (event.keyCode === 13) {
+           window.location.href = 
+           document.getElementById("lookForUser").href + "?query=" + document.getElementById("searchBar").value; 
+        }
+    });
+    
 </script>

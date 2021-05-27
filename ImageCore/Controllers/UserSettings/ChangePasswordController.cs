@@ -25,7 +25,6 @@ namespace ImageCore.Controllers
         
         [Authorize]
         [Route("UserSettings/ChangePassword")]
-        [ValidateAntiForgeryToken]
         public IActionResult Index()
         {
             return View("~/Views/UserSettings/ChangePassword/Index.cshtml");
