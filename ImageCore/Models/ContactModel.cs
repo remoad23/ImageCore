@@ -18,6 +18,8 @@ namespace ImageCore.Models
         [ForeignKey("UserId")]
         public string ContactUserId { get; set; }
         
+        public bool RequestValidated { get; set; }
+        
         public UserModel User { get; set; }
         public UserModel ContactUser { get; set; }
 

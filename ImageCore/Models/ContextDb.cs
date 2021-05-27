@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Twilio.Rest.Api.V2010.Account.Usage.Record;
 
@@ -35,6 +36,16 @@ namespace ImageCore.Models
         {
             base.OnModelCreating(modelBuilder);
             RenameDefaultTables(modelBuilder);
+
+          //  modelBuilder.Entity<ProjectModel>()
+           //     .HasOne<UserModel>()
+            //    .WithMany(e => e.ProjectModels);
+
+        //    modelBuilder.Entity<ProjectModel>()
+         //       .HasOne(p => p.User)
+          //      .WithMany()
+           //     .OnDelete(DeleteBehavior.Cascade);
+            
             Seeder.Seeder.SeedDb(modelBuilder);
         }
 

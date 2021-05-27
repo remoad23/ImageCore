@@ -24,8 +24,7 @@ namespace ImageCore.Controllers
         {
             return View();
         }
-
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> login([FromForm]LoginViewModel model)
         {
             var user = await _signInManager.PasswordSignInAsync(

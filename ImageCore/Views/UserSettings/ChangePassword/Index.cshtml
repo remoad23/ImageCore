@@ -2,13 +2,28 @@
     Layout = "_LayoutSettings";
 }
 
+@if (ViewData["Confirmation"] is not null)
+{
+    <p>
+        @ViewData["Confirmation"]
+    </p>
+}
+
+@if (ViewData["Invalid"] is not null)
+{
+    <p>
+        Einige deiner Angaben sind nicht richtig
+    </p>
+}
+
 <h1 class="settingsTitle">Password ändern</h1>
 <form class="settingsForm" asp-controller="ChangePassword" asp-action="Update">
+    @Html.AntiForgeryToken()
     <span>Alte Passwort</span>
     <input class="settingsInput" type="password" required name="CurrentPassword">
     <span>Neue Passwort</span>
-    <input class="settingsInput" type="password" required name="NewPassword" >
+    <input class="settingsInput" type="password" required name="NewPassword">
     <span>Neue Passwort wiederholen</span>
-    <input class="settingsInput" type="email" required name="NewPasswordRepeat" >
+    <input class="settingsInput" type="password" required name="NewPasswordRepeat">
     <button type="submit">Senden</button>
 </form>

@@ -3,7 +3,8 @@
 }
 
 <h1 class="settingsTitle">Account löschen</h1>
-<form class="settingsForm">
+<form class="settingsForm" asp-controller="DeleteUserAccount" asp-action="Store" method="post">
+    @Html.AntiForgeryToken()
     <h2>Bist du sicher dass du deinen Account löschen möchtest?</h2>
     <span>Passwort</span>
     <input class="settingsInput" type="password" required name="password">

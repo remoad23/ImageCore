@@ -2,6 +2,7 @@
     Layout = "_Layout";
 }
 @using Microsoft.AspNetCore.Routing
+@using Microsoft.AspNetCore.Http
 @model ImageCore.Models.ViewModel.User.UserViewModel;
 
 <div class="userWrapper">
@@ -21,13 +22,13 @@
                 {
                     if (Model.isContact)
                     {
-                        <button onclick="fetchConctact(@Url.Action("Destroy", "Contact", Model.UserId))">
+                        <button id="contactEdit" onclick="fetchConctact('@ViewData["contactAddUrl"]','DELETE')">
                             Kontakt Entfernen
                         </button>
                     }
                     else
                     {
-                        <button onclick="fetchConctact(@Url.Action("Store", "Contact", Model.UserId))">
+                        <button id="contactEdit" onclick="fetchConctact('@ViewData["contactAddUrl"]','POST')">
                             Kontakt hinzufügen
                         </button>
                     }
@@ -115,12 +116,21 @@
 </div>
 
 <script>
-    function fetchConctact(url)
+    function fetchConctact(url,methodType)
     {
-        fetch(url)
+        fetch(url,{method: methodType})
         .then(res => res.json())
         .then(res => {
-            console.log(res);
+             if (res)
+             {
+                 let contactbtn = document.getElementById("contactEdit");
+                 console.log(res);
+                 contactbtn.innerText = contactbtn.innerText === "Kontakt hinzufügen" 
+                 ?  "Kontakt entfernen" 
+                 : "Kontakt hinzufügen"
+                 let method = methodType === "POST" ? "DELETE" : "POST";
+                 contactbtn.setAttribute('onclick',`fetchConctact('${res}','${method}')`);
+             }    
         });
     }
         

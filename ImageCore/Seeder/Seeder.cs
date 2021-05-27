@@ -22,11 +22,11 @@ namespace ImageCore.Seeder
            // UserRoleSeeder.Seed(modelBuilder);
             ContactSeeder.Seed(modelBuilder,users);
             ProjectSeeder.Seed(modelBuilder,users);
-            FilterSeeder.Seed();
-            ImageComponentSeeder.Seed();
-            ImageLayerSeeder.Seed();
-            ProjectParticipatorSeeder.Seed(modelBuilder,users);
-            FilterSeeder.Seed();
+          //  FilterSeeder.Seed();
+        //    ImageComponentSeeder.Seed();
+      //      ImageLayerSeeder.Seed();
+          //  ProjectParticipatorSeeder.Seed(modelBuilder,users);
+    //        FilterSeeder.Seed();
         }
 
     }

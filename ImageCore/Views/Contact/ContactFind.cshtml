@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model List<ImageCore.Models.ViewModel.ContactFindViewModel>
+
+<div class="contactWrapper">
+    <div class="contactHeader">
+        <ul>
+            <li><a asp-controller="Contact" asp-action="Index">Freunde</a></li>
+            <li>
+                <a asp-controller="Contact" asp-action="ContactRequests">Anfragen</a>
+            </li>
+            <li>
+                <a asp-controller="Contact" asp-action="ContactFind">Finden</a>
+            </li>
+        </ul>
+    </div>
+    @foreach(var user in Model)
+    {
+        <div class="contactList contactListRequests">
+            <a class="contactBlock contactBlockRequests" asp-controller="User" asp-action="Show" asp-route-id="@user.UserId">
+                <div class="contactProfileImage"></div>
+                <p>@user.Username</p>
+                @if (user.IsContact && !user.ContactRequestValidated)
+                {
+                    <button class="acceptContactRequestBtn" id="contactEdit" onclick="event.preventDefault();event.stopPropagation()">
+                        Angefragt
+                    </button>
+                }
+                else if (!user.IsContact)
+                {
+                    <button class="acceptContactRequestBtn" id="contactEdit"
+                            onclick="fetchConctact('@Url.Action("Store", "Contact", new {contactId = user.UserId}, ViewData["RequestScheme"].ToString())','POST',this);event.preventDefault();event.stopPropagation()">
+                        Hinzufügen
+                    </button>
+                }
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    function fetchConctact(url,methodType,btn)
+    {        
+        btn.parentElement.remove()
+        fetch(url,{method: methodType})
+        .then(res => res.json())
+        .then(res => {
+             if (res)
+              {
+                  btn.innerText = "Anfrage gesendet";
+                  btn.setAttribute('onclick',``);
+              } 
+        }); 
+    }
+        
+</script>

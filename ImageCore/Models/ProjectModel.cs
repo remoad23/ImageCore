@@ -13,9 +13,12 @@ namespace ImageCore.Models
         public int ProjectId { get; set; }
         public string Name { get; set; }
         public int Views { get; set; }
+        
+        [Required] // <-- oncascade aktivieren
         public string UserId { get; set; }
         
         public UserModel User { get; set; }
+        
         public List<ProjectParticipatorModel> ProjectParticipators { get; set; }
         public List<ImageLayerModel> ImageLayers { get; set; }
         public List<ImageComponentModel> ImageComponents { get; set; }

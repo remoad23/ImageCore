@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_Layout";
 }
-@model ImageCore.Models.ViewModel.ContactViewModel
+@model ImageCore.Models.ViewModel.ContactRequestViewModel
 
 <div class="contactWrapper">
     <div class="contactHeader">
@@ -14,21 +14,24 @@
                 <a asp-controller="Contact" asp-action="ContactFind">Finden</a>
             </li>
         </ul>
-        <input type="text" placeholder="Kontakt suchen"> 
     </div>
-    <div class="contactList">
-        @for (int x = 0; x < Model.Usernames.Count(); x++)
-        {
-            <a class="contactBlock" asp-controller="User" asp-action="Show" asp-route-id="@Model.UserIds[x]">
+    @for(int x = 0; x < Model.Usernames.Count(); x++)
+    {
+        <div class="contactList contactListRequests">
+            <a class="contactBlock contactBlockRequests" asp-controller="User" asp-action="Show" asp-route-id="@Model.UserIds[x]">
                 <div class="contactProfileImage"></div>
                 <p>@Model.Usernames[x]</p>
-                <button class="declineContactRequestBtn" id="contactEdit"
+                <button class="acceptContactRequestBtn" id="contactEdit"
+                        onclick="fetchConctact('@Url.Action("AcceptRequest", "Contact", new {contactId = Model.ContactIds[x]}, ViewData["RequestScheme"].ToString())','PUT',this);event.preventDefault();event.stopPropagation()">
+                    Bestätigen
+                </button>
+                <button class="declineContactRequestBtn" id="contactEdit" 
                         onclick="fetchConctact('@Url.Action("DeclineRequest", "Contact", new {contactId = Model.ContactIds[x]}, ViewData["RequestScheme"].ToString())','DELETE',this);event.preventDefault();event.stopPropagation()">
                     Entfernen
                 </button>
-            </a>      
-        }
-    </div>
+            </a>
+        </div>
+    }
 </div>
 
 <script>
