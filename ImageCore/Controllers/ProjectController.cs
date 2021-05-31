@@ -31,11 +31,9 @@ namespace ImageCore.Controllers
             ProjectViewModel project = new ProjectViewModel();
             foreach(var p in projects)
             {
-                Console.WriteLine("test");
                 project.Projectname.Add(p.Name);
                 project.ProjectIds.Add(p.ProjectId);
             }
-            Console.WriteLine(project.Projectname.Count());
             ViewData["RequestScheme"] = Request.Scheme;
             return View(project);
         }
@@ -87,22 +85,65 @@ namespace ImageCore.Controllers
                 UserId = id,
                 Name = projectval.ProjectName
             };
-            
+
             Context.Project.Add(project);
             Context.SaveChanges();
-            
-            foreach (var userId in projectval.UserIds)
+
+            if (projectval.UserIds is not null)
             {
-                ProjectParticipatorModel participator = new ProjectParticipatorModel
+                foreach (var userId in projectval.UserIds)
                 {
-                    ProjectId = project.ProjectId,
-                    UserId = userId
-                };
-                Context.ProjectParticipator.Add(participator);
+                    ProjectParticipatorModel participator = new ProjectParticipatorModel
+                    {
+                        ProjectId = project.ProjectId,
+                        UserId = userId
+                    };
+                    Context.ProjectParticipator.Add(participator);
+                }
             }
             
             Context.SaveChanges();
             return RedirectToAction("Create",new{projectCreated = true});
+        }
+
+        public IActionResult QueryProjects([FromQuery] string query)
+        {
+            string id = UserManager.GetUserId(User);
+            var projects = Context.Project
+                .Where(p => p.UserId == id && p.Name.Contains(query))
+                .ToList();
+            
+            ProjectViewModel project = new ProjectViewModel();
+            foreach(var p in projects)
+            {
+                project.Projectname.Add(p.Name);
+                project.ProjectIds.Add(p.ProjectId);
+            }
+            ViewData["RequestScheme"] = Request.Scheme;
+         
+            return View("~/Views/Project/Index.cshtml",project);
+        }
+
+        public IActionResult QuerySharedProjects([FromQuery] string query)
+        {
+            var sharedProjects = Context.ProjectParticipator
+                .Where(u => u.UserId == UserManager.GetUserId(User))
+                .Join(
+                    Context.Project,
+                    participator => participator.ProjectId,
+                    project => project.ProjectId,
+                    (participator, project) => new ProjectSharedViewModel
+                    {
+                        ProjectId = project.ProjectId,
+                        Projectname = project.Name
+                    }
+                )
+                .Where(p => p.Projectname.Contains(query))
+                .ToList();
+            
+            ViewData["RequestScheme"] = Request.Scheme;
+            
+            return View("~/Views/Project/Shared.cshtml",sharedProjects);
         }
 
         [Authorize]
@@ -111,7 +152,6 @@ namespace ImageCore.Controllers
             ProjectModel project = Context.Project.Find(projectId);
             Context.Project.Remove(project);
             Context.SaveChanges();
-            Console.WriteLine("destroyed");
             return Ok();
         }
 

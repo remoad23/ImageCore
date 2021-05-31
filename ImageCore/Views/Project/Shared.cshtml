@@ -14,7 +14,7 @@
                 <a asp-controller="Project" asp-action="Create">Neues Projekt</a>
             </li>
         </ul>
-        <input class="searchInput" type="text" placeholder="Search for Project">
+        <input class="searchInput" id="projectSearchBar" type="text" placeholder="Search for Project">
     </div>
     <div class="projectList">
         @foreach(var sharedProject in Model)
@@ -43,5 +43,13 @@ function selectElement(element)
     element.style.border = "2px solid blue";
     currentlySelectElement = element;
 }
+
+ document.getElementById("projectSearchBar").addEventListener("keyup",() =>{
+        if (event.keyCode === 13) {
+           let query =  document.getElementById("projectSearchBar").value;
+           window.location.href = 
+           `@Url.Action("QuerySharedProjects", "Project", new {query = ""}, ViewData["RequestScheme"].ToString())` + "?query=" + query;
+        }
+    });
 
 </script>
