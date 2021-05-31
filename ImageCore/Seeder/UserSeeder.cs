@@ -16,29 +16,29 @@ namespace ImageCore.Seeder
            // init users
             var user1 = new UserModel
             {
-               Email = "user1@gmail.com",
+               Email = "imagecore23@gmail.com",
                UserName = "User1",
                NormalizedUserName = "USER1",
-               NormalizedEmail = "USER1@GMAIL.COM",
-               PasswordHash = hasher.HashPassword(null, "passworduser1")
+               NormalizedEmail = "IMAGECORE23@GMAIL.COM",
+               PasswordHash = hasher.HashPassword(null, "Password23@")
             };
             
             var user2 = new UserModel
             {
-               Email = "use2r@gmail.com",
+               Email = "imagecore24@gmail.com",
                UserName = "User2",
                NormalizedUserName = "USER2",
-               NormalizedEmail = "USER2@GMAIL.COM",
-               PasswordHash = hasher.HashPassword(null, "passworduser2")
+               NormalizedEmail = "IMAGECORE24@GMAIL.COM",
+               PasswordHash = hasher.HashPassword(null, "Password24@")
             };
             
             var user3 = new UserModel
             {
-               Email = "user3@gmail.com",
+               Email = "imagecoreuser@gmail.com",
                UserName = "User3",
                NormalizedUserName = "USER3",
-               NormalizedEmail = "USER3@GMAIL.COM",
-               PasswordHash = hasher.HashPassword(null, "passworduser3")
+               NormalizedEmail = "IMAGECOREUSER@GMAIL.COM",
+               PasswordHash = hasher.HashPassword(null, "Passworduser@")
             };
             
             var user4 = new UserModel

@@ -36,17 +36,8 @@ namespace ImageCore.Models
         {
             base.OnModelCreating(modelBuilder);
             RenameDefaultTables(modelBuilder);
-
-          //  modelBuilder.Entity<ProjectModel>()
-           //     .HasOne<UserModel>()
-            //    .WithMany(e => e.ProjectModels);
-
-        //    modelBuilder.Entity<ProjectModel>()
-         //       .HasOne(p => p.User)
-          //      .WithMany()
-           //     .OnDelete(DeleteBehavior.Cascade);
-            
             Seeder.Seeder.SeedDb(modelBuilder);
+
         }
 
         /**

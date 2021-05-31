@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImageCore.Migrations
 {
     [DbContext(typeof(ContextDb))]
-    [Migration("20210526174900_InitialCreateImageCoreDb")]
+    [Migration("20210531181127_InitialCreateImageCoreDb")]
     partial class InitialCreateImageCoreDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,12 +25,14 @@ namespace ImageCore.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ContactUserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("RequestValidated")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ContactId");
@@ -166,35 +168,35 @@ namespace ImageCore.Migrations
                         {
                             ProjectId = 1,
                             Name = "Projekt 1",
-                            UserId = "89207ea8-db3c-4805-9c52-eecea3821874",
+                            UserId = "eaa04851-2738-4c31-9c9b-c29c902434d9",
                             Views = 4355
                         },
                         new
                         {
                             ProjectId = 2,
                             Name = "Projekt 2",
-                            UserId = "ab2f57aa-a773-40d7-ba6b-6e89c4c8c157",
+                            UserId = "643c3870-a312-4d0d-9d0e-107c627496c4",
                             Views = 4
                         },
                         new
                         {
                             ProjectId = 3,
                             Name = "Projekt 3",
-                            UserId = "89207ea8-db3c-4805-9c52-eecea3821874",
+                            UserId = "eaa04851-2738-4c31-9c9b-c29c902434d9",
                             Views = 345
                         },
                         new
                         {
                             ProjectId = 4,
                             Name = "Projekt 4",
-                            UserId = "cd538641-f8d5-4639-a5e0-e4a8f1d9c0f8",
+                            UserId = "05e31df7-5226-4e89-ba7d-cfe2e9d75bdb",
                             Views = 2
                         },
                         new
                         {
                             ProjectId = 5,
                             Name = "Projekt 5",
-                            UserId = "5a5c9052-558b-4f9b-9ca8-598c5d878c49",
+                            UserId = "5c8735ab-5633-4b56-ba9b-8826eab74547",
                             Views = 25
                         });
                 });
@@ -308,321 +310,321 @@ namespace ImageCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "89207ea8-db3c-4805-9c52-eecea3821874",
+                            Id = "eaa04851-2738-4c31-9c9b-c29c902434d9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "13f6f0a1-bea0-4f06-9a9a-cc07099265db",
-                            Email = "user1@gmail.com",
+                            ConcurrencyStamp = "03b8c316-2da2-41d7-821b-e80acf8dcad6",
+                            Email = "imagecore23@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER1@GMAIL.COM",
+                            NormalizedEmail = "IMAGECORE23@GMAIL.COM",
                             NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDIvF68dylfb5SSwhirQuMDijO7K39Uk1jdh6e0tTTVGBCBHu/CtDynZ7U9WHPJMPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPCB8ArHQeZ5+p0F6hM8ybmdc4Tu/6Ixdgz1wcedLwq3mHobW0I2wjG8clcogR2fgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9cd37f36-0b3a-4745-9c13-eebd84521f32",
+                            SecurityStamp = "a5d6edeb-5541-4c92-be0c-6783fbb81d33",
                             TwoFactorEnabled = false,
                             UserName = "User1"
                         },
                         new
                         {
-                            Id = "cd538641-f8d5-4639-a5e0-e4a8f1d9c0f8",
+                            Id = "05e31df7-5226-4e89-ba7d-cfe2e9d75bdb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3e3f8d3-e480-408a-9e0f-298d5a9bf01d",
-                            Email = "use2r@gmail.com",
+                            ConcurrencyStamp = "cd27a6ed-0b19-412d-8b15-4fb9ec05c51e",
+                            Email = "imagecore24@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER2@GMAIL.COM",
+                            NormalizedEmail = "IMAGECORE24@GMAIL.COM",
                             NormalizedUserName = "USER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMwqBuLJ0M1oiGPZmmgFv63KlSgYeVJREr+sCNl5+D2kRpVoSkYPEpTFRZHwnvIZjw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHt5Wzqz8w/tInIqmQY18VXUc45mKUuP450x4k2Lbo2l4nzz25Dh/jOuiU6JHX7vxw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d06f3ee2-4659-4e72-ab8f-cff86a6f4eb2",
+                            SecurityStamp = "df6f1cac-ce39-4485-a86f-84e3236e1820",
                             TwoFactorEnabled = false,
                             UserName = "User2"
                         },
                         new
                         {
-                            Id = "5a5c9052-558b-4f9b-9ca8-598c5d878c49",
+                            Id = "5c8735ab-5633-4b56-ba9b-8826eab74547",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc250068-71ad-404c-af2d-69aad4baeff2",
-                            Email = "user3@gmail.com",
+                            ConcurrencyStamp = "a516623d-894a-4a8b-81e3-942b55669d41",
+                            Email = "imagecoreuser@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER3@GMAIL.COM",
+                            NormalizedEmail = "IMAGECOREUSER@GMAIL.COM",
                             NormalizedUserName = "USER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFzRyC0uHeVd/c69xTTVvpHIreZu2gBxRcqfZIvJSWGxHq/9v4LkBhVR7eojjQ/5Ng==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPbR1145AszPA4QhCzL2Ly8CfoCkV1QZ2LNs7ih630U4kCp/It9HcwtLiP6ujoCZNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d20d2cf3-0d9b-4bf2-a6cc-5ad6c9a5b5b8",
+                            SecurityStamp = "f292e09f-5e88-4884-b8c4-f43270c7b791",
                             TwoFactorEnabled = false,
                             UserName = "User3"
                         },
                         new
                         {
-                            Id = "ab2f57aa-a773-40d7-ba6b-6e89c4c8c157",
+                            Id = "643c3870-a312-4d0d-9d0e-107c627496c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "835115b1-9efc-4435-9171-bc900503cb84",
+                            ConcurrencyStamp = "e44a919a-c078-4f8a-a1d4-ec75067517b3",
                             Email = "user4@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER4@GMAIL.COM",
                             NormalizedUserName = "USER4",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL6obAldxhAxUBkcKOR1L24moG+x8iEYnyi+66BMGlErtbR1VZL8gcCkHwJcnP2YNg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIr3/7CedFHo4UuE/EbYnndMtPTqB0BeqjR7+A4bUP2zdcA4FGSC30AitUmPhUYV9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5897c782-6ccb-4c7f-88d8-b6da9d68ed2e",
+                            SecurityStamp = "3a9374f8-9a98-4c7c-848c-a01367fb32c3",
                             TwoFactorEnabled = false,
                             UserName = "User4"
                         },
                         new
                         {
-                            Id = "af4d1331-dff4-4127-99a4-019b657ec30f",
+                            Id = "b2f9ea0c-bc28-4486-a6b9-9018d068b2ef",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f20996f8-3fb9-47e2-b6f0-d6d8f2a693c0",
+                            ConcurrencyStamp = "261f0ca1-4d90-4973-8c1b-d72b2780e582",
                             Email = "user5@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER5@GMAIL.COM",
                             NormalizedUserName = "USER5",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIPrYvDSUFYCsgh1J8LEyWWXVuL5YZ6q/hn0Sy/1FrNGnqbXyTiIt/liqmnlEZNPvA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKrPzeuHjDFwVesCzmHkMeqhHoqx1ywx9kfLjWFdXzsM9Wy8ZzYdAl3Wv8KgmjfSrQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bc569ba2-f4e6-4837-a33c-c8b89a6e7dfa",
+                            SecurityStamp = "4e3b5afc-3600-4b6c-b9d6-4796f89a2aac",
                             TwoFactorEnabled = false,
                             UserName = "User5"
                         },
                         new
                         {
-                            Id = "5bfb394f-159f-415d-b702-c6839520d8e8",
+                            Id = "702e16bc-3c8d-4ee4-b390-30d31a0f5cd1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a285491-77e9-45b1-91c2-39a98de4d233",
+                            ConcurrencyStamp = "d8f754e7-e449-4c0b-9500-1c1fbb0b2f13",
                             Email = "user6@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER6@GMAIL.COM",
                             NormalizedUserName = "USER6",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBJDGqiNOs9tSqZR9z7TQWE4DZii7xACgPETGZz3c2Bv85I8lp6GwSB1niuNIt/QNQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENAM6D+7O5PBFEpxbq4yg0JP0AioqkaA5HX7ht1V8aGEEjXxD6bqHxZpW/qcr9qswg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ef2885f-79c5-49a3-b864-39a9ef4e7586",
+                            SecurityStamp = "c76a6d05-52aa-41e4-b431-ecef24b69c4b",
                             TwoFactorEnabled = false,
                             UserName = "User6"
                         },
                         new
                         {
-                            Id = "1e15461a-d1c2-496c-b3fa-614e33aa640d",
+                            Id = "b28df6cd-5290-418a-95cd-5ad89b2bcd39",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8168c18-9532-4438-bbbd-1966d6c34bb6",
+                            ConcurrencyStamp = "3108f975-6b46-4c0d-b2ab-db7627c8c0f1",
                             Email = "user7@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER7@GMAIL.COM",
                             NormalizedUserName = "USER7",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMQdXYUFInHQ3RgspllHuWV2A+97XcTXs1BdPEA2ztUju8Qv9V+a2oxqmZRDUi24fw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDKWekLaXZMmxr8Qhz55UDVdwHmOS4Pk0/MdCAbZIQ3pHm2xJ5kbYFwtd86T6fNHfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0bd7018b-46af-40d7-ac1c-f4402f873729",
+                            SecurityStamp = "d88a2b99-6878-449e-8c01-eee2ffbc898b",
                             TwoFactorEnabled = false,
                             UserName = "User7"
                         },
                         new
                         {
-                            Id = "ae5043b1-efd0-4d0e-803e-784b7c52ce20",
+                            Id = "dbddd4f1-d6ff-4ade-aa31-02089dc11d52",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c7daab3e-c165-4264-95da-883ce9bec635",
+                            ConcurrencyStamp = "5d9d63f9-4104-45bc-a242-e1e50bb31e28",
                             Email = "user8@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER8@GMAIL.COM",
                             NormalizedUserName = "USER8",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP5FWkrFDNlCphTjI/5MqV4VsPRdW7XQowOwhyfFnmM7RHWQVqHPxhrbmxPIOEHVxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAfo2L10TV8QTyH7bZ/JFxlBwQTze++0k7Kk6/mKUYEFfm6zlMMJMAQD83q6ksR1nw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3bfe926c-9a9f-450a-9d0f-96199ac2eaad",
+                            SecurityStamp = "18f6fa5b-cc92-4ec2-a9bd-b3eb08eae84c",
                             TwoFactorEnabled = false,
                             UserName = "User8"
                         },
                         new
                         {
-                            Id = "01c5dd2e-f095-4a08-a088-34121bf795bc",
+                            Id = "f895d9ad-cc8c-4fce-ae2d-428308b02270",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1e5ae18-52b9-4d41-af41-a8cc6c52e41b",
+                            ConcurrencyStamp = "7cf0e4b4-71d9-447f-b893-0001ea961791",
                             Email = "user9@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER9@GMAIL.COM",
                             NormalizedUserName = "USER9",
-                            PasswordHash = "AQAAAAEAACcQAAAAECJ2aIYBmHILFb4x9YnmiBytyuAEK0op8NGbZ0nGeGfAOWTOdR3uUiy+C0/2k5jRJA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMj1/GdzUROQQMf+DqcYxolkFHzlANdDbhtw7dm5ngJDPA3opqX75+0FfsVZIyDPUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "98b00d00-1567-49d4-b597-1f53cd911dbf",
+                            SecurityStamp = "2eef5af3-d3f5-4bdf-87b3-3ea0703b56b2",
                             TwoFactorEnabled = false,
                             UserName = "User9"
                         },
                         new
                         {
-                            Id = "989df044-e8b1-4767-800a-0d1aeaada93c",
+                            Id = "6cca4a9d-23d5-42b9-bb1c-62aec7c9326f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b19c7dde-cae2-437a-926c-80b6984267fb",
+                            ConcurrencyStamp = "4109b25f-07e5-4293-b3ee-87af9a4534e5",
                             Email = "user10@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER10@GMAIL.COM",
                             NormalizedUserName = "USER10",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFmDvyyBq66YxWbiEyqp5TqYtWTApdf0l2gHBbw92+o9/JuLOB3enrWLB8kRwSTWQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPq83OOBLZKPWyRuFOunqanN35dlDQMCT6+HKwZkPoQicoaqvPqHkxHcNM6gZi1qlA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3c28e5c7-c18e-43dd-b597-dba9bbc9fcb9",
+                            SecurityStamp = "735aa3c1-ff52-48f4-9519-f8055732b34a",
                             TwoFactorEnabled = false,
                             UserName = "User10"
                         },
                         new
                         {
-                            Id = "0c285106-0692-4e0d-86d6-092361c66644",
+                            Id = "cd30613e-2b2a-4e39-aec2-71c32190df96",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec19d90d-ea10-4aed-8582-9d26f07f2e21",
+                            ConcurrencyStamp = "c41348b5-cc20-4af5-905d-c7d25a9db34e",
                             Email = "user11@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER11@GMAIL.COM",
                             NormalizedUserName = "USER11",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH1q2tcpkE5tZeM18Ms8yH0lJ7eUO6JKKl46C5rrvF6zFavHjb23ZkuW6Gebq2Qhiw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGwHCntd1M9jWnYAdcT7GkRIZLhKU2XC1ZTjYlU8EkzaAdwJam3zOMAyPVNNY2uH+A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c7e905e5-c2d3-44aa-af38-fbaa010ded33",
+                            SecurityStamp = "bc896f4e-5739-4e5f-bdcc-37de9ca2877e",
                             TwoFactorEnabled = false,
                             UserName = "User11"
                         },
                         new
                         {
-                            Id = "06144c21-8eac-43c4-8874-cd24f6c0b041",
+                            Id = "f0a998e3-063c-4ad5-8426-59dd93792f43",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54a01ecb-e16e-45b2-a1a5-007fd2ea79c4",
+                            ConcurrencyStamp = "144c6f89-5b21-4022-a8f3-3bfcdc6c688b",
                             Email = "user12@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER12@GMAIL.COM",
                             NormalizedUserName = "USER12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEZMtMtTjJxshwObmvuNuM22fm6sPE4cNGdljeVEWhQx78S+1N2BREKm7yxhr+we4A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFJtxq9bLX0eXlBSEaTA9/XJPD2nPUHMXMQbVuNk0u+O500A+Udw+J2oJM0bUr++Rw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ddaa4a6c-7248-4f90-9eed-1690466318fe",
+                            SecurityStamp = "8ca813c8-61f6-414f-a4a9-5ccc956acd49",
                             TwoFactorEnabled = false,
                             UserName = "User12"
                         },
                         new
                         {
-                            Id = "310cc86e-88c7-48de-92d6-49747ec1dacf",
+                            Id = "bc4b54ca-5817-4781-8acf-a241368e5664",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8c86c52-498c-4102-a7a7-1387463415e1",
+                            ConcurrencyStamp = "e46afb23-ccd9-42e6-b1dc-d00afa6b4a58",
                             Email = "user13@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER13@GMAIL.COM",
                             NormalizedUserName = "USER13",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP1jrcX++YGZE/ea5IyTckf7nHUQZquXQY6d4JTayXswKZtU0PbEuJWs1yVlVwwEuA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIydTlFbeDX/6oNmu+LwIbb7VFf0alyAgnMvUbik5Qo9iBezsoYjK9gFASR32ngoag==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "95c684fe-e48b-4d17-9137-ba7df57fd6e5",
+                            SecurityStamp = "7efecc55-ed4a-4a4f-b3c7-cd8000cce032",
                             TwoFactorEnabled = false,
                             UserName = "User13"
                         },
                         new
                         {
-                            Id = "1007ae44-de0a-44fb-81be-d3f224b10f45",
+                            Id = "23e132ba-cd71-4f74-b724-45d2cd62476f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9bb80738-a91b-402e-8370-7987757c8d84",
+                            ConcurrencyStamp = "8441f802-2a4f-4590-b57f-45e267acfc20",
                             Email = "user14@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER14@GMAIL.COM",
                             NormalizedUserName = "USER14",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPT+d/b4/P34CwFJ5oxGxpFs3+BWgirWoL8UGUVpfjaBEFt6TPXZhStk1V05Mxp8fg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO4E89tyTOzO5CVUDcynHbUJP1jUmFlaZtq753hlNvHC0w6any+mtXGc/GpZMl6WTg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d83c4614-11db-401d-ad01-313329be39dc",
+                            SecurityStamp = "00cee053-6f95-4db3-aca3-926c6c415a2c",
                             TwoFactorEnabled = false,
                             UserName = "User14"
                         },
                         new
                         {
-                            Id = "e0643e72-2c84-412b-944b-747aba2cff5d",
+                            Id = "b7074c03-ffb5-4abb-9d8e-f1e0b0476422",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "395334ca-7a1a-4a5f-8674-d95002b4af71",
+                            ConcurrencyStamp = "eca5c592-0da2-49ef-b6b4-cd3d1b0d0179",
                             Email = "user15@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER15@GMAIL.COM",
                             NormalizedUserName = "USER15",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMY47W59V9wvif4GDUTsUHtm4nbpWkhKVJwlxKRBhp5zeE4cYiW3lTYZ+df1H/jTdQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHaZL3f+ExW69U4CPsEKVmRXawbyNVWcgael9aa1tkjR3e3pwT3tBeKHzNAs1WnBxQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "520ad57d-b3ab-4b1e-becc-4d0169860f25",
+                            SecurityStamp = "ab8bc366-7eb0-44e1-a07a-492b36a7b5d7",
                             TwoFactorEnabled = false,
                             UserName = "User15"
                         },
                         new
                         {
-                            Id = "72ef660d-897b-42bb-a5c1-449d03c163f0",
+                            Id = "2f124cc9-9a4e-4701-8ebe-8569447eeecb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88872068-2f5a-42f1-8f39-58bad905d8ee",
+                            ConcurrencyStamp = "b11e7146-72b1-4544-a21f-4a3902e0fd6c",
                             Email = "user16@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER16@GMAIL.COM",
                             NormalizedUserName = "USER16",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGqB/P+Y7gkNVgAhLZz2HGZ4jeYVczTQr5k62shZ5j2f8voWEQZHg89TDze5ANmikw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB5W601MlLJT65nti3BKuuJXWUot1Wdz0Z25FD/So8yBX1TcOSaP0fefzujzs8ssEg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c09f91d6-d7be-44e5-b275-514d1c6e6485",
+                            SecurityStamp = "88c32e48-8a17-4407-a709-46d7f77077bf",
                             TwoFactorEnabled = false,
                             UserName = "User16"
                         },
                         new
                         {
-                            Id = "909b9741-71c0-4d38-b891-de05ffebf4b0",
+                            Id = "68a53863-616e-4fc8-98c4-044a665f1a1b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5ddf34e-d73f-4021-94d2-1e4b2300e1d4",
+                            ConcurrencyStamp = "6c9585c8-d4de-48c2-af58-50cbd71be3b6",
                             Email = "user17@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER17@GMAIL.COM",
                             NormalizedUserName = "USER17",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPiH6xRg526x32cMqL8bTNN06HzjOupAPeHUXQOuAg2JOW5XsuzmfzLktHuxw/l7bg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOPiukTT8qJvT2+58BwFpaBp4e50pLdIVIGHnsfzM8m+iJZJMyYT4kRkJ0du61Tkaw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d580ca42-9231-4e19-b74d-d4b0a4f1cc31",
+                            SecurityStamp = "0f95f4f7-e05b-466b-9676-61b7e4cf473e",
                             TwoFactorEnabled = false,
                             UserName = "User17"
                         },
                         new
                         {
-                            Id = "304e023a-d0af-4efc-8642-8e171ece240d",
+                            Id = "ca09f77e-2349-4182-8227-15af314aa602",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90f618bc-58fc-4067-b484-bee6328f7dac",
+                            ConcurrencyStamp = "5a6e84ae-8d62-4e1a-90bb-ff79b855ecf5",
                             Email = "user18@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER18@GMAIL.COM",
                             NormalizedUserName = "USER18",
-                            PasswordHash = "AQAAAAEAACcQAAAAECr0v6cNaAQvqN2o/80eyZm5x2KU8/vthNd/qrcAxCUdDzaFuKUTMTIAMYqD2IY2hQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFY8yglQWSPGZxiOvaRas4Y2ZHNYjKi74KyP3vUFFDB3oN1mX27bPQ6LJozk1S/RNA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9eda10ed-6a39-4c3c-bc10-f14e148fbede",
+                            SecurityStamp = "e35f088b-856a-4ba5-96f1-1a822deae5ee",
                             TwoFactorEnabled = false,
                             UserName = "User18"
                         },
                         new
                         {
-                            Id = "607374f1-193f-4aa6-986f-5e243e98d8df",
+                            Id = "35db9908-fa67-4b7c-8bbe-97fd6a838627",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fab4c24c-9dfc-4071-a64c-cf766241db56",
+                            ConcurrencyStamp = "711618e2-675c-4a69-9088-17487ba794e6",
                             Email = "user19@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER19@GMAIL.COM",
                             NormalizedUserName = "USER19",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA8ppr3jB8eOJGIH3opqjIBdbD9jvMohqKvlBt9UfhgT6LnXDXUUDtwtd6KK+LDF+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENZYvPXaWPo3EN9a/JRHazCVsnK5jtjLBh7K/UGPtt2Ef05SHtH6jidA+4G0MEcQlA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7388043f-b9a1-44c2-93c5-cd40b9d462ad",
+                            SecurityStamp = "ba8ea4e0-87b9-4f6b-8835-1e56f9b54e35",
                             TwoFactorEnabled = false,
                             UserName = "User19"
                         },
                         new
                         {
-                            Id = "ab6fb151-a460-4255-a05c-c2d7b736af0e",
+                            Id = "2bc17d0b-b05d-4364-b337-eb75a6497c06",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "deee2b1d-d731-4659-bb45-8c288eec4bc0",
+                            ConcurrencyStamp = "81c273cf-9c76-4725-b569-892018c6731a",
                             Email = "user20@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER20@GMAIL.COM",
                             NormalizedUserName = "USER20",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDyznMo8yclNQ6h7vJFNn0LQ4mNT2Q8Q4ENZvT+vQUW6p3LD3mBAW7BG+GBld33RMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG/cMYnjcrTZObpu9aAYuWByD3SniZraXTFxBd0lsAJTHfSZc3j8k1z5mLlQko9oEw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "80e1ea77-bd1c-411b-8ddf-16111a08ac0c",
+                            SecurityStamp = "dd1a05a5-94ce-406c-b729-844a49af1dcb",
                             TwoFactorEnabled = false,
                             UserName = "User20"
                         });
@@ -656,32 +658,32 @@ namespace ImageCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8088f9b3-ad28-400e-8e3a-1a71800817d2",
-                            ConcurrencyStamp = "81c03471-dd51-4aa3-8f3b-63c0d170efaa",
+                            Id = "9e86f5d4-4e13-4790-b5f3-f48a010e8365",
+                            ConcurrencyStamp = "5c5ff87f-28f2-4141-b782-a845108fe7c9",
                             Name = "User"
                         },
                         new
                         {
-                            Id = "b29f95bf-ea2b-4055-8104-7b394e3547b2",
-                            ConcurrencyStamp = "51773621-4040-4f32-9182-6b3eb4ecb426",
+                            Id = "b34ccb68-95ea-4efb-9394-937e1bc93dbe",
+                            ConcurrencyStamp = "422f178b-5408-49d7-8a97-9a106bd8f0ce",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "99a6540e-5af8-40cf-8ba3-7aeb73f2ddce",
-                            ConcurrencyStamp = "004e433d-4ad1-48ef-b354-eca379ef3cd1",
+                            Id = "fe8720fd-ea9f-4dee-9b28-92c56a53dd25",
+                            ConcurrencyStamp = "c9ca298b-c457-4e0b-b974-20ea28d51258",
                             Name = "ProjectViewer"
                         },
                         new
                         {
-                            Id = "b58f9fa3-0247-484e-9021-198aee4d8f8c",
-                            ConcurrencyStamp = "1ae0a862-48da-49e2-9221-cbccf4280804",
+                            Id = "f4760f10-dcc8-495f-8eff-6ac538fa92f1",
+                            ConcurrencyStamp = "7897cdf7-3a29-4cb1-8b2e-34b4845d35c7",
                             Name = "ProjectEditor"
                         },
                         new
                         {
-                            Id = "563b4687-5de7-4b52-80e6-4f30cb764e27",
-                            ConcurrencyStamp = "af9860ac-b5db-4231-9c13-1652b9cfd102",
+                            Id = "aae20f6f-d00a-42fd-a11c-42a3c2fd5ad3",
+                            ConcurrencyStamp = "0424a60d-1f88-4c82-830b-20a5a8c9ab53",
                             Name = "ProjectOwner"
                         });
                 });
@@ -792,11 +794,15 @@ namespace ImageCore.Migrations
                 {
                     b.HasOne("ImageCore.Models.UserModel", "ContactUser")
                         .WithMany()
-                        .HasForeignKey("ContactUserId");
+                        .HasForeignKey("ContactUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ImageCore.Models.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ContactUser");
 

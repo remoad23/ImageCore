@@ -12,15 +12,19 @@ namespace ImageCore.Models
         [Key]
         public int ContactId { get; private set; }
         
-   
+        [ForeignKey("UserId")]
+        [Required]
         public string UserId { get; set; }
         
         [ForeignKey("UserId")]
+        [Required]
         public string ContactUserId { get; set; }
-        
+
         public bool RequestValidated { get; set; }
         
+        [ForeignKey("UserId")]
         public UserModel User { get; set; }
+        [ForeignKey("ContactUserId")]
         public UserModel ContactUser { get; set; }
 
     }

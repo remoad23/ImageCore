@@ -68,6 +68,8 @@ namespace ImageCore.Controllers
                     Url.Action("Store", "Contact", new {contactId = uservm.UserId}, Request.Scheme);
             }
             
+            ViewData["RequestScheme"] = Request.Scheme;
+            
             return View("~/Views/User/Show.cshtml",uservm);
             
         }
