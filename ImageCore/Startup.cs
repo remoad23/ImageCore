@@ -34,7 +34,7 @@ namespace ImageCore
                 options.UseSqlite("Data Source=ImageCore.db"));
 
             services.AddIdentity<UserModel, RoleModel>()
-          //      .AddRoles<UserRoleModel>()
+                .AddRoles<RoleModel>()
                 .AddEntityFrameworkStores<ContextDb>()
                 .AddDefaultTokenProviders();
 

@@ -16,19 +16,67 @@ namespace ImageCore.Controllers
     {
         private ContextDb Dbcontext;
         private UserManager<UserModel> UserManager;
+        private RoleManager<UserModel> RoleManager;
         private IMailSend MailSend;
         
-        public UserController(ContextDb dbContext,UserManager<UserModel> userManager,IMailSend mailSend)
+        public UserController(ContextDb dbContext,
+            UserManager<UserModel> userManager,
+            IMailSend mailSend,
+            RoleManager<UserModel> roleManager)
         {
             Dbcontext = dbContext;
             UserManager = userManager;
             MailSend = mailSend;
+            RoleManager = roleManager;
         }
         
         [Authorize]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("User/Edit/{id}")]
+        [Authorize]
+        public IActionResult Update(string id)
+        {
+            var user = Dbcontext.Users.Find(id);
+
+            var userEditViewModel = new UserEditViewModel
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                File = null,
+                Password = user.PasswordHash,
+                Role = "Admin"
+            };
+            
+            ViewData["id"] = id;
+            return View(userEditViewModel);
+        }
+
+        [Route("User/Edit/Store/{id}")]
+        [Authorize]
+        public IActionResult Put(string id,UserEditViewModel model)
+        {
+            var user = Dbcontext.Users.Find(id);
+
+            user.Email = model.Email;
+            user.UserName = model.Username;
+            UserManager.ChangePasswordAsync(user, user.PasswordHash, model.Password);
+            if (model.Role.Equals("User"))
+            {
+                UserManager.AddToRoleAsync(user, "User");
+            }
+            else if(model.Role.Equals("Admin"))
+            {
+                UserManager.AddToRoleAsync(user, "Admin");
+            }
+
+            Dbcontext.SaveChanges();
+            
+            ViewData["UserSaved"] = "Der Benutzer wurde erfolgreich gespeichert";
+            return RedirectToAction("Update");
         }
         
         [Authorize]

@@ -1,4 +1,5 @@
-﻿using ImageCore.Models;
+﻿using System.Collections.Generic;
+using ImageCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,13 +7,13 @@ namespace ImageCore.Seeder
 {
     public class RoleSeeder : ISeeder
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        public static Dictionary<string,RoleModel> Seed(ModelBuilder modelBuilder)
         {
-            IdentityRole userRole = new IdentityRole("User");
-            IdentityRole adminRole = new IdentityRole("Admin");
-            IdentityRole projectViewerRole = new IdentityRole("ProjectViewer");
-            IdentityRole projectEditorRole = new IdentityRole("ProjectEditor");
-            IdentityRole projectOwnerRole = new IdentityRole("ProjectOwner");
+            RoleModel userRole = new RoleModel("User");
+            RoleModel adminRole = new RoleModel("Admin");
+            RoleModel projectViewerRole = new RoleModel("ProjectViewer");
+            RoleModel projectEditorRole = new RoleModel("ProjectEditor");
+            RoleModel projectOwnerRole = new RoleModel("ProjectOwner");
             
             modelBuilder.Entity<IdentityRole>().HasData(
                 userRole,
@@ -21,6 +22,17 @@ namespace ImageCore.Seeder
                 projectEditorRole,
                 projectOwnerRole
                 );
+
+
+            Dictionary<string, RoleModel> roles = new Dictionary<string, RoleModel>();
+            
+            roles.Add("User",userRole);
+            roles.Add("Admin",adminRole);
+            roles.Add("Viewer",projectViewerRole);
+            roles.Add("Editor",projectEditorRole);
+            roles.Add("Owner",projectOwnerRole);
+
+            return roles;
             
             // add roles to DB
             /*
