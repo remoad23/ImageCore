@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ImageCore
 {
@@ -33,8 +34,8 @@ namespace ImageCore
             services.AddDbContext<ContextDb>(options =>
                 options.UseSqlite("Data Source=ImageCore.db"));
 
-            services.AddIdentity<UserModel, RoleModel>()
-                .AddRoles<RoleModel>()
+            services.AddIdentity<UserModel, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ContextDb>()
                 .AddDefaultTokenProviders();
 

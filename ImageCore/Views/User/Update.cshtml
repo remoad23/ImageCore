@@ -23,15 +23,24 @@
     </div>
     <div class="UserInputRow">
         <label>Username</label>
-        <input type="text">
+        <input name="Username" type="text">
         <label>E-Mail</label>
-        <input  type="email">
+        <input name="Email"  type="email">
         <label>Passwort</label>
-        <input  type="password">
+        <input name="Password"  type="password">
         <label>Role</label>
-        <select type="text" value="@Model.Role">
-            <option value="User">Benutzer</option>
-            <option value="Admin">Admin</option>
+        <select type="text" name="Role" >
+            @if (Model.Role.Equals("User"))
+            {
+                <option selected="selected"  value="User">Benutzer</option>
+                <option value="Admin">Admin</option>
+            }
+            @if (Model.Role.Equals("Admin"))
+            {
+                <option value="User">Benutzer</option>
+                <option selected="selected"  value="Admin">Admin</option>
+            }
+            
         </select>
         <button type="submit" class="acceptContactRequestBtn" >Speichern</button>
     </div>

@@ -7,13 +7,26 @@ namespace ImageCore.Seeder
 {
     public class RoleSeeder : ISeeder
     {
-        public static Dictionary<string,RoleModel> Seed(ModelBuilder modelBuilder)
+        public static Dictionary<string,IdentityRole> Seed(ModelBuilder modelBuilder)
         {
-            RoleModel userRole = new RoleModel("User");
-            RoleModel adminRole = new RoleModel("Admin");
-            RoleModel projectViewerRole = new RoleModel("ProjectViewer");
-            RoleModel projectEditorRole = new RoleModel("ProjectEditor");
-            RoleModel projectOwnerRole = new RoleModel("ProjectOwner");
+            IdentityRole userRole = new IdentityRole("User");
+            IdentityRole adminRole = new IdentityRole("Admin");
+            IdentityRole projectViewerRole = new IdentityRole("ProjectViewer");
+            IdentityRole projectEditorRole = new IdentityRole("ProjectEditor");
+            IdentityRole projectOwnerRole = new IdentityRole("ProjectOwner");
+
+            userRole.Id = "1";
+            adminRole.Id = "2";
+            projectViewerRole.Id = "3";
+            projectEditorRole.Id = "4";
+            projectOwnerRole.Id = "5";
+            
+            userRole.NormalizedName = "USER";
+            adminRole.NormalizedName = "ADMIN";
+            projectViewerRole.NormalizedName = "PROJECTVIEWER";
+            projectEditorRole.NormalizedName = "PROJECTEDITOR";
+            projectOwnerRole.NormalizedName = "PROJECTOWNER";
+            
             
             modelBuilder.Entity<IdentityRole>().HasData(
                 userRole,
@@ -24,7 +37,7 @@ namespace ImageCore.Seeder
                 );
 
 
-            Dictionary<string, RoleModel> roles = new Dictionary<string, RoleModel>();
+            Dictionary<string, IdentityRole> roles = new Dictionary<string, IdentityRole>();
             
             roles.Add("User",userRole);
             roles.Add("Admin",adminRole);

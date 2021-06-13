@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImageCore.Models;
 using ImageCore.ViewModel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ImageCore.Controllers
 {
@@ -13,8 +14,9 @@ namespace ImageCore.Controllers
     {
         private UserManager<UserModel> _userManager;
         private SignInManager<UserModel> _signInManager;
-
-        public RegistrationController(UserManager<UserModel> userManager,SignInManager<UserModel> signInManager)
+        public RegistrationController(
+            UserManager<UserModel> userManager,
+            SignInManager<UserModel> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,7 +45,8 @@ namespace ImageCore.Controllers
                 // has user been created in successfully?
                 if (createdUser.Succeeded)
                 {
-                    Console.WriteLine("VALID2");
+                    
+                    await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index","Home");
                 }

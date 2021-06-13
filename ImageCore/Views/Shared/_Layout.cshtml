@@ -16,7 +16,7 @@
 <div id="usernavigation" class="userNavigation">
     <div class="userNavigationWrapper">
         <div class="userNavigationHeader">
-            <h1>Navigation</h1> 
+            <h1>Navigation</h1>
             <h1 class="CloseNavigation" onclick="toggleNavigationSidebar()">X</h1>
         </div>
         <ul class="userNavigationList">
@@ -36,6 +36,13 @@
                 <i>O</i>
                 <a asp-controller="UserSettings" asp-action="Index">Einstellungen</a>
             </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li onclick="this.children[1].click()">
+                    <i>O</i>
+                    <a asp-controller="User" asp-action="Index" asp-route-pagination="0">User Liste</a>
+                </li>
+            }
             <li onclick="this.children[1].click()">
                 <i>O</i>
                 <a asp-controller="Login" asp-action="Logout">Abmelden</a>
