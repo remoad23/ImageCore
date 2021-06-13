@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ImageCore.Controllers
 {
-    public class ProjectParticipatorController
+    public class ProjectParticipatorController : Controller
     {
         private ContextDb Context;
         private UserManager<UserModel> UserManager;
@@ -35,18 +35,17 @@ namespace ImageCore.Controllers
          * Invite a new User to a project
          */
         [Authorize]
-        public IActionResult Store(string userId,int projectId,string name)
+        [HttpPost]
+        public IActionResult Store(string userId,int projectId)
         {
-            /*
-            string id = UserManager.GetUserId(User);
             ProjectParticipatorModel participator = new ProjectParticipatorModel
             {
                 ProjectId = projectId,
                 UserId = userId
             };
             Context.ProjectParticipator.Add(participator);
-            Context.SaveChanges(); */
-            return new StatusCodeResult(StatusCodes.Status200OK);
+            Context.SaveChanges(); 
+            return Ok();
         }
 
         /**

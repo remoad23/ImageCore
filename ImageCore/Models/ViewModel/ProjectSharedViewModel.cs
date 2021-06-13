@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ImageCore.Models.ViewModel
 {
-    public class ProjectViewModel
+    public class ProjectSharedViewModel
     {
-        public List<string> Projectname = new List<string>();
-        public List<int> ProjectIds = new List<int>();
+        public string Projectname;
+        public int ProjectId;
     }
 }

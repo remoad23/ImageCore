@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ImageCore.Models;
+using ImageCore.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ImageCore.Controllers
 {
@@ -23,32 +25,160 @@ namespace ImageCore.Controllers
         
         public IActionResult Index()
         {
+            string id = UserManager.GetUserId(User);
+            var projects = Context.Project.Where(p => p.UserId == id).ToList();
+            
+            ProjectViewModel project = new ProjectViewModel();
+            foreach(var p in projects)
+            {
+                project.Projectname.Add(p.Name);
+                project.ProjectIds.Add(p.ProjectId);
+            }
+            ViewData["RequestScheme"] = Request.Scheme;
+            return View(project);
+        }
+
+        public IActionResult Show([FromQuery] int projectId)
+        {
+            
+            return Redirect("http://localhost:4200/");
+        }
+
+        public IActionResult Create()
+        {
+            ViewData["RequestScheme"] = Request.Scheme;
             return View();
         }
 
+        /**
+         * Projects that the User has permission to join
+         * because he got invited into these projects
+         */
+        public IActionResult Shared()
+        {
+            var sharedProjects = Context.ProjectParticipator
+                .Where(u => u.UserId == UserManager.GetUserId(User))
+                .Join(
+                    Context.Project,
+                    participator => participator.ProjectId,
+                    project => project.ProjectId,
+                    (participator, project) => new ProjectSharedViewModel
+                    {
+                       ProjectId = project.ProjectId,
+                       Projectname = project.Name
+                    }
+                ).ToList();
+            
+            ViewData["RequestScheme"] = Request.Scheme;
+            
+            
+            return View(sharedProjects);
+        }
         
         [Authorize]
-        public IActionResult Store(string userId,string name)
+        public IActionResult Store([FromForm] ProjectStoreViewModel projectval)
         {
             string id = UserManager.GetUserId(User);
             
             ProjectModel project = new ProjectModel
             {
                 UserId = id,
-                Name = name
+                Name = projectval.ProjectName
             };
+
             Context.Project.Add(project);
             Context.SaveChanges();
-            return new StatusCodeResult(StatusCodes.Status200OK);
+
+            if (projectval.UserIds is not null)
+            {
+                foreach (var userId in projectval.UserIds)
+                {
+                    ProjectParticipatorModel participator = new ProjectParticipatorModel
+                    {
+                        ProjectId = project.ProjectId,
+                        UserId = userId
+                    };
+                    Context.ProjectParticipator.Add(participator);
+                }
+            }
+            
+            Context.SaveChanges();
+            return RedirectToAction("Create",new{projectCreated = true});
+        }
+
+        public IActionResult QueryProjects([FromQuery] string query)
+        {
+            string id = UserManager.GetUserId(User);
+            var projects = Context.Project
+                .Where(p => p.UserId == id && p.Name.Contains(query))
+                .ToList();
+            
+            ProjectViewModel project = new ProjectViewModel();
+            foreach(var p in projects)
+            {
+                project.Projectname.Add(p.Name);
+                project.ProjectIds.Add(p.ProjectId);
+            }
+            ViewData["RequestScheme"] = Request.Scheme;
+         
+            return View("~/Views/Project/Index.cshtml",project);
+        }
+
+        public IActionResult QuerySharedProjects([FromQuery] string query)
+        {
+            var sharedProjects = Context.ProjectParticipator
+                .Where(u => u.UserId == UserManager.GetUserId(User))
+                .Join(
+                    Context.Project,
+                    participator => participator.ProjectId,
+                    project => project.ProjectId,
+                    (participator, project) => new ProjectSharedViewModel
+                    {
+                        ProjectId = project.ProjectId,
+                        Projectname = project.Name
+                    }
+                )
+                .Where(p => p.Projectname.Contains(query))
+                .ToList();
+            
+            ViewData["RequestScheme"] = Request.Scheme;
+            
+            return View("~/Views/Project/Shared.cshtml",sharedProjects);
         }
 
         [Authorize]
-        public IActionResult Destroy(string projectID)
+        public IActionResult Destroy([FromQuery]int projectId)
         {
-            ProjectModel project = Context.Project.Find(projectID);
+            ProjectModel project = Context.Project.Find(projectId);
             Context.Project.Remove(project);
             Context.SaveChanges();
-            return new StatusCodeResult(StatusCodes.Status200OK);
+            return Ok();
+        }
+
+      //  [Authorize]
+     //   [HttpGet]
+        public IActionResult GetProjects([FromQuery] string userId)
+        {
+            string id = UserManager.GetUserId(User);
+
+            var projects = Context.Project
+                .Where(u => u.UserId == id).ToList();
+
+
+            if (projects is null) return StatusCode(StatusCodes.Status404NotFound);
+
+            List<ProjectGetViewModel> projectsvm = new List<ProjectGetViewModel>();
+
+            foreach (var project in projects)
+            {
+                projectsvm.Add(new ProjectGetViewModel
+                {
+                    ProjectId = project.ProjectId,
+                    ProjectName = project.Name
+                });
+            } 
+            
+            return Ok(projectsvm);
         }
     }
 }

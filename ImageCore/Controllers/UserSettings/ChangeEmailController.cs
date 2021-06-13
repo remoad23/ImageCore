@@ -26,7 +26,6 @@ namespace ImageCore.Controllers
         // GET
         [Authorize]
         [Route("UserSettings/ChangeEmail")]
-        [ValidateAntiForgeryToken]
         public IActionResult Index()
         {
             return View("~/Views/UserSettings/ChangeEmail/Index.cshtml");

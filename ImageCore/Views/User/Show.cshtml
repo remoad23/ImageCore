@@ -33,7 +33,7 @@
                         </button>
                     }
                 }
-                <button>Action 2</button>
+                <button onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)">Zu Projekt hinzufügen</button>
                 <button>Action 3</button>
                 <button>Action 4</button>
             </div>
@@ -113,6 +113,19 @@
             </div>
         </div>
     </div>
+    <template>
+        <div class="modalWindowConfirmWrapper" id="ModalWindow">
+            <div class="modalWindowConfirm">
+                <h1>Add User to Project</h1>
+                <select id="projectSelection"></select>
+                <div class="modalWindowBtnWrapper">
+                    <button onclick="addUserToProject(`@Url.Action("Store","ProjectParticipator", new {UserId = Model.UserId}, ViewData["RequestScheme"].ToString())`)"
+                            id="addUserToProjectBtn">Hinzufügen</button>
+                    <button id="cancelProjectBtn" onclick="this.parentNode.parentNode.parentElement.remove()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </template>
 </div>
 
 <script>
@@ -133,5 +146,38 @@
              }    
         });
     }
-        
+    
+    function getProjects(url)
+    {
+        fetch(url)
+                .then(res => res.json())
+                .then(res => {
+                     if (res)
+                     {
+                         let template = document.getElementsByTagName("template")[0].content.cloneNode(true);
+                         let wrapper = template.children[0];
+                          document.body.appendChild(wrapper);
+                         let projectDropdown = document.getElementById("projectSelection");
+                         for (let x = 0; x < res.length; x++)
+                         {
+                               let option = document.createElement("option");
+                               option.value = res[x].projectId;
+                               option.innerHTML = res[x].projectName;
+                               projectDropdown.appendChild(option);
+                         }
+                     }    
+                });
+    }
+
+    function addUserToProject(url)
+    {
+        let projectId = document.getElementById("projectSelection").value;
+        fetch(url + "&projectId=" +projectId,{method: "POST"})
+        .then(res => {
+             if (res.status === 200)
+             {
+                 document.getElementById("ModalWindow").remove();
+             }    
+        }); 
+    }
 </script>

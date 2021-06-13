@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImageCore.Controllers
+namespace ImageCore.Controllers.UserSettings
 {
     public class DeleteUserAccountController : Controller
     {
@@ -21,7 +21,6 @@ namespace ImageCore.Controllers
         }
         
         [Authorize]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index()
         {
             return View("~/Views/UserSettings/DeleteAccount/Index.cshtml");

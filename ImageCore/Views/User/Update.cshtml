@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model ImageCore.Models.ViewModel.User.UserEditViewModel;
+
+<form class="EditUserWrapper" asp-controller="User" asp-action="Put" asp-route-id="@ViewData["id"]">
+    <h1>Benutzer bearbeiten</h1>
+    @if (ViewData["UserSaved"] is not null)
+    {
+        <p>Änderungen gespeichert</p>
+    }
+    <div class="UserEditImageRow">
+        <div class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()"></div>
+        <div class="UserInformation">
+            <label>Username</label>
+            <p>@Model.Username</p>
+            <label>E-Mail</label>
+            <p>@Model.Email</p>
+            <label>Rolle</label>
+            <p>@Model.Role</p>
+        </div>
+        <input id="ImageToUpload" class="userEditImage" type="file">
+    </div>
+    <div class="UserInputRow">
+        <label>Username</label>
+        <input name="Username" type="text">
+        <label>E-Mail</label>
+        <input name="Email"  type="email">
+        <label>Passwort</label>
+        <input name="Password"  type="password">
+        <label>Role</label>
+        <select type="text" name="Role" >
+            @if (Model.Role.Equals("User"))
+            {
+                <option selected="selected"  value="User">Benutzer</option>
+                <option value="Admin">Admin</option>
+            }
+            @if (Model.Role.Equals("Admin"))
+            {
+                <option value="User">Benutzer</option>
+                <option selected="selected"  value="Admin">Admin</option>
+            }
+            
+        </select>
+        <button type="submit" class="acceptContactRequestBtn" >Speichern</button>
+    </div>
+</form>

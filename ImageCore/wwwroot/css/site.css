@@ -532,6 +532,70 @@ footer{
     background-position: center;
 }
 
+.modalWindowConfirmWrapper
+{
+    z-index: 1;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.7);
+    left: 0px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalWindowConfirm
+{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 20%;
+    border-radius: 15px;
+    background-color: #C4B52C;
+    left: 37%;
+    top: 40%;
+    position: absolute;
+}
+
+.modalWindowConfirm > h1
+{
+    align-self: center;
+    color: white;
+    height: 30%;
+}
+
+.modalWindowBtnWrapper
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    width: 70%;
+    height: 70%;
+}
+
+.modalWindowBtnWrapper > button
+{
+    width: 30%;
+    height: 3vh;
+    border-radius: 10px;
+    border-style: none;
+    background-color: white;
+    align-self: flex-end;
+    margin-bottom: 3vh;
+    transition: background-color 0.1s;
+    font-size: 1.2em;
+}
+
+.modalWindowBtnWrapper > button:hover 
+{
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+}
+
 
 /* -------------------------------------project end --------------------------- */
 
@@ -765,6 +829,119 @@ footer{
 }
 
 /* -------------------------------------user end --------------------------- */
+
+/* -------------------------------------user Edit start --------------------------- */
+
+
+.EditUserWrapper
+{
+    background-color: #C4B52C;
+    height: 60vh;
+    margin-bottom: 10vh;
+    margin-top: 10vh;
+    border-radius: 25px;
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    margin-left: 28.0vw;
+    padding: 5vw;
+    padding-top: 3vh;
+    color: white;
+}
+
+.EditUserWrapper > h1
+{
+    font-size: 2.5em;
+}
+
+.UserEditImageRow
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid white;
+    margin-bottom: 5vh;
+    margin-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+.UserInformation
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2vw;
+    margin-top: 1vh;
+    width: 40%;
+}
+
+.UserInformation > label
+{
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.UserInformation > p
+{
+    padding: 0;
+    margin-top: 0;
+}
+
+.UserProfileImageEdit
+{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.UserProfileImageEdit:hover
+{
+    cursor: pointer;
+}
+
+.userEditImage
+{
+    display: none;
+}
+
+.UserInputRow
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.UserInputRow > label
+{
+    margin-bottom: 10px;
+}
+
+.UserInputRow > input
+{
+    width: 40%;
+    margin-bottom: 2vh;
+    height: 2vh;
+}
+
+.UserInputRow > select 
+{
+    width: 40%;
+    height: 2vh;
+}
+
+.UserInputRow > select > option
+{
+    height: 2vh;
+}
+
+.UserInputRow > button[type="submit"]
+{
+    width: 20%;
+    margin-top: 40px;
+}
+
+/* -------------------------------------user Edit end   --------------------------- */
 
 /* -------------------------------------login and register start --------------------------- */
 
@@ -1427,7 +1604,8 @@ and (min-device-width : 768px)
     .contactHeader > input {
         width: 80%;
         height: 6vh;
-        margin-right: 0;
+        width: 40%;
+        margin-right: 5%;
     }
 
     .contactHeader > ul {
@@ -1530,6 +1708,174 @@ and (min-device-width : 768px)
     .user {
         height: 25vh;
         padding-bottom: 15vh;
+    }
+    
+    .projectCreateForm
+    {
+        width: 74vw;
+        height: auto;
+        display: flex;
+        flex-flow: column;
+        min-height: 50vh;
+        background-color: #C4B52C;
+        border-radius: 20px;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+    
+    .projectCreateForm > label, .projectCreateForm > h1
+    {
+        color: white;
+    }
+    
+    .projectCreateForm > input, .projectSizeWrapper > input
+    {
+        width: 20vw;
+        min-height: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    .projectCreateForm > label, .projectSizeWrapper > label
+    {
+        margin-bottom: 10px;
+    }
+    
+    .projectSizeWrapper
+    {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .projectSizeWrapper > input
+    {
+        width: 5vw;
+        margin-right: 1vw;
+    }
+    
+    .invitedContacts
+    {
+        margin-top: 3vh;
+        min-width: 8vw;
+        max-width: 10vw;
+        height: 3vh;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 15px;
+        margin-right: 20px;
+    }
+    
+    .invitedContacts > p
+    {
+        width: 75%;
+        font-size: 1.3em;
+        color: #C4B52C;
+    }
+    
+    .invitedContactsField{
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        width: 100%;
+        height: auto;
+    }
+    
+    .cancelInvitedUser
+    {
+        width: 25%;
+        height: 100%;
+        margin: 0;
+        text-align: center;
+        font-size: 2em;
+        transition: color 0.1s;
+        color: #C4B52C;
+    }
+    
+    .cancelInvitedUser:hover
+    {
+        cursor: pointer;
+        color: blue;
+    }
+    
+    .invitedContacts > input
+    {
+        width: 10vw;
+        height: 2vh;
+    }
+    
+    .submitCreateProjectBtn
+    {
+        width: 6vw;
+        height: 35px;
+        border-style: none;
+        color: white;
+        border-radius: 5px;
+        color: blue;
+        font-size: 1.2em;
+        transition: background-color 0.1s ,color 0.1s;
+        margin-top: 5vh;
+    }
+    
+    .resolutionDropdown
+    {
+        height: 3vh;
+        width: 8vw;
+    }
+    
+    .submitCreateProjectBtn:hover{
+        cursor: pointer;
+        background-color: blue;
+        color: white;
+    }
+    
+    #recommendedUserList
+    {
+        width: 20vw;
+        list-style: none;
+        border: solid 1px black;
+        padding: 0;
+        display: none;
+        margin: 0;
+        position: absolute;
+        background-color: #a0995a;
+    }
+    
+    #inviteUserBar
+    {
+        width: 20vw;
+        height: 2vh;
+    }
+
+    #recommendedUserList > li > p {
+        margin: 0;
+        margin-left: 5%;
+    }
+    
+    #recommendedUserList > li
+    {
+        border-bottom: 1px solid black;
+        transition: background-color 0.1s;
+        padding: 0;
+        margin: 0;
+        height: 3vh;
+        align-items: center;
+        display: flex;
+        font-size: 1.2em;
+    }
+    
+    #recommendedUserList > li:hover
+    {
+        background-color: grey;
+        cursor: pointer;
+    }
+    
+    .recommendedUser
+    {
+        border-bottom: solid 1px black;
     }
 }
 
@@ -1902,18 +2248,18 @@ and (min-width : 1920px)
     .contactHeader > input{
         height: 4vh;
         padding-left: 20px;
-        margin-right: 5%;
+        margin-right: 10%;
         margin-top: 20px;
-        width: 38%;
-        border-radius: 15px;
+        width: 45%;
+        border-radius: 10px;
         border: none;
     }
 
     .contactHeader > ul{
         display: flex;
         flex-flow: row;
-        margin-left: 2%;
-        width: 40%;
+        margin-left: 3%;
+        width: 16%;
         justify-content: space-between;
         margin-top: 25px;
     }

@@ -18,8 +18,8 @@ namespace ImageCore.Seeder
         {
             //Seeder
             var users = UserSeeder.Seed(modelBuilder);
-            RoleSeeder.Seed(modelBuilder);
-           // UserRoleSeeder.Seed(modelBuilder);
+            var roles = RoleSeeder.Seed(modelBuilder);
+            UserRoleSeeder.Seed(modelBuilder,users,roles);
             ContactSeeder.Seed(modelBuilder,users);
             ProjectSeeder.Seed(modelBuilder,users);
           //  FilterSeeder.Seed();

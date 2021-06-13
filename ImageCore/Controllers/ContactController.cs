@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using ImageCore.Models;
 using ImageCore.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ImageCore.Controllers
 {
@@ -43,7 +45,6 @@ namespace ImageCore.Controllers
                         ContactId = contact.ContactId
                     }
                 )
-                .Take(5)
                 .ToList();
             
             var contacts2 = Context.Contact.
@@ -60,11 +61,8 @@ namespace ImageCore.Controllers
                         ContactId = contact.ContactId
                     }
                 )
-                .Take(5)
                 .ToList();
-            
-            Console.WriteLine(contacts.Count);
-            
+
             List<string> contactuserids = new List<string>();
             List<string> usernames = new List<string>();
             List<int> contactIds = new List<int>();
@@ -120,7 +118,6 @@ namespace ImageCore.Controllers
                         UserId = contact.UserId
                     }
                 )
-                .Take(10)
                 .ToList();
 
             List<int> contactids = new List<int>();
@@ -155,12 +152,23 @@ namespace ImageCore.Controllers
         public async Task<IActionResult> ContactFind([FromQuery]string query)
         {
             string id = UserManager.GetUserId(User);
+            
+            List<UserModel> users = null;
 
-            // user die nicht miteinander befreundet sind
-            var users = Context.Users
-                .Where(e => !e.Id.Equals(id) && e.UserName.ToLower().Contains(query.ToLower()))
+            users = Context.Users
+                .Where(e => !e.Id.Equals(id) && e.UserName.ToLower().Equals(query.ToLower()) )
                 .Take(10)
                 .ToList();
+
+            if (!users.Any())
+            {
+                // user die nicht miteinander befreundet sind
+                users = Context.Users
+                    .Where(e => !e.Id.Equals(id) && e.UserName.ToLower().Contains(query.ToLower()))
+                    .Take(10)
+                    .ToList();
+            } 
+            
 
             List<ContactFindViewModel> queriedUser = new List<ContactFindViewModel>();
             
@@ -198,48 +206,77 @@ namespace ImageCore.Controllers
             return View(queriedUser);
         }
 
-        public IActionResult QueryNonContact([FromQuery]string query)
-        {
-            // user die nicht miteinander befreundet sind
-            var users = Context.Users.Where(e => e.UserName.Contains(query)).Take(10);
-            
-            List<string> userids = new List<string>();
-            List<string> usernames = new List<string>();
-
-            foreach (var user in users)
-            {
-                userids.Add(user.Id);
-                usernames.Add(user.UserName);
-            }
-
-            ContactFindViewModel contactfind = new ContactFindViewModel
-            {
-         //       UserIds =  userids,
-          //      Usernames =  usernames
-            };
-            
-            ViewData["RequestScheme"] = Request.Scheme;
-
-            return Json(users,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                });
-        }
-
-        [Authorize]
-        public IActionResult FindNewContacts()
+        [HttpGet]
+        public IActionResult QueryContacts([FromQuery] string query)
         {
             string id = UserManager.GetUserId(User);
-            var contact = Context.Contact.
-                Where(u => u.UserId.Equals(id)  || u.ContactUserId.Equals(id));
-            var contacts = Context.Users.Take(10);
-  //          var usersWithoutContacts = contact.Except(contact).Where(e => { e.UserId.Equals(id)  || e.ContactUserId.Equals(id)});
 
-         //   var contacts = Context.Users.Except(contact.);
-         return null;
+            QueryUserViewModel queriedUsers = new QueryUserViewModel();
+
+            var possibleContact = Context.Contact
+                .Where(c => c.UserId.Equals(id))
+                .Join(
+                    Context.Users,
+                    model => model.ContactUserId,
+                    users => users.Id,
+                    (contact, users) => new
+                    {
+                        Username = users.UserName,
+                        UserId = contact.ContactUserId,
+                        RequestValidated = contact.RequestValidated
+                    }
+                );
+            
+            var possibleContact2 = Context.Contact
+                .Where(c => c.ContactUserId.Equals(id))
+                .Join(
+                    Context.Users,
+                    model => model.UserId,
+                    users => users.Id,
+                    (contact, users) => new
+                    {
+                        Username = users.UserName,
+                        UserId = contact.UserId,
+                        RequestValidated = contact.RequestValidated
+                    }
+                );
+
+
+            if (possibleContact.Any())
+            {
+                foreach (var contact in possibleContact)
+                {
+                    if (!contact.RequestValidated) continue;
+                    if (contact.Username.Contains(query))
+                    {
+                        Console.WriteLine(contact.Username);
+                        queriedUsers.UserIds.Add(contact.UserId);
+                        queriedUsers.Usernames.Add(contact.Username);
+                    }
+                }
+            }
+            
+            if (possibleContact2.Any())
+            {
+                foreach (var contact in possibleContact2)
+                {
+                    if (!contact.RequestValidated) continue;
+                    if (contact.Username.Contains(query))
+                    {
+                        Console.WriteLine(contact.Username);
+                        queriedUsers.UserIds.Add(contact.UserId);
+                        queriedUsers.Usernames.Add(contact.Username);
+                    }
+                    
+                }
+            }
+
+
+            ViewData["RequestScheme"] = Request.Scheme;
+
+            return Ok(JsonConvert.SerializeObject(queriedUsers));
         }
-        
+
         [Authorize]
         [HttpPut]
         [Route("Contact/Store")]
@@ -279,11 +316,7 @@ namespace ImageCore.Controllers
             Context.Contact.Add(contact);
             Context.SaveChanges();
        
-            return Json( Url.Action("Destroy", "Contact", new {contactId = contact.ContactId}, Request.Scheme),
-                new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            });
+            return Json( Url.Action("Destroy", "Contact", new {contactId = contact.ContactId}, Request.Scheme));
         }
 
         [Authorize]

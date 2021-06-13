@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    Layout = "_Layout";
+}
+<div class="loginArea">
+    <form class="loginBlock" asp-controller="ContactAdmin" asp-action="Store" method="post">
+        <h1>Kontaktiere uns!</h1>
+        @if (!Context.Request.Query["emailSent"].ToString().Equals(""))
+            {
+                <p>Email wurde erfolgreich versendet</p>
+            }
+        <span>Betreff</span>
+        <input name="Topic" type="text" placeholder=" " required>
+        <span>E-Mail</span>
+        <input name="Email" type="email" placeholder=" " required>
+        <span>Nachricht</span>
+        <input type="text" name="Message" required placeholder=" ">
+        <button type="submit">Senden</button>
+    </form>
+</div>

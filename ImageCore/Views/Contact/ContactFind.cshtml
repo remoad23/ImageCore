@@ -10,10 +10,8 @@
             <li>
                 <a asp-controller="Contact" asp-action="ContactRequests">Anfragen</a>
             </li>
-            <li>
-                <a asp-controller="Contact" asp-action="ContactFind">Finden</a>
-            </li>
         </ul>
+        <input id="searchBar" type="text" placeholder="Neue Kontakt suchen">
     </div>
     @foreach(var user in Model)
     {
@@ -53,5 +51,12 @@
               } 
         }); 
     }
+    
+    document.getElementById("searchBar").addEventListener("keyup",() =>{
+                if (event.keyCode === 13) {
+                   window.location.href = 
+                   document.getElementById("lookForUser").href + "?query=" + document.getElementById("searchBar").value; 
+                }
+            });
         
 </script>
