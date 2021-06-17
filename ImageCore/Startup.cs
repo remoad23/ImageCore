@@ -1,11 +1,16 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using ImageCore.Controllers.api.SignalR;
 using ImageCore.Models;
+using ImageCore.Requirements;
 using ImageCore.Services;
 using ImageCore.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +18,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ImageCore
 {
@@ -30,6 +37,7 @@ namespace ImageCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddHttpContextAccessor();
   
             services.AddDbContext<ContextDb>(options =>
                 options.UseSqlite("Data Source=ImageCore.db"));
@@ -39,12 +47,42 @@ namespace ImageCore
                 .AddEntityFrameworkStores<ContextDb>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication()
+                .AddJwtBearer("Application", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters    
+                    {
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Application for the Imagecore Imageprocessing App"))    
+                    };
+                });
+            
+            
+            /**
+             * Add Policies with specific auth schemes
+             */
+            services.AddAuthorization(options =>
+            {
+                /*
+                options.AddPolicy("ApplicationUser", new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .AddAuthenticationSchemes("Application")
+             //       .RequireClaim("role", "Admin")
+                    .Build()); */
+                
+                
+                options.AddPolicy("IsProjectParticipator", policy => policy.Requirements.Add(new IsProjectParticipatorRequirement()));
+            });
+            
+
+
             services.AddSignalR();
             
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+                
              });
             
             // Identity Options
@@ -65,6 +103,7 @@ namespace ImageCore
             });
             
             services.AddTransient<IMailSend, MailSend>();
+            services.AddTransient<IProjectAuth,ProjectAuth>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -86,6 +125,7 @@ namespace ImageCore
                     .AllowCredentials()
                     .WithOrigins("http://localhost:4200");;
             }));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,7 +151,7 @@ namespace ImageCore
             
             app.UseRouting();
             app.UseCors("MyPolicy");
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -124,9 +164,7 @@ namespace ImageCore
                 endpoints.MapHub<ChatHUB>("/chatHub");
                 endpoints.MapHub<ObjectHUB>("/ObjectHub");
             });
-            
 
-            
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,

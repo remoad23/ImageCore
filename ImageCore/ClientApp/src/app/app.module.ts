@@ -13,6 +13,7 @@ import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { PropertybarComponent } from './layout/propertybar/propertybar.component';
 import { ImageviewComponent } from './layout/imageview/imageview.component';
 import { LayerboxComponent } from './components/layerbox/layerbox.component';
+import {AuthGuard} from "./Guards/auth.guard";
 
 
 const openCVConfig: OpenCVOptions = {
@@ -37,7 +38,10 @@ const openCVConfig: OpenCVOptions = {
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      {
+        path: '',component: AppComponent, canActivate: [AuthGuard],
+
+      },
     ])
   ],
   providers: [],

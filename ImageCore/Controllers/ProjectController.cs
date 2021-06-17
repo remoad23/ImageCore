@@ -5,25 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImageCore.Models;
 using ImageCore.Models.ViewModel;
+using ImageCore.Services;
+using ImageCore.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImageCore.Controllers
 {
     public class ProjectController : Controller
     {
+        private IProjectAuth ProjectAuth;
         private ContextDb Context;
         private UserManager<UserModel> UserManager;
         
-        public ProjectController(ContextDb context,UserManager<UserModel> userManager)
+        public ProjectController(
+            ContextDb context,
+            UserManager<UserModel> userManager,
+            IProjectAuth projectAuth)
         {
+            ProjectAuth = projectAuth;
             Context = context;
             UserManager = userManager;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             string id = UserManager.GetUserId(User);
             var projects = Context.Project.Where(p => p.UserId == id).ToList();
@@ -40,9 +49,21 @@ namespace ImageCore.Controllers
 
         public IActionResult Show([FromQuery] int projectId)
         {
-            
-            return Redirect("http://localhost:4200/");
+
+            UserModel user = UserManager.GetUserAsync(User).Result;
+            var token = ProjectAuth.CreateToken(user);
+
+            return Redirect("http://localhost:4200/?token=" + token );
         }
+
+        /*
+        [Route("RedirectToProject")]
+        [Authorize(Policy = "IsProjectParticipator")]
+        public IActionResult RedirectToProject([FromQuery] string token)
+        {
+            return Redirect("http://localhost:4200/");
+        } 
+        */
 
         public IActionResult Create()
         {
