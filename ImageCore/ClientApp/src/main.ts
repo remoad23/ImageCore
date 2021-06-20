@@ -32,6 +32,8 @@ fetch("https://localhost:5001/Api", {
       providers[1].useValue = "NotValid";
       window.location.href = providers[2].useValue;
     }
+    urlParams.set('token',"s");
+    history.replaceState(null, null, "");
   }).then(StartApp)
 
 

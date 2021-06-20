@@ -44,7 +44,7 @@ namespace ImageCore.Services
                 null,
                 null,
                 claims,
-                expires: DateTime.Now.AddMinutes(120), signingCredentials: credentials
+                expires: DateTime.Now.AddMinutes(600), signingCredentials: credentials
                 );
             
             return new JwtSecurityTokenHandler().WriteToken(token);
