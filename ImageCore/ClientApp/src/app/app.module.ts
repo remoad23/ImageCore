@@ -13,12 +13,13 @@ import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { PropertybarComponent } from './layout/propertybar/propertybar.component';
 import { ImageviewComponent } from './layout/imageview/imageview.component';
 import { LayerboxComponent } from './components/layerbox/layerbox.component';
+import { LayerComponent } from './components/layer/layer.component';
 import {AuthGuard} from "./Guards/auth.guard";
 
 
 const openCVConfig: OpenCVOptions = {
   scriptUrl: `assets/opencv/wasm/3.4/opencv.js`,
-  wasmBinaryFile: 'assets/opencv/wasm/3.4/opencv_js.wasm',
+  wasmBinaryFile: `./assets/opencv/wasm/3.4/opencv_js.wasm`,
   usingWasm: true
 };
 
@@ -31,6 +32,7 @@ const openCVConfig: OpenCVOptions = {
     PropertybarComponent,
     ImageviewComponent,
     LayerboxComponent,
+    LayerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +45,12 @@ const openCVConfig: OpenCVOptions = {
 
       },
     ])
+  ],
+  exports: [
+    LayerComponent,
+  ],
+  entryComponents: [
+    LayerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewContainerR
 import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
+import { ImageProcessingService } from '../../services/image-processing.service';
 
 @Component({
   selector: 'menubar',
@@ -37,8 +38,21 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 })
 export class MenubarComponent{
   
+  @ViewChild('imageInput', { static: false }) imageInput: ElementRef;
 
-  constructor() {
+  constructor(private opencvService: ImageProcessingService) {
+
+  }
+
+
+  sendEvent(event) {
+    this.opencvService.addLayer(event);
+  }
+
+  
+
+  openFileMenu() {
+    this.imageInput.nativeElement.click();
   }
 
   
