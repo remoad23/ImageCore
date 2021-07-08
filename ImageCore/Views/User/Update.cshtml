@@ -1,7 +1,9 @@
 ﻿@{
     Layout = "_Layout";
 }
+@using ImageCore.Services
 @model ImageCore.Models.ViewModel.User.UserEditViewModel;
+@inject IImageLoader ImageLoader
 
 <form class="EditUserWrapper" asp-controller="User" asp-action="Put" asp-route-id="@ViewData["id"]">
     <h1>Benutzer bearbeiten</h1>
@@ -10,7 +12,8 @@
         <p>Änderungen gespeichert</p>
     }
     <div class="UserEditImageRow">
-        <div class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()"></div>
+        <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()"  
+             src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(Model.UserImage)))">
         <div class="UserInformation">
             <label>Username</label>
             <p>@Model.Username</p>

@@ -2,6 +2,8 @@
     Layout = "_Layout";
 }
 @using ImageCore.Models.ViewModel.User
+@using ImageCore.Services
+@inject IImageLoader ImageLoader
 @model List<ImageCore.Models.ViewModel.User.UserListViewModel>
 
 <div class="UserListWrapper">
@@ -46,8 +48,15 @@
         </div>
         @foreach (UserListViewModel user in Model)
         {
-            <div class="UserListEntry" >
-                <img class="userEntryImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="UserListEntry">
+                @if (user.Image is not null && !user.Image.Equals(""))
+                {
+                    <img class="userEntryImage" style="background-image: none !important;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(user.Image)))">
+                }
+                else
+                {
+                    <img class="userEntryImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                }
                 <div class="UserEntryVerticalWrapper">
                     <p class="userEntryHeader">Name</p>
                     <p class="userEntryValue">@user.Username</p>

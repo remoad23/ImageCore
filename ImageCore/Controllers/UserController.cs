@@ -56,6 +56,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "User",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -75,6 +76,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "User",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -99,6 +101,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "User",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -120,6 +123,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "User",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -158,7 +162,8 @@ namespace ImageCore.Controllers
                 Email = user.Email,
                 File = null,
                 Password = user.PasswordHash,
-                Role = role.Contains("Admin") ? "Admin" : "User"
+                Role = role.Contains("Admin") ? "Admin" : "User",
+                UserImage = user.image,
             };
             
             ViewData["id"] = id;
@@ -230,7 +235,8 @@ namespace ImageCore.Controllers
                 Username = id == authUserId ? authUserName : user.UserName,
                 isUser = id == authUserId ? true : false,
                 isContact = contact is not null,
-                ProjectNames = projects
+                ProjectNames = projects,
+                Image = user.image,
             };
 
             if (uservm.isContact)

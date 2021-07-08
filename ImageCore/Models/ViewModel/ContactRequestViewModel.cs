@@ -10,5 +10,6 @@ namespace ImageCore.Models.ViewModel
         public List<int> ContactIds;
         public List<string> UserIds;
         public List<string> Usernames;
+        public List<string> UserImages;
     }
 }

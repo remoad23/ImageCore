@@ -54,6 +54,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "Admin",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -73,6 +74,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "Admin",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -97,6 +99,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "Admin",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)
@@ -118,6 +121,7 @@ namespace ImageCore.Controllers
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Role = "Admin",
+                                Image = user.image is not null ? user.image : ""
                             }
                         )
                         .OrderBy(u => u.Username)

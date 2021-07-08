@@ -25,5 +25,7 @@ namespace ImageCore.Models.ViewModel.User
         
         public List<string> ProjectNames { get; set; }
         
+        public string Image { get; set; }
+        
     }
 }

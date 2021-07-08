@@ -1,14 +1,13 @@
 ﻿@{
     Layout = "_Layout";
 }
-@using Microsoft.AspNetCore.Routing
-@using Microsoft.AspNetCore.Http
-@using ImageCore.Models
+@using ImageCore.Services
 @model ImageCore.Models.ViewModel.User.UserViewModel;
+@inject IImageLoader ImageLoader
 
 <div class="userWrapper">
     <div class="user">
-        <div class="userImage"></div>
+        <img class="userImage"  src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(Model.Image)))">
         <div class="userDescription">
             <div class="userInformation">
                 <h1>@Model.Username</h1>

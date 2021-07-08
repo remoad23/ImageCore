@@ -43,6 +43,20 @@ namespace ImageCore.Services
 
             return null;
         }
+        
+        public byte[] GetProfileImage(string image)
+        {
+            try
+            {
+                return GetImage(image, "profileimages");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return null;
+        }
 
         public byte[] GetImage(string fileName,string folderName)
         {

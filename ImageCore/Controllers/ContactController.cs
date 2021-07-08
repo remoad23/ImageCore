@@ -42,7 +42,7 @@ namespace ImageCore.Controllers
                         Username = users.UserName,
                         UserId = users.Id,
                         ContactUserId = contact.ContactUserId,
-                        ContactId = contact.ContactId
+                        ContactId = contact.ContactId,
                     }
                 )
                 .ToList();
@@ -58,7 +58,7 @@ namespace ImageCore.Controllers
                         Username = users.UserName,
                         UserId = users.Id,
                         ContactUserId = contact.ContactUserId,
-                        ContactId = contact.ContactId
+                        ContactId = contact.ContactId,
                     }
                 )
                 .ToList();
@@ -66,6 +66,7 @@ namespace ImageCore.Controllers
             List<string> contactuserids = new List<string>();
             List<string> usernames = new List<string>();
             List<int> contactIds = new List<int>();
+            List<string> userImages = new List<string>();
 
             foreach (var contact in contacts)
             {
@@ -76,6 +77,8 @@ namespace ImageCore.Controllers
                 
                 usernames.Add(contact.Username);
                 contactIds.Add(contact.ContactId);
+                string image = Context.Users.Find(contact.UserId).image ?? null;
+                userImages.Add(image is not null ? image : "");
             }
             
             foreach (var contact in contacts2)
@@ -87,6 +90,8 @@ namespace ImageCore.Controllers
                 
                 usernames.Add(contact.Username);
                 contactIds.Add(contact.ContactId);
+                string image = Context.Users.Find(contact.ContactUserId).image ?? null;
+                userImages.Add(image is not null ? image : "");
             }
             
             ViewData["RequestScheme"] = Request.Scheme;
@@ -95,7 +100,8 @@ namespace ImageCore.Controllers
             {
                 Usernames = usernames,
                 UserIds =  contactuserids,
-                ContactIds =  contactIds
+                ContactIds =  contactIds,
+                UserImages = userImages
             };
             
             return View(contactvm);
@@ -115,7 +121,8 @@ namespace ImageCore.Controllers
                     {
                         Username = users.UserName,
                         ContactId = contact.ContactId,
-                        UserId = contact.UserId
+                        UserId = contact.UserId,
+                        Image = users.image != null ? users.image : "",
                     }
                 )
                 .ToList();
@@ -123,15 +130,17 @@ namespace ImageCore.Controllers
             List<int> contactids = new List<int>();
             List<string> usernames = new List<string>();
             List<string> userids = new List<string>();
+            List<string> userImages = new List<string>();
 
             foreach (var contact in contacts)
             {
                 contactids.Add(contact.ContactId);
                 usernames.Add(contact.Username);
                 userids.Add(contact.UserId);
+                userImages.Add(contact.Image);
             }
             
-            Console.WriteLine("contact:" +contactids.Count() + "  usernames:" + usernames.Count());
+            Console.WriteLine("contact:" +contacts.Count() + "  usernames:" + usernames.Count());
 
 
             ViewData["RequestScheme"] = Request.Scheme;
@@ -141,7 +150,8 @@ namespace ImageCore.Controllers
             {
                 Usernames = usernames,
                 ContactIds =  contactids,
-                UserIds = userids
+                UserIds = userids,
+                UserImages = userImages
             };
            
             return View(contactRequest);
@@ -187,6 +197,7 @@ namespace ImageCore.Controllers
                         Username = user.UserName,
                         IsContact = true,
                         ContactRequestValidated = possibleContact.RequestValidated ? true : false,
+                        Image = user.image,
                     });
                 }
                 else
@@ -197,6 +208,7 @@ namespace ImageCore.Controllers
                         Username = user.UserName,
                         IsContact = false,
                         ContactRequestValidated = false,
+                        Image = user.image is not null ? user.image : "",
                     });
                 }
             }

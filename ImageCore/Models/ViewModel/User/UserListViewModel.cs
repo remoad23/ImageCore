@@ -8,5 +8,7 @@ namespace ImageCore.Models.ViewModel.User
         public string Username { get; set; }
         public string UserId { get; set; }
         public string Role { get; set; }
+        
+        public string Image { get; set; }
     }
 }

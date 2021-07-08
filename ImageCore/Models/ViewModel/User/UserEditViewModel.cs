@@ -11,5 +11,7 @@ namespace ImageCore.Models.ViewModel.User
         public string Role { get; set; }
         public string Password { get; set; }
         public IFormFile File { get; set; }
+        
+        public string UserImage { get; set; }
     }
 }

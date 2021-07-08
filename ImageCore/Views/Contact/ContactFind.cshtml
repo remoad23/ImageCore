@@ -1,7 +1,9 @@
 ﻿@{
     Layout = "_Layout";
 }
+@using ImageCore.Services
 @model List<ImageCore.Models.ViewModel.ContactFindViewModel>
+@inject IImageLoader ImageLoader
 
 <div class="contactWrapper">
     <div class="contactHeader">
@@ -17,7 +19,14 @@
     {
         <div class="contactList contactListRequests">
             <a class="contactBlock contactBlockRequests" asp-controller="User" asp-action="Show" asp-route-id="@user.UserId">
-                <div class="contactProfileImage"></div>
+                @if (user.Image is not null && !user.Image.Equals(""))
+                {
+                    <img class="contactProfileImage"  src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(user.Image)))">
+                }
+                else
+                {
+                    <div class="contactProfileImage"></div>
+                }
                 <p>@user.Username</p>
                 @if (user.IsContact && !user.ContactRequestValidated)
                 {

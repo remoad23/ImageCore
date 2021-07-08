@@ -14,5 +14,7 @@ namespace ImageCore.Services
         public string UploadImage(IFormFile file, string filename, bool randomize = false);
 
         public byte[] GetProfileImage(ClaimsPrincipal claim);
+
+        public byte[] GetProfileImage(string image);
     }
 }

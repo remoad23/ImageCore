@@ -1,7 +1,9 @@
 ﻿@{
     Layout = "_Layout";
 }
+@using ImageCore.Services
 @model ImageCore.Models.ViewModel.ContactRequestViewModel
+@inject IImageLoader ImageLoader
 
 <div class="contactWrapper">
     <div class="contactHeader">
@@ -21,8 +23,15 @@
     @for(int x = 0; x < Model.Usernames.Count(); x++)
     {
         <div class="contactList contactListRequests">
-            <a class="contactBlock contactBlockRequests" asp-controller="User" asp-action="Show" asp-route-id="@Model.UserIds[x]">
-                <div class="contactProfileImage"></div>
+        <a class="contactBlock contactBlockRequests" asp-controller="User" asp-action="Show" asp-route-id="@Model.UserIds[x]">
+                @if (Model.UserImages[x] is not null && !Model.UserImages[x].Equals(""))
+                {
+                    <img class="contactProfileImage"  src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(Model.UserImages[x])))">
+                }
+                else
+                {
+                    <img class="contactProfileImage">
+                }
                 <p>@Model.Usernames[x]</p>
                 <button class="acceptContactRequestBtn" id="contactEdit"
                         onclick="fetchConctact('@Url.Action("AcceptRequest", "Contact", new {contactId = Model.ContactIds[x]}, ViewData["RequestScheme"].ToString())','PUT',this);event.preventDefault();event.stopPropagation()">

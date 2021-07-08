@@ -11,5 +11,6 @@ namespace ImageCore.Models.ViewModel
         public string Username;
         public bool IsContact;
         public bool ContactRequestValidated;
+        public string Image;
     }
 }
