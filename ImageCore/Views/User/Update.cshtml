@@ -40,8 +40,37 @@
                 <option value="User">Benutzer</option>
                 <option selected="selected"  value="Admin">Admin</option>
             }
-            
         </select>
-        <button type="submit" class="acceptContactRequestBtn" >Speichern</button>
+        <div class="buttonUpdateWrapper" style="display: flex;flex-direction: row"> 
+              <button type="submit" class="acceptContactRequestBtn" >Speichern</button>
+                    <button onclick="event.preventDefault();deleteElement()" class="acceptContactRequestBtn">Löschen</button>
+        </div>
     </div>
 </form>
+<template>
+    <div class="modalWindowConfirmWrapper" id="projectModalWindow">
+        <div class="modalWindowConfirm">
+            <h1>Möchtest du wirklich diesen User löschen?</h1>
+            <div class="modalWindowBtnWrapper">
+                <button id="deleteProjectBtn">Delete</button>
+                <button id="cancelProjectBtn" onclick="this.parentNode.parentNode.parentElement.remove()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+   function deleteElement()
+   {
+       let template = document.getElementsByTagName("template")[0].content.cloneNode(true);
+       let wrapper = template.children[0];
+       document.body.appendChild(wrapper);
+       wrapper.style.display = "block";
+       let deleteBtn = wrapper.children[0].children[1].children[0];
+       deleteBtn.addEventListener('click',() => {
+           window.location.href = `@Url.Action("DeleteAnotherAccount", "User", new {id = ViewData["id"]}, ViewData["RequestScheme"].ToString())`;
+       });   
+   }
+   
+        
+</script>

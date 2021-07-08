@@ -25,6 +25,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     <PackageReference Include="Twilio" Version="5.60.0" />
   </ItemGroup>
 
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\Guards" />
     <Folder Include="Models\ViewModel\Contacts" />
+    <Folder Include="wwwroot\profileimages" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,42 +10,43 @@
             <h1 >Test</h1>
         </div>
         <div class="UserListHeaderLower">
-            <input type="text" placeholder="suchen">
+            <input type="text" placeholder="suchen" id="lookForUser">
             <div class="filterOptionWrapper">
                 <div class="filterOption">
-                    <p>Name</p>
-                    <div class="arrowDown"></div>
-                </div>
-                <div class="filterOption">
-                    <p>Email</p>
-                    <div class="arrowDown"></div>
-                </div>
-                <div class="filterOption">
-                    <p>Rolle</p>
-                    <div class="arrowDown"></div>
+                    <select id="userOrdering">
+                        <option value="ascend">Aufsteigend</option>
+                        <option value="descend">Absteigend</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
     <div class="UserListList">
+        @if (TempData["interactionstatus"] is not null)
+        {
+            <p>@TempData["interactionstatus"] TEST</p>
+        }
         <div class="UserListEntry UserListEntryHeader">
-                <div class="userEntryImage"></div>
-                <div class="UserEntryVerticalWrapper">
-                    <p class="userEntryHeader userEntryHeaderHeader">Name</p>
-                </div>
-                <div class="UserEntryVerticalWrapper">
-                    <p class="userEntryHeader userEntryHeaderHeader">E-Mail</p>
-                </div>
-                <div class="UserEntryVerticalWrapper">
-                    <p class="userEntryHeader userEntryHeaderHeader">Role</p>
-                </div>
-                <div class="UserEntryVerticalWrapper">
-                    <p class="userEntryHeader userEntryHeaderHeader">Erstellt</p>
-                </div>
+            <div class="userEntryImage"></div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Name</p>
             </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">E-Mail</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Role</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Erstellt</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Interaktion</p>
+            </div>
+        </div>
         @foreach (UserListViewModel user in Model)
         {
-            <a class="UserListEntry" asp-controller="User" asp-action="Update" asp-route-id="@user.UserId">
+            <div class="UserListEntry" >
                 <img class="userEntryImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
                 <div class="UserEntryVerticalWrapper">
                     <p class="userEntryHeader">Name</p>
@@ -63,7 +64,12 @@
                     <p class="userEntryHeader">Erstellt</p>
                     <p class="userEntryValue">01.01.1970</p>
                 </div>
-            </a>
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">Interaktion</p>
+                    <a class="userEntryValue" asp-controller="User" asp-action="Update" asp-route-id="@user.UserId">User bearbeiten</a>
+                    <a class="userEntryValue" asp-controller="User" asp-action="Show" asp-route-id="@user.UserId">User ansehen</a>
+                </div>
+            </div>
         }
     </div>
     <div class="UserListPaginationWrapper">
@@ -83,3 +89,19 @@
         </div>
     </div>
 </div>
+
+<script>
+
+document.getElementById("lookForUser").addEventListener("keyup",() =>{
+                if (event.keyCode === 13) 
+                {
+                    let order = document.getElementById('userOrdering').value === "descend";
+                    let val = document.getElementById("lookForUser").value;
+                    let pagination = "";
+                    let url = `@Url.Action("Index", "User", new {}, ViewData["RequestScheme"].ToString())`;
+                   window.location.href = 
+                   url + "?query=" + val + (pagination ? ("&pagination=" + pagination) : ( "&pagination=0") ) + (order ? "&descend=true" : "");
+                }
+            });
+
+</script>

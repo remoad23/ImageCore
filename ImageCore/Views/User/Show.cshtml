@@ -3,6 +3,7 @@
 }
 @using Microsoft.AspNetCore.Routing
 @using Microsoft.AspNetCore.Http
+@using ImageCore.Models
 @model ImageCore.Models.ViewModel.User.UserViewModel;
 
 <div class="userWrapper">
@@ -34,84 +35,25 @@
                     }
                 }
                 <button onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)">Zu Projekt hinzufügen</button>
-                <button>Action 3</button>
-                <button>Action 4</button>
             </div>
         </div>
     </div>
     <div class="projectList">
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
+        @foreach(string project in Model.ProjectNames)
+        {
+            <div class="projectListEntry">
+                <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                <div class="projectListEntryText">
+                    <p>@project</p>
+                    <div class="projectEntryInformation">
+                        <div class="viewIcon"></div>
+                        <p>5</p>
+                        <div class="userIcon"></div>
+                        <p>5</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
-                </div>
-            </div>
-        </div>
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
-                </div>
-            </div>
-        </div>
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
-                </div>
-            </div>
-        </div>
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
-                </div>
-            </div>
-        </div>
-        <div class="projectListEntry">
-            <img src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
-            <div class="projectListEntryText">
-                <p>Projektname</p>
-                <div class="projectEntryInformation">
-                    <div class="viewIcon"></div>
-                    <p>5</p>
-                    <div class="userIcon"></div>
-                    <p>5</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
     <template>
         <div class="modalWindowConfirmWrapper" id="ModalWindow">

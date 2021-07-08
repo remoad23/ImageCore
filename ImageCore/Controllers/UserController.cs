@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ImageCore.Models;
@@ -30,59 +31,123 @@ namespace ImageCore.Controllers
             RoleManager = roleManager;
         }
         
-        [Authorize]
-        public IActionResult Index([FromQuery]int? pagination)
+        #nullable enable
+        [Authorize(Roles="Admin")]
+        public IActionResult Index([FromQuery]string? query,[FromQuery]int? pagination,[FromQuery] string descend)
         {
-            var roles = Dbcontext.Roles.Where(role => role.Name.Equals("User") || role.Name.Equals("Admin")).ToList();
             var UserList = (dynamic)null;
+            ViewData["RequestScheme"] = Request.Scheme;
             int pag = (Dbcontext.Users.Count() / 10);
             ViewData["paginationMax"] = (pagination + 5) > pag ? pag : pagination + 5;
             ViewData["paginationMin"] = (pagination - 5) < 0 ? 0 : pagination - 5;
             if (pagination is null)
             {
-                UserList = Dbcontext.Users.Join(
-                        Dbcontext.UserRoles,
-                        model => model.Id,
-                        userRole => userRole.UserId,
-                        (user, userRole) => new UserListViewModel
-                        {
-                            UserId = user.Id,
-                            Username = user.UserName,
-                            Email = user.Email,
-                            Role = userRole.RoleId.Equals(roles[0].Id) ? roles[0].Name : roles[1].Name ,
-                        }
-                    )
-                    .OrderBy(u => u.Username)
-                    .Take(10)
-                    .ToList();
+                if (query is not null)
+                {
+                    UserList = UserManager.GetUsersInRoleAsync("User").Result
+                        .Where(u => u.UserName.Contains(query) || u.UserName.ToLower().Contains(query))
+                        .Join(
+                            Dbcontext.UserRoles,
+                            model => model.Id,
+                            userRole => userRole.UserId,
+                            (user, userRole) => new UserListViewModel
+                            {
+                                UserId = user.Id,
+                                Username = user.UserName,
+                                Email = user.Email,
+                                Role = "User",
+                            }
+                        )
+                        .OrderBy(u => u.Username)
+                        .Take(10)
+                        .ToList();
+                }
+                else
+                {
+                    UserList = UserManager.GetUsersInRoleAsync("User").Result
+                        .Join(
+                            Dbcontext.UserRoles,
+                            model => model.Id,
+                            userRole => userRole.UserId,
+                            (user, userRole) => new UserListViewModel
+                            {
+                                UserId = user.Id,
+                                Username = user.UserName,
+                                Email = user.Email,
+                                Role = "User",
+                            }
+                        )
+                        .OrderBy(u => u.Username)
+                        .Take(10)
+                        .ToList();
+                }
+               
             }
             else
             {
-                UserList = Dbcontext.Users.Join(
-                        Dbcontext.UserRoles,
-                        model => model.Id,
-                        userRole => userRole.UserId,
-                        (user, userRole) => new UserListViewModel
-                        {
-                            UserId = user.Id,
-                            Username = user.UserName,
-                            Email = user.Email,
-                            Role = userRole.RoleId.Equals(roles[0].Id) ? roles[0].Name : roles[1].Name
-                        }
-                    )
-                    .OrderBy(u => u.Username)
-                    .Skip(10 * (int) pagination)
-                    .Take(10)
-                    .ToList();
+                if (query is not null)
+                {
+                    UserList = UserManager.GetUsersInRoleAsync("User").Result
+                        .Where(u => u.UserName.Contains(query) || u.UserName.ToLower().Contains(query))
+                        .Join(
+                            Dbcontext.UserRoles,
+                            model => model.Id,
+                            userRole => userRole.UserId,
+                            (user, userRole) => new UserListViewModel
+                            {
+                                UserId = user.Id,
+                                Username = user.UserName,
+                                Email = user.Email,
+                                Role = "User",
+                            }
+                        )
+                        .OrderBy(u => u.Username)
+                        .Skip(10 * (int) pagination)
+                        .Take(10)
+                        .ToList();
+                    Console.WriteLine(query);
+                }
+                else
+                {
+                    UserList = UserManager.GetUsersInRoleAsync("User").Result
+                        .Join(
+                            Dbcontext.UserRoles,
+                            model => model.Id,
+                            userRole => userRole.UserId,
+                            (user, userRole) => new UserListViewModel
+                            {
+                                UserId = user.Id,
+                                Username = user.UserName,
+                                Email = user.Email,
+                                Role = "User",
+                            }
+                        )
+                        .OrderBy(u => u.Username)
+                        .Skip(10 * (int) pagination)
+                        .Take(10)
+                        .ToList();
+                }
             }
 
-            return View(UserList);
+            var list = new List<UserListViewModel>();
+            if (descend is not null)
+            {
+                if (descend.Equals("true")) list = ((List<UserListViewModel>) UserList).OrderByDescending(u => u.Username).ToList();
+                return View(list);
+            }
+            else
+            {
+                return View(UserList);
+            }
+            
         }
+        #nullable disable
 
         [Route("User/Edit/{id}")]
         [Authorize]
         public IActionResult Update(string id)
         {
+            ViewData["RequestScheme"] = Request.Scheme;
             var user = Dbcontext.Users.Find(id);
 
             var role = UserManager.GetRolesAsync(user).Result;
@@ -100,8 +165,8 @@ namespace ImageCore.Controllers
             return View(userEditViewModel);
         }
 
-        [Route("User/Edit/Store/{id}")]
-        [Authorize]
+        [Route("User/Edit/Store/{id}")]        
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> Put(string id,[FromForm]UserEditViewModel model)
         {
             var user = Dbcontext.Users.Find(id);
@@ -136,7 +201,8 @@ namespace ImageCore.Controllers
             return RedirectToAction("Update",new{id=id});
         }
         
-        [Authorize]
+        
+        [Authorize(Roles="User,Admin")]
         [Route("User/{id}")]
         public async Task<IActionResult> Show(string id)
         {
@@ -152,13 +218,19 @@ namespace ImageCore.Controllers
                 Where(u => u.UserId.Equals(id) && u.ContactUserId.Equals(authUserId) 
                            || u.UserId.Equals(authUserId) && u.ContactUserId.Equals(id)).SingleOrDefault();
 
+            var projects = Dbcontext.Project
+                .Where(p => p.UserId.Equals(id))
+                .Select(p => p.Name)
+                .ToList();
+
             
             UserViewModel uservm = new UserViewModel
             {
                 UserId = user.Id,
                 Username = id == authUserId ? authUserName : user.UserName,
                 isUser = id == authUserId ? true : false,
-                isContact = contact is not null
+                isContact = contact is not null,
+                ProjectNames = projects
             };
 
             if (uservm.isContact)
@@ -195,19 +267,15 @@ namespace ImageCore.Controllers
             return RedirectToAction("Logout", "Login");
         }
         
-        [Authorize]
-        [Route("DeleteAnotherAccount")]
-        public IActionResult DeleteAnotherAccount(string token)
+        [Authorize(Roles="Admin")]
+        [Route("DeleteAnotherAccount/{id}")]
+        public IActionResult DeleteAnotherAccount(string id)
         {
-            string id = UserManager.GetUserId(User);
-            UserModel user = UserManager.FindByIdAsync(id).Result;
-
-            if (UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider,"Deletion",token).Result)
-            {
-                Dbcontext.Users.Remove(user);
-                Dbcontext.SaveChanges();
-            }
-            return RedirectToAction("Logout", "Login");
+            var user = Dbcontext.Users.Find(id);
+            Dbcontext.Users.Remove(user);
+            Dbcontext.SaveChanges();
+            TempData["interactionstatus"] = "User wurde erfolgreich gelöscht";
+            return RedirectToAction("Index",new{pagination = 0});
         }
     }
 }

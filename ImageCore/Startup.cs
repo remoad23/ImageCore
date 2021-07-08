@@ -104,6 +104,7 @@ namespace ImageCore
             
             services.AddTransient<IMailSend, MailSend>();
             services.AddTransient<IProjectAuth,ProjectAuth>();
+            services.AddTransient<IImageLoader,ImageLoader>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -149,6 +150,7 @@ namespace ImageCore
                 app.UseSpaStaticFiles();
             }
             
+            app.UseStatusCodePages();
             app.UseRouting();
             app.UseCors("MyPolicy");
 

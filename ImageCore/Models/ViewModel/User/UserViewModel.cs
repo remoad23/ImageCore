@@ -23,5 +23,7 @@ namespace ImageCore.Models.ViewModel.User
         [Required]
         public bool isContact { get; set; }
         
+        public List<string> ProjectNames { get; set; }
+        
     }
 }

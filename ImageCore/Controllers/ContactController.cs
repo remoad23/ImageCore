@@ -25,7 +25,7 @@ namespace ImageCore.Controllers
             UserManager = userManager;
         }
         
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         public async Task<IActionResult> Index()
         {
             string id = UserManager.GetUserId(User);
@@ -101,7 +101,7 @@ namespace ImageCore.Controllers
             return View(contactvm);
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         public IActionResult ContactRequests()
         {
             string id = UserManager.GetUserId(User);
@@ -148,7 +148,7 @@ namespace ImageCore.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         public async Task<IActionResult> ContactFind([FromQuery]string query)
         {
             string id = UserManager.GetUserId(User);
@@ -207,6 +207,7 @@ namespace ImageCore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles="Admin,User")]
         public IActionResult QueryContacts([FromQuery] string query)
         {
             string id = UserManager.GetUserId(User);
@@ -277,7 +278,7 @@ namespace ImageCore.Controllers
             return Ok(JsonConvert.SerializeObject(queriedUsers));
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         [HttpPut]
         [Route("Contact/Store")]
         public IActionResult AcceptRequest([FromQuery]int contactId)
@@ -300,7 +301,7 @@ namespace ImageCore.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         [HttpPost]
         [Route("Contact/Store")]
         public IActionResult Store([FromQuery]string contactId)
@@ -319,7 +320,7 @@ namespace ImageCore.Controllers
             return Json( Url.Action("Destroy", "Contact", new {contactId = contact.ContactId}, Request.Scheme));
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         [HttpDelete]
         public IActionResult Destroy([FromQuery] int contactId)
         {

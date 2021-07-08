@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ImageCore.Models
+@using ImageCore.Services
 @inject UserManager<UserModel> UserManager
+@inject IImageLoader loader
 
 
 <!DOCTYPE html>
@@ -42,6 +44,14 @@
                     <i>O</i>
                     <a asp-controller="User" asp-action="Index" asp-route-pagination="0">User Liste</a>
                 </li>
+                <li onclick="this.children[1].click()">
+                    <i>O</i>
+                    <a asp-controller="Admin" asp-action="Index" asp-route-pagination="0">Admin Liste</a>
+                </li>
+                <li onclick="this.children[1].click()">
+                    <i>O</i>
+                    <a asp-controller="ProjectAdmin" asp-action="Index" asp-route-pagination="0">Projekten Liste</a>
+                </li>
             }
             <li onclick="this.children[1].click()">
                 <i>O</i>
@@ -66,9 +76,18 @@
                 <a asp-controller="Contact" asp-action="Index">Contacts</a>
             </li>
         </ul>
-        <div class="navImage" onclick="toggleNavigationSidebar()">
-            <a id="profileLink" asp-controller="User" asp-action="Show"></a>
-        </div>
+
+        @if (loader.GetProfileImage(User) is not null)
+        {
+            <div class="navImage" onclick="toggleNavigationSidebar()">
+                <img style="height: 100%; width: 100%; border-radius: 100%;"
+                    src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(loader.GetProfileImage(User)))"/>
+            </div>
+        }
+        else
+        {
+            <div class="navImage" onclick="toggleNavigationSidebar()"></div>
+        }
     </div>
 </nav>
 <div class="renderBody">

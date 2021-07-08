@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "_Layout";
+}
+@using ImageCore.Models.ViewModel.User
+@model List<ImageCore.Models.ViewModel.User.UserListViewModel>
+
+<div class="UserListWrapper">
+    <div class="UserListHeader">
+        <div class="userListHeaderUpper">
+            <h1 >Test</h1>
+        </div>
+        <div class="UserListHeaderLower">
+            <input type="text" placeholder="suchen" id="lookForUser">
+            <div class="filterOptionWrapper">
+                <div class="filterOption">
+                    <select id="userOrdering">
+                        <option value="ascend">Aufsteigend</option>
+                        <option value="descend">Absteigend</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="UserListList">
+        <div class="UserListEntry UserListEntryHeader">
+            <div class="userEntryImage"></div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Name</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">E-Mail</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Role</p>
+            </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Erstellt</p>
+            </div>
+        </div>
+        @foreach (UserListViewModel user in Model)
+        {
+            <a class="UserListEntry" asp-controller="User" asp-action="Update" asp-route-id="@user.UserId">
+                <img class="userEntryImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">Name</p>
+                    <p class="userEntryValue">@user.Username</p>
+                </div>
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">E-Mail</p>
+                    <p class="userEntryValue">@user.Email</p>
+                </div>
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">Role</p>
+                    <p class="userEntryValue">@user.Role</p>
+                </div>
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">Erstellt</p>
+                    <p class="userEntryValue">01.01.1970</p>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="UserListPaginationWrapper">
+        <div class="UserPagination">
+            <div class="UserPaginationBack">
+                <p><</p>
+            </div>
+            <div class="UserPagionationNumbers">
+                @for (int x = (int)ViewData["paginationMin"]; x < (int)ViewData["paginationMax"]; x++)
+                {
+                    <a asp-action="Index" asp-controller="Admin" asp-route-pagination="@x">@x</a>
+                }
+            </div>
+            <div class="UserPaginationForward">
+                <p>></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+document.getElementById("lookForUser").addEventListener("keyup",() =>{
+                if (event.keyCode === 13) 
+                {
+                    let order = document.getElementById('userOrdering').value === "descend";
+                    let val = document.getElementById("lookForUser").value;
+                    let pagination = "";
+                    let url = `@Url.Action("Index", "Admin", new {}, ViewData["RequestScheme"].ToString())`;
+                   window.location.href = 
+                   url + "?query=" + val + (pagination ? ("&pagination=" + pagination) : ( "&pagination=0") ) + (order ? "&descend=true" : "");
+                }
+            });
+
+</script>

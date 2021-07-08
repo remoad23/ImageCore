@@ -9,7 +9,7 @@ namespace ImageCore.Models
 {
     public class UserModel : IdentityUser
     {
-
+        public string image { get; set; }
         public List<ProjectParticipatorModel> ProjectParticipators { get; set; }
         public List<ProjectModel> Projects { get; set; }
     }

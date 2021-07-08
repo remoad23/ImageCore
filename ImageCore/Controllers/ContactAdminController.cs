@@ -1,6 +1,7 @@
 using ImageCore.Models.ViewModel;
 using ImageCore.Services;
 using ImageCore.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageCore.Controllers
@@ -15,11 +16,13 @@ namespace ImageCore.Controllers
         }
         
         // GET
+        [Authorize(Roles="User,Admin")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles="Admin,User")]
         public IActionResult Store([FromForm] ContactAdminViewModel model)
         {
             Mail.SendEmail(model.Message,model.Topic,"imagecore23@gmail.com");

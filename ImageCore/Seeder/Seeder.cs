@@ -25,7 +25,7 @@ namespace ImageCore.Seeder
           //  FilterSeeder.Seed();
         //    ImageComponentSeeder.Seed();
       //      ImageLayerSeeder.Seed();
-          //  ProjectParticipatorSeeder.Seed(modelBuilder,users);
+            ProjectParticipatorSeeder.Seed(modelBuilder,users);
     //        FilterSeeder.Seed();
         }
 

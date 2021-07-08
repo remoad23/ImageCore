@@ -48,8 +48,8 @@ nav
 .navImage
 {
     background-color: red;
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
     align-self: center;
     border-radius: 100%;
     margin-right: 2vw;
@@ -1366,6 +1366,23 @@ footer{
     box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
     margin-bottom: 5vh;
     transition: opacity 0.2s;
+}
+
+.ProjectListEntry
+{
+    width: 100% !important;
+    background-color: white !important;
+    margin-bottom: 3vh !important;
+}
+
+.ProjectListEntryP
+{
+    color: #C4B52C !important;
+}
+
+.projectEntryImage
+{
+    width: 13% !important;
 }
 
 .UserListEntry:hover

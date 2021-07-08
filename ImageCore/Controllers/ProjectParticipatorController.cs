@@ -34,7 +34,7 @@ namespace ImageCore.Controllers
         /**
          * Invite a new User to a project
          */
-        [Authorize]
+        [Authorize(Roles="Admin,User")]
         [HttpPost]
         public IActionResult Store(string userId,int projectId)
         {
@@ -52,6 +52,7 @@ namespace ImageCore.Controllers
          * get rid of user inside a Project
          */
         [Authorize]
+        [Authorize(Roles="Admin,User")]
         public IActionResult Destroy(string projectParticipatorId)
         {
             ProjectParticipatorModel participatorModel = Context.ProjectParticipator.Find(projectParticipatorId);

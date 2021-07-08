@@ -32,6 +32,7 @@ namespace ImageCore.Controllers
             UserManager = userManager;
         }
         
+        [Authorize(Roles="User,Admin")]
         public async Task<IActionResult> Index()
         {
             string id = UserManager.GetUserId(User);
@@ -47,6 +48,7 @@ namespace ImageCore.Controllers
             return View(project);
         }
 
+        [Authorize(Roles="User,Admin")]
         public IActionResult Show([FromQuery] int projectId)
         {
 
@@ -65,16 +67,20 @@ namespace ImageCore.Controllers
         } 
         */
 
+        [Authorize(Roles="User,Admin")]
         public IActionResult Create()
         {
             ViewData["RequestScheme"] = Request.Scheme;
             return View();
         }
 
+        
+        
         /**
          * Projects that the User has permission to join
          * because he got invited into these projects
          */
+        [Authorize(Roles="User,Admin")]
         public IActionResult Shared()
         {
             var sharedProjects = Context.ProjectParticipator
@@ -96,7 +102,8 @@ namespace ImageCore.Controllers
             return View(sharedProjects);
         }
         
-        [Authorize]
+        
+        [Authorize(Roles="User,Admin")]
         public IActionResult Store([FromForm] ProjectStoreViewModel projectval)
         {
             string id = UserManager.GetUserId(User);
@@ -127,6 +134,7 @@ namespace ImageCore.Controllers
             return RedirectToAction("Create",new{projectCreated = true});
         }
 
+        [Authorize(Roles="User,Admin")]
         public IActionResult QueryProjects([FromQuery] string query)
         {
             string id = UserManager.GetUserId(User);
@@ -145,6 +153,7 @@ namespace ImageCore.Controllers
             return View("~/Views/Project/Index.cshtml",project);
         }
 
+        [Authorize(Roles="User,Admin")]
         public IActionResult QuerySharedProjects([FromQuery] string query)
         {
             var sharedProjects = Context.ProjectParticipator
@@ -168,6 +177,7 @@ namespace ImageCore.Controllers
         }
 
         [Authorize]
+        [Authorize(Roles="User,Admin")]
         public IActionResult Destroy([FromQuery]int projectId)
         {
             ProjectModel project = Context.Project.Find(projectId);
@@ -178,6 +188,7 @@ namespace ImageCore.Controllers
 
       //  [Authorize]
      //   [HttpGet]
+        [Authorize(Roles="User,Admin")]
         public IActionResult GetProjects([FromQuery] string userId)
         {
             string id = UserManager.GetUserId(User);
