@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
       load$
         .pipe(
           switchMap(() => {
+            console.log(`${reader.result}`);
             return this.ngOpenCVService.loadImageToHTMLCanvas(`${reader.result}`, this.canvasOutput.nativeElement);
           })
         )

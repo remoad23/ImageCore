@@ -1,8 +1,9 @@
 <div id="menubarContainer">
   <div id="logo"></div>
-  <div class="menuButton">File</div>
+  <div id="fileButton" (click)="openFileMenu()" class="menuButton">File</div>
   <div class="menuButton">Edit</div>
   <div class="menuButton">Image</div>
   <div class="menuButton">Layer</div>
   <div class="menuButton">Filter</div>
+  <input type="file" accept="image/png, image/jpeg" id="imageInput" #imageInput style="display:none;" (change)="sendEvent($event)" />
 </div>
