@@ -7,10 +7,17 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #c8d8e4;
 }
 
 a{
     text-decoration: none;
+    color: #f2f2f2;
+}
+
+a:hover
+{
+    color: #52ab98;
 }
 
 
@@ -31,7 +38,7 @@ nav
     display: flex;
     height: 100%;
     width: 100%;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     justify-content: space-between;
 }
 
@@ -79,7 +86,7 @@ nav
 
 .navbarRouteList > li > a:hover 
 {
-    color: blue;
+    color: #52ab98;
 }
 
 .navbarRouteList > li > a 
@@ -98,7 +105,7 @@ nav
     width: 15vw;
     position: fixed;
     right: -100vw;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
     transition: right 0.5s;
 }
@@ -129,7 +136,7 @@ nav
 .userNavigationHeader > .CloseNavigation:hover
 {
     cursor: pointer;
-    color: blue;
+    color: #52ab98;
 }
 
 .userNavigationWrapper > h1
@@ -182,7 +189,7 @@ nav
 
 .userNavigationList > li:hover 
 {
-    background-color: blue;
+    background-color: #52ab98;
     cursor: pointer;
 }
 
@@ -194,7 +201,7 @@ footer{
     display: flex;
     height: 20vh;
     width: 100vw;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     justify-content: center;
     align-items: center;
 }
@@ -217,7 +224,7 @@ footer{
 
 .footerLinkWrapper > a:hover, .footerChildWrapper > p:first-child:hover
 {
-    color: blue;
+    color: #52ab98;
 }
 
 .footerLinkWrapper > a, .footerChildWrapper > p
@@ -247,7 +254,7 @@ footer{
 
 .introduction
 {
-    background-color: blue;
+    background-color: #52ab98;
     background-image: url("../images/Abstract-Background-Best-Wallpaper-14092.jpg");
     background-size: contain;
     display: flex;
@@ -292,11 +299,11 @@ footer{
 }
 
 .block1{
-    background-color: #C4B52C;
+    background-color: #2b6777;
 }
 
 .block2{
-    background-color: #C4B52C;
+    background-color: #2b6777;
 }
 
 .block3{
@@ -324,7 +331,7 @@ footer{
 
 .featureCircle
 {
-    background-color: #C4B52C;
+    background-color: #2b6777;
     border-radius: 100%;
     height: 200px;
     width: 200px;
@@ -352,14 +359,14 @@ footer{
 }
 
 .blockTextWrapper3{
-    color: #C4B52C;
+    color: #2b6777;
 }
 
 .imageblockBtn
 {
     height: 5vh;
     width: 10vw;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     border: none;
     color: white;
     font-size: 1.2em;
@@ -399,7 +406,7 @@ footer{
     flex-flow: row;
     justify-content: space-between;
     border-radius: 15px;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     align-items: center;
     padding-left: 3%;
     margin-bottom: 10vh;
@@ -429,7 +436,7 @@ footer{
 .projectHeader > ul > li:hover
 {
     cursor: pointer;
-    color: blue;
+    color: #52ab98;
 }
 
 
@@ -460,7 +467,7 @@ footer{
     margin-right: 5%;
     width: 20%;
     border-radius: 15px;
-    background-color: #C4B52C;
+    background-color: #2b6777;
 }
 
 .projectListEntry > img:hover
@@ -553,7 +560,7 @@ footer{
     width: 25%;
     height: 20%;
     border-radius: 15px;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     left: 37%;
     top: 40%;
     position: absolute;
@@ -592,7 +599,7 @@ footer{
 .modalWindowBtnWrapper > button:hover 
 {
     cursor: pointer;
-    background-color: blue;
+    background-color: #52ab98;
     color: white;
 }
 
@@ -612,7 +619,7 @@ footer{
     border-radius: 20px;
     margin-top: 10vh;
     margin-bottom: 10vh;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     
     
 }
@@ -655,7 +662,7 @@ footer{
 
 .contactHeader > ul > li:hover
 {
-    color: blue;
+    color: #52ab98;
     cursor: pointer;
 }
 
@@ -735,7 +742,7 @@ footer{
     display: flex;
     flex-flow: row;
     height: 30vh;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     border-radius: 20px;
     margin-bottom: 10vh;
 }
@@ -792,7 +799,7 @@ footer{
 
 .userProjects
 {
-    background-color: #C4B52C;
+    background-color: #2b6777;
     margin-top: 5vh;
     display: flex;
     flex-direction: column;
@@ -835,7 +842,7 @@ footer{
 
 .EditUserWrapper
 {
-    background-color: #C4B52C;
+    background-color: #2b6777;
     height: 60vh;
     margin-bottom: 10vh;
     margin-top: 10vh;
@@ -958,7 +965,7 @@ footer{
 {
     width: 20%;
     height: auto;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     border-radius: 20px;
     display: flex;
     flex-flow: column;
@@ -995,7 +1002,7 @@ footer{
     border-radius: 25px;
     border:none;
     margin-top: 30px;
-    background-color: #FED9FF;
+    background-color: #52ab98;
     color: white;
     font-size: 2em;
     font-weight: 600;
@@ -1057,7 +1064,7 @@ footer{
     display: flex;
     flex-flow: column;
     height: 100vh;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     width: 17%;
     align-items: center;
     padding: 4vh 0vh 2vw 0vw;
@@ -1088,7 +1095,7 @@ footer{
 .settingsSidebar > ul > li:hover
 {
     cursor: pointer;
-    color: blue;
+    color: #52ab98;
 }
 
 
@@ -1106,7 +1113,7 @@ footer{
 
 .settingsSidebarLink:hover
 {
-    color: blue;
+    color: #52ab98;
 }
 
 .settingsTable
@@ -1129,7 +1136,7 @@ footer{
     padding-left: 2%;
     background: none;
     border: none;
-    border-bottom: 3px solid #C4B52C !important;
+    border-bottom: 3px solid #2b6777 !important;
     font-size: 1.5em;
 }
 
@@ -1144,7 +1151,7 @@ footer{
     border-radius: 9px;
     border:none;
     margin-top: 30px;
-    background-color: #FED9FF;
+    background-color: #52ab98;
     color: white;
     font-size: 1.5em;
     font-weight: 600;
@@ -1276,7 +1283,7 @@ footer{
 .userListHeaderUpper > h1 
 {
     font-size: 4em;
-    color: #C4B52C;
+    color: #2b6777;
 }
 
 .UserListHeaderLower
@@ -1286,14 +1293,14 @@ footer{
     width: 80%;
     flex-direction: row;
     display: flex;
-    border-bottom: 4px solid #C4B52C;
+    border-bottom: 4px solid #2b6777;
 }
 
 .UserListHeaderLower > input
 {
     width: 40%;
     height: 60%;
-    border: 5px solid #C4B52C;
+    border: 5px solid #2b6777;
     border-radius: 7px;
     outline: none;
 }
@@ -1318,7 +1325,7 @@ footer{
     flex-direction: row;
     width: 15%;
     justify-content: space-evenly;
-    color: #C4B52C;
+    color: #2b6777;
     font-size: 1.3em;
     font-weight: 500;
 }
@@ -1331,7 +1338,7 @@ footer{
 
 .filterOption :hover
 {
-    color: blue;
+    color: #52ab98;
     cursor: pointer;
 }
 
@@ -1359,7 +1366,7 @@ footer{
 {
     height: 15vh;
     width: 80%;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     display: flex;
     flex-direction: row;
     border-radius: 10px;
@@ -1377,7 +1384,7 @@ footer{
 
 .ProjectListEntryP
 {
-    color: #C4B52C !important;
+    color: #2b6777 !important;
 }
 
 .projectEntryImage
@@ -1401,7 +1408,7 @@ footer{
 
 .userEntryHeaderHeader
 {
-    color: #C4B52C !important;
+    color: #2b6777 !important;
     font-weight: 600;
     font-size: 1.3em;
 }
@@ -1478,14 +1485,14 @@ footer{
     justify-content: center;
     align-items: center;
     font-size: 2.5em;
-    background-color: #C4B52C;
+    background-color: #2b6777;
     color: white;
     transition: color 0.1s;
 }
 
 .UserPaginationBack:hover , .UserPaginationForward:hover 
 {
-    color: blue;
+    color: #52ab98;
 }
 
 .UserPaginationBack
@@ -1648,7 +1655,7 @@ and (min-device-width : 768px)
         border-radius: 5px;
         border:none;
         margin-top: 0px;
-        background-color: #FED9FF;
+        background-color: #52ab98;
         color: white;
         font-size: 1.5em;
         font-weight: 500;
@@ -1668,7 +1675,7 @@ and (min-device-width : 768px)
     .declineContactRequestBtn:hover,.acceptContactRequestBtn:hover
     {
         cursor: pointer;
-        color: blue;
+        color: #52ab98;
     }
     
     .settingsSidebar
@@ -1734,7 +1741,7 @@ and (min-device-width : 768px)
         display: flex;
         flex-flow: column;
         min-height: 50vh;
-        background-color: #C4B52C;
+        background-color: #2b6777;
         border-radius: 20px;
         padding-left: 3vw;
         padding-right: 3vw;
@@ -1790,7 +1797,7 @@ and (min-device-width : 768px)
     {
         width: 75%;
         font-size: 1.3em;
-        color: #C4B52C;
+        color: #2b6777;
     }
     
     .invitedContactsField{
@@ -1809,13 +1816,13 @@ and (min-device-width : 768px)
         text-align: center;
         font-size: 2em;
         transition: color 0.1s;
-        color: #C4B52C;
+        color: #2b6777;
     }
     
     .cancelInvitedUser:hover
     {
         cursor: pointer;
-        color: blue;
+        color: #52ab98;
     }
     
     .invitedContacts > input
@@ -1831,7 +1838,7 @@ and (min-device-width : 768px)
         border-style: none;
         color: white;
         border-radius: 5px;
-        color: blue;
+        color: #52ab98;
         font-size: 1.2em;
         transition: background-color 0.1s ,color 0.1s;
         margin-top: 5vh;
@@ -1845,7 +1852,7 @@ and (min-device-width : 768px)
     
     .submitCreateProjectBtn:hover{
         cursor: pointer;
-        background-color: blue;
+        background-color: #52ab98;
         color: white;
     }
     
@@ -2171,7 +2178,7 @@ and (min-width : 1201px)
     }
     .filterOption > p{
         align-self: center;
-        color: #C4B52C;
+        color: #2b6777;
     }
 
     .filterOptionWrapper {
@@ -2322,7 +2329,7 @@ and (min-width : 1920px)
     }
     .filterOption > p{
         align-self: center;
-        color: #C4B52C;
+        color: #2b6777;
     }
 
     .filterOptionWrapper {
