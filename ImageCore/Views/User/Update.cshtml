@@ -12,8 +12,18 @@
         <p>Änderungen gespeichert</p>
     }
     <div class="UserEditImageRow">
-        <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()"  
-             src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(Model.UserImage)))">
+        @if (Model.UserImage is not null && !Model.UserImage.Equals(""))
+        {
+            <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()"
+                         src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ImageLoader.GetProfileImage(Model.UserImage)))">
+        }
+        else
+        {
+             <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+        }
+        
+
+       
         <div class="UserInformation">
             <label>Username</label>
             <p>@Model.Username</p>
