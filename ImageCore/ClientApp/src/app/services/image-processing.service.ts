@@ -1,4 +1,4 @@
-import { Injectable, Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ReflectiveInjector } from '@angular/core';
+import { Injectable, Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ReflectiveInjector, HostListener} from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataTransmitterServiceService } from "./data-transmitter-service.service";
@@ -22,27 +22,67 @@ export class ImageProcessingService {
 
   private imgViewComponent;
 
-  private layerArray: LayerComponent[];
+  public layerArray: LayerComponent[];
+  public activeLayer: number;
+
   private factoryResolver: any;
+
+  public selectedTool: string;
+
+  //colors
+  public toolColor = ["#ffffff", "#000000"];
+  public activeColor = 0;
 
 
   constructor(private transmitter: DataTransmitterServiceService, private ngOpenCVService: NgOpenCVService, private componentFactory: ComponentFactoryResolver)
   {
     this.factoryResolver = componentFactory;
     this.layerArray = [];
+    this.activeLayer = null;
+    this.selectedTool = "move";
   }
 
 
   addLayer(event) {
-    console.log(this.imgViewComponent);
     let newLayerFactory = this.factoryResolver.resolveComponentFactory(LayerComponent);
     let newLayer = this.imgViewComponent.createComponent(newLayerFactory);
-    newLayer.instance.setImgSource(event);
+    newLayer.instance.setImgSource(event, this.layerArray, this.imgViewComponent, this.layerArray.length);
   }
 
 
   setImgViewComponent(reference: any) {
     this.imgViewComponent = reference;
+  }
+
+  updateLayerArray() {
+    for (let i = 0; i < this.layerArray.length; i++) {
+      this.layerArray[i].updateZIndex(i);
+    }
+  }
+
+  setActiveLayer(idx: number) {
+    if (this.activeLayer != null) {
+      this.layerArray[this.activeLayer].deactivateTransformBox();
+    }
+    this.activeLayer = idx;
+    this.layerArray[this.activeLayer].activateTransformBox();
+
+  }
+
+  deleteActiveLayer() {
+    if (this.activeLayer !== null) {
+      this.layerArray[this.activeLayer].deleteLayer();
+      this.layerArray.splice(this.activeLayer, 1);
+      
+      this.activeLayer = null;
+    }
+  }
+
+  moveSelectedLayer(diffX, diffY) {
+    if (this.activeLayer !== null) {
+      this.layerArray[this.activeLayer].viewLeft += diffX;
+      this.layerArray[this.activeLayer].viewTop += diffY;
+    }
   }
 
   updateData(text:string)
@@ -68,5 +108,13 @@ export class ImageProcessingService {
   private initEvenets()
   {
 
+  }
+
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    console.log("Processing beforeunload...");
+    for (let i = 0; i < this.layerArray.length; i++) {
+      this.layerArray[i].deleteLayer();
+    }
+    event.returnValue = false;
   }
 }

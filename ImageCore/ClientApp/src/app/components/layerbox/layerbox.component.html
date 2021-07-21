@@ -1,7 +1,7 @@
-<div id="layerboxContainer">
+<div (mousedown)="activateLayer($event)" id="layerboxContainer">
   <div class="visibilityContainer">
     <input type="checkbox" id="visibilityCheckbox" #visibilityCheckbox checked/>
   </div>
-  <div id="layerPreview" #layerPreview></div>
+  <img id="layerPreview" #layerPreview src="{{previewImg}}">
   <div id="layername" #layername>Layer</div>
 </div>

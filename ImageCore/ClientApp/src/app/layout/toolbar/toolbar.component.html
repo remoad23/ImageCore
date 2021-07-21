@@ -1,8 +1,13 @@
-<div id="toolbarContainer">
-  <div class="toolButton"></div>
-  <div class="toolButton"></div>
-  <div class="toolButton"></div>
-  <div class="toolButton"></div>
-  <div class="toolButton"></div>
-  <div class="toolButton"></div>
+<div id="toolbarContainer" #toolbarContainer>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div (click)="activateTool($event,'move')" class="toolButton"></div>
+  <div class="colorPreviewContainer" (click)="toggleActiveColor()">
+    <div class="colorPreview" style="z-index:3" *ngIf="opencvService.activeColor == 1" [style.background-color]="opencvService.toolColor[1]"></div>
+    <div class="colorPreview" style="z-index:2" [style.background-color]="opencvService.toolColor[0]"></div>
+    <div class="colorPreview" style="z-index:1" *ngIf="opencvService.activeColor == 0" [style.background-color]="opencvService.toolColor[1]"></div>
+  </div>
 </div>

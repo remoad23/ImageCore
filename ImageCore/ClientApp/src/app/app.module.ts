@@ -15,6 +15,8 @@ import { ImageviewComponent } from './layout/imageview/imageview.component';
 import { LayerboxComponent } from './components/layerbox/layerbox.component';
 import { LayerComponent } from './components/layer/layer.component';
 import {AuthGuard} from "./Guards/auth.guard";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 const openCVConfig: OpenCVOptions = {
@@ -39,12 +41,14 @@ const openCVConfig: OpenCVOptions = {
     NgOpenCVModule.forRoot(openCVConfig),
     HttpClientModule,
     FormsModule,
+    DragDropModule,
     RouterModule.forRoot([
       {
         path: '',component: AppComponent, canActivate: [AuthGuard],
 
       },
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   exports: [
     LayerComponent,

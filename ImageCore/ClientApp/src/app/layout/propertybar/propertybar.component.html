@@ -3,8 +3,8 @@
     <h5>Color</h5>
     <div class="colorContainer">
       <div class="colorInputContainer">
-        <input type="color" #colorInput1 id="colorInput1" value="#ffffff" />
-        <input type="color" #colorInput2 id="colorInput2" value="#ffffff" />
+        <input type="color" #colorInput1 id="colorInput1" value="#ffffff" (change)="changeToolColor($event,0)"/>
+        <input type="color" #colorInput2 id="colorInput2" value="#000000" (change)="changeToolColor($event,1)"/>
       </div>
       <div id="pickArea" style="background-color: rgb(255,0,0)"></div>
     </div>
@@ -13,13 +13,17 @@
     <h5>Properties</h5>
     <div class="propertyInputContainer">
       <label for="width">Width:</label>
-      <input type="number" id="widthProperty" #widthProperty name="width" />
+      <input type="number" id="widthProperty" step="1" #widthProperty name="width" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].width" (change)="changeWidth($event)"/>
+      <input type="number" name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
       <label for="width">Height:</label>
-      <input type="number" id="heightProperty" #heightProperty name="height" />
+      <input type="number" id="heightProperty" step="1" #heightProperty name="height" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].height" (change)="changeHeight($event)"/>
+      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
       <label for="width">X:</label>
-      <input type="number" id="xPosition" #xPosition name="x" />
+      <input type="number" id="xPosition" step=".01" #xPosition name="x" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewLeft-service.layerArray[service.activeLayer].viewCenterX).toFixed(2)" (change)="changeX($event)"/>
+      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
       <label for="width">Y:</label>
-      <input type="number" id="yPosition" #yPosition name="y" />
+      <input type="number" id="yPosition" step=".01" #yPosition name="y" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewTop-service.layerArray[service.activeLayer].viewCenterY).toFixed(2) * (-1)" (change)="changeY($event)"/>
+      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
     </div>
   </div>
   <div class="propertyContainer">
@@ -35,14 +39,12 @@
   </div>
   <div class="propertyContainer">
     <h5>Layer</h5>
-    <div class="layerContainer">
-      <layerbox></layerbox>
-      <layerbox></layerbox>
-      <layerbox></layerbox>
-      <layerbox></layerbox>
-      <layerbox></layerbox>
-      <layerbox></layerbox>
-      <layerbox></layerbox>
+    <div #layerContainer class="layerContainer" cdkDropList (cdkDropListDropped)="drop($event)">
+      <layerbox class="layerBox" *ngFor="let layer of opencvService.layerArray; index as i" [previewImg]="layer.canvasURL" [layerIndex]="i" cdkDrag>{{layer}}>
+        <div *cdkDragPreview></div>
+        <div *cdkDragPlaceholder></div>
+      </layerbox>
     </div>
+    <div class="deleteButton" (click)="this.opencvService.deleteActiveLayer()"></div>
   </div>
 </div>
