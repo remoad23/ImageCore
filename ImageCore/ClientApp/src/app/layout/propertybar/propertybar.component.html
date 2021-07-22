@@ -6,24 +6,32 @@
         <input type="color" #colorInput1 id="colorInput1" value="#ffffff" (change)="changeToolColor($event,0)"/>
         <input type="color" #colorInput2 id="colorInput2" value="#000000" (change)="changeToolColor($event,1)"/>
       </div>
-      <div id="pickArea" style="background-color: rgb(255,0,0)"></div>
+      <div id="pickArea" [style.background-color]="'rgb('+mainColor+')'"></div>
     </div>
   </div>
   <div class="propertyContainer">
     <h5>Properties</h5>
     <div class="propertyInputContainer">
       <label for="width">Width:</label>
-      <input type="number" id="widthProperty" step="1" #widthProperty name="width" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].width" (change)="changeWidth($event)"/>
+      <input type="number" id="widthProperty" step="1" #widthProperty name="width" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].width" (change)="changeWidth($event)" />
       <input type="number" name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
-      <label for="width">Height:</label>
-      <input type="number" id="heightProperty" step="1" #heightProperty name="height" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].height" (change)="changeHeight($event)"/>
-      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
-      <label for="width">X:</label>
-      <input type="number" id="xPosition" step=".01" #xPosition name="x" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewLeft-service.layerArray[service.activeLayer].viewCenterX).toFixed(2)" (change)="changeX($event)"/>
-      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
-      <label for="width">Y:</label>
-      <input type="number" id="yPosition" step=".01" #yPosition name="y" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewTop-service.layerArray[service.activeLayer].viewCenterY).toFixed(2) * (-1)" (change)="changeY($event)"/>
-      <input type="number"  name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
+      <label for="height">Height:</label>
+      <input type="number" id="heightProperty" step="1" #heightProperty name="height" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="service.layerArray[service.activeLayer].height" (change)="changeHeight($event)" />
+      <input type="number" name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
+      <label for="x">X:</label>
+      <input type="number" id="xPosition" step=".01" #xPosition name="x" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewLeft-service.layerArray[service.activeLayer].viewCenterX).toFixed(2)" (change)="changeX($event)" />
+      <input type="number" name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
+      <label for="y">Y:</label>
+      <input type="number" id="yPosition" step=".01" #yPosition name="y" *ngIf="service.layerArray != null && service.activeLayer != null" [value]="(service.layerArray[service.activeLayer].viewTop-service.layerArray[service.activeLayer].viewCenterY).toFixed(2) * (-1)" (change)="changeY($event)" />
+      <input type="number" name="y" *ngIf="service.layerArray == null || service.activeLayer == null" disabled />
+      <label for="layerColor" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType != 'image'">Color:</label>
+      <input type="color" id="layerColor" #layerColor name="layerColor" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType != 'image'" [value]="service.layerArray[service.activeLayer].layerColor" (change)="changeLayerColor($event)" />
+      <label for="font-size" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'">Font Size:</label>
+      <input type="number" id="fontSize" step=".05" #fontSize name="y" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'" [value]="service.layerArray[service.activeLayer].fontSize" (change)="changeFontSize($event)" />
+      <label for="font-strength" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'">Font Strength:</label>
+      <input type="number" id="fontStrength" step="1" #fontStrength name="font-strength" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'" [value]="service.layerArray[service.activeLayer].fontStrength" (change)="changeFontStrength($event)" />
+      <label for="text" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'">Text:</label>
+      <input type="text" id="text" #text name="text" *ngIf="service.layerArray != null && service.activeLayer != null && service.layerArray[service.activeLayer].layerType == 'text'" [value]="service.layerArray[service.activeLayer].text" (change)="changeText($event)" />
     </div>
   </div>
   <div class="propertyContainer">

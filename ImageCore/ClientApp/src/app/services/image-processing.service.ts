@@ -46,7 +46,13 @@ export class ImageProcessingService {
   addLayer(event) {
     let newLayerFactory = this.factoryResolver.resolveComponentFactory(LayerComponent);
     let newLayer = this.imgViewComponent.createComponent(newLayerFactory);
-    newLayer.instance.setImgSource(event, this.layerArray, this.imgViewComponent, this.layerArray.length);
+    newLayer.instance.setImgSource(event, this.layerArray, this.imgViewComponent, this.layerArray.length, this);
+  }
+
+  addGeometryLayer(left, top, width, height) {
+    let newLayerFactory = this.factoryResolver.resolveComponentFactory(LayerComponent);
+    let newLayer = this.imgViewComponent.createComponent(newLayerFactory);
+    newLayer.instance.setLayer(left, top, this.layerArray, this.imgViewComponent, this.layerArray.length, this, this.selectedTool, [width, height]);
   }
 
 
@@ -65,7 +71,9 @@ export class ImageProcessingService {
       this.layerArray[this.activeLayer].deactivateTransformBox();
     }
     this.activeLayer = idx;
-    this.layerArray[this.activeLayer].activateTransformBox();
+    if (this.selectedTool == 'move') {
+      this.layerArray[this.activeLayer].activateTransformBox();
+    }
 
   }
 
@@ -116,5 +124,18 @@ export class ImageProcessingService {
       this.layerArray[i].deleteLayer();
     }
     event.returnValue = false;
+  }
+
+
+  hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (result) {
+      return [parseInt(result[1], 16),
+      parseInt(result[2], 16),
+      parseInt(result[3], 16)];
+    }
+    else {
+      return null;
+    }
   }
 }

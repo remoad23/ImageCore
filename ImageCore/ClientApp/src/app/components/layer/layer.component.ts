@@ -17,7 +17,7 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     .rotatebox
     {
       position: relative;
-      border: 1px dashed rgba(255, 255, 255, 0);
+      border: 1px dashed rgba(219, 219, 219, 0);
     }
     .transformbox
     {
@@ -56,11 +56,14 @@ export class LayerComponent{
   public grabboxSize = 10;
 
   //Image position
-  public viewLeft;
-  public viewTop;
+  public viewLeft = 0;
+  public viewTop = 0;
 
   public width;
   public height;
+
+  private imageLeft;
+  private imageTop;
 
   private imageCenterX;
   private imageCenterY;
@@ -71,7 +74,7 @@ export class LayerComponent{
   private display = "none";
 
   private previewScale = 1;
-  private scaleValue: number;
+  private scaleValue = 1;
   private rotationAngle = 0;
 
   private componentRef: any;
@@ -95,6 +98,17 @@ export class LayerComponent{
   private dragBoxDirectionX;
   private dragBoxDirectionY;
 
+  private opencvService: ImageProcessingService;
+
+  public layerType = "image";
+  private layerSize = [0, 0];
+  public layerColor = "#ffffff";
+
+  //text
+  public fontSize = 2;
+  public fontStrength = 2;
+  public text = "Placeholder";
+
 
   constructor(private ngOpenCVService: NgOpenCVService) {
 
@@ -103,7 +117,12 @@ export class LayerComponent{
   }
 
   ngAfterViewInit() {
-    this.loadImage();
+    if (this.layerType === "rectangle" || this.layerType === "text") {
+      this.loadEmptyCanvas();
+    }
+    else {
+      this.loadImage();
+    }
   }
 
   loadImage() {
@@ -118,20 +137,7 @@ export class LayerComponent{
         )
         .subscribe(
           () => {
-            this.originalImgView.nativeElement.id = "originalImgView" + this.layers.length;
-            this.layerView.nativeElement.id = "layerView" + this.layers.length;
-            this.originalImg = cv.imread(this.originalImgView.nativeElement.id);
-            this.processedImg = new cv.Mat();
-            this.originalImg.copyTo(this.processedImg);
-            this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(255, 255, 255, 255));
-            cv.imshow(this.layerView.nativeElement.id, this.processedImg);
-            this.canvasURL = this.layerView.nativeElement.toDataURL();
-            this.centerImage();
-            this.width = this.processedImg.cols;
-            this.height = this.processedImg.rows;
-            this.layers.push(this);
-            this.updateZIndex(99);
-            
+             this.loadImageToCanvas();
           },
           err => {
             console.log('Error loading image', err);
@@ -139,6 +145,42 @@ export class LayerComponent{
       );
       reader.readAsDataURL(this.imgSource.target.files[0]);
     }
+  }
+
+  loadImageToCanvas() {
+    this.originalImgView.nativeElement.id = "originalImgView" + this.layers.length;
+    this.layerView.nativeElement.id = "layerView" + this.layers.length;
+    this.originalImg = cv.imread(this.originalImgView.nativeElement.id);
+    this.processedImg = new cv.Mat();
+    this.originalImg.copyTo(this.processedImg);
+    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(255, 255, 255, 255));
+    cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+    this.canvasURL = this.layerView.nativeElement.toDataURL();
+    this.centerImage();
+    this.width = this.processedImg.cols;
+    this.height = this.processedImg.rows;
+    this.layers.push(this);
+    this.updateZIndex(this.index);
+  }
+
+  loadEmptyCanvas() {
+    this.originalImgView.nativeElement.id = "originalImgView" + this.layers.length;
+    this.layerView.nativeElement.id = "layerView" + this.layers.length;
+    this.originalImg = new cv.Mat(this.layerSize[1], this.layerSize[0], cv.CV_8UC4, new cv.Scalar(0, 0, 0, 0));
+    this.processedImg = new cv.Mat();
+    this.originalImg.copyTo(this.processedImg);
+    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(255, 255, 255, 255));
+    cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+    this.canvasURL = this.layerView.nativeElement.toDataURL();
+
+    this.width = this.processedImg.cols;
+    this.height = this.processedImg.rows;
+    this.layers.push(this);
+    this.updateZIndex(this.index);
+    this.scaleView(this.scaleValue);
+    this.layerColor = this.opencvService.toolColor[this.opencvService.activeColor];
+
+    this.addGeometry();
   }
 
   scaleImage(scaleX: number, scaleY: number) {
@@ -155,11 +197,60 @@ export class LayerComponent{
 
   }
 
-  setImgSource(event, layerArray,cmp,i) {
+  setLayer(left, top, layerArray, cmp, i, service, layerType, layerSize) {
+    this.imageLeft = left;
+    this.imageTop = top;
+    console.log(left, top);
+    this.viewLeft = 
+    this.layers = layerArray;
+    this.componentRef = cmp;
+    this.scaleValue = this.componentRef._view.component.viewScale;
+    this.index = i;
+    this.opencvService = service;
+    this.layerType = layerType;
+    this.layerSize[0] = layerSize[0] / this.scaleValue;
+    this.layerSize[1] = layerSize[1] / this.scaleValue;
+    this.placeImage();
+  }
+
+  addGeometry() {
+    if (this.layerType === "rectangle") {
+      this.addRectangle();
+    }
+    else if (this.layerType === "text") {
+      this.addText();
+    }
+    this.canvasURL = this.layerView.nativeElement.toDataURL();
+  }
+
+  updateGeometry() {
+    this.clearGeometry();
+    this.addGeometry();
+  }
+
+  clearGeometry() {
+    this.originalImg.copyTo(this.processedImg);
+  }
+
+  addRectangle() {
+    let rgb = this.opencvService.hexToRgb(this.layerColor);
+    cv.rectangle(this.processedImg, new cv.Point(0, 0), new cv.Point(this.width, this.height), new cv.Scalar(rgb[0], rgb[1], rgb[2], 255), -1);
+    cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+  }
+
+  addText() {
+    let font = cv.FONT_HERSHEY_SIMPLEX;
+    let rgb = this.opencvService.hexToRgb(this.layerColor);
+    cv.putText(this.processedImg, this.text, new cv.Point(0, this.height / 2), font, this.fontSize, new cv.Scalar(rgb[0], rgb[1], rgb[2], 255), this.fontStrength, cv.LINE_AA);
+    cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+  }
+
+  setImgSource(event, layerArray,cmp,i,service) {
     this.imgSource = event;
     this.layers = layerArray;
     this.componentRef = cmp;
     this.index = i;
+    this.opencvService = service;
   }
 
   updateZIndex(i: number) {
@@ -169,8 +260,8 @@ export class LayerComponent{
   scaleView(scale) {
     this.scaleValue = scale;
     this.transformbox.nativeElement.style.setProperty('transform', "scale(" + scale + ")");
-    this.padding = this.startPadding / (this.scaleValue * 0.8);
-    this.grabboxSize = this.startGrabboxSize / (this.scaleValue * 0.8);
+    //this.padding = this.startPadding / (this.scaleValue * 0.8);
+    //this.grabboxSize = this.startGrabboxSize / (this.scaleValue * 0.8);
     this.transformbox.nativeElement.style.width = (this.width + this.padding * 2) + "px";
     this.transformbox.nativeElement.style.height = (this.height + this.padding * 2) + "px";
 
@@ -194,10 +285,9 @@ export class LayerComponent{
     let imageView = document.getElementById("imageviewContainer").parentElement;
 
     this.viewCenterX = imageView.offsetLeft + imageView.offsetWidth / 2;
-    this.viewCenterY = imageView.offsetTop + imageView.offsetHeight / 2;  
-    
+    this.viewCenterY = imageView.offsetTop + imageView.offsetHeight / 2;
     this.viewLeft = this.viewCenterX - this.layerView.nativeElement.offsetWidth / 2 - imageView.offsetLeft;
-    this.viewTop = this.viewCenterY - this.layerView.nativeElement.offsetHeight / 2 - imageView.offsetTop;
+    this.viewTop = this.viewCenterY - this.layerView.nativeElement.offsetHeight / 2 - imageView.offsetTop;  
     if (this.layers.length == 0) {
       this.determineStartScale(imageView.offsetWidth, imageView.offsetHeight);
     }
@@ -207,14 +297,23 @@ export class LayerComponent{
     
   }
 
+  placeImage() {
+    let imageView = document.getElementById("imageviewContainer").parentElement;
+    this.viewCenterX = imageView.offsetLeft + imageView.offsetWidth / 2;
+    this.viewCenterY = imageView.offsetTop + imageView.offsetHeight / 2;
+    console.log(this.imageLeft, this.viewCenterX);
+    this.viewLeft = this.viewCenterX - (this.viewCenterX - this.imageLeft) / this.scaleValue - this.padding;
+    this.viewTop = this.viewCenterY - (this.viewCenterY - this.imageTop) / this.scaleValue  - this.padding / 2;
+  }
+
   activateTransformBox() {
     this.display = "block";
-    this.rotatebox.nativeElement.style.border = "1px dashed rgba(255,255,255,1)";
+    this.rotatebox.nativeElement.style.border = "1px dashed rgba(219, 219, 219,1)";
   }
 
   deactivateTransformBox() {
     this.display = "none";
-    this.rotatebox.nativeElement.style.border = "1px dashed rgba(255, 255, 255, 0)";
+    this.rotatebox.nativeElement.style.border = "1px dashed rgba(219, 219, 219, 0)";
   }
 
   startTransformDrag(event, directionX, directionY) {

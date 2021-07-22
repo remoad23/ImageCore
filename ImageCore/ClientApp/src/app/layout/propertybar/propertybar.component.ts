@@ -12,15 +12,16 @@ import { ImageProcessingService } from '../../services/image-processing.service'
   styles: [`
     #propertybarContainer
     {
-      width: 15vw;
+      width: 16vw;
       height: 95vh;
-      background-color: #C4B52C;
+      background-color: #2b6777;
       border-left: 2px solid #272727;
       display: flex;
       flex-direction:column;
       align-items: center;
       justify-content: flex-start;
       margin: 0px;
+      color: #ffffff;
     }
     .propertyContainer
     {
@@ -46,7 +47,9 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     {
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       width: 100%;
+      max-height: 260px;
     }
     .filterContainer
     {
@@ -64,6 +67,16 @@ import { ImageProcessingService } from '../../services/image-processing.service'
       display:flex;
       flex-direction:column-reverse;
     }
+    input[type="color"]{
+      border: none;
+      background-color: rgba(0,0,0,0);
+      width: 2vw;
+      height: 2vw;
+    }
+    #layerColor{
+      height: 30px;
+      width: 30px;
+    }
     .filterButton
     {
       width: 40px;
@@ -74,7 +87,13 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     }
     input[type="number"]
     {
-      width: 60%;
+      width: 30%;
+      height: 20%;
+    }
+    input[type="text"]
+    {
+      width: 50%;
+      height: 20%;
     }
     #pickArea
     {
@@ -122,6 +141,8 @@ export class PropertybarComponent{
 
   @ViewChild('layerContainer', { static: false }) layerContainer: ElementRef;
 
+  private mainColor = "255,0,0";
+
   public service: ImageProcessingService;
   constructor(private opencvService: ImageProcessingService) {
     this.service = opencvService;
@@ -152,7 +173,28 @@ export class PropertybarComponent{
 
   changeToolColor(event, idx) {
     this.opencvService.toolColor[idx] = event.target.value;
-    console.log(event.target.value);
+    let rgb = this.opencvService.hexToRgb(event.target.value);
+    if (idx == 0) {
+      this.mainColor = rgb[0] + "," + rgb[1] + "," + rgb[2];
+    }
+  }
+
+  changeFontSize(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].fontSize = event.target.valueAsNumber;
+    this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
+  }
+  changeFontStrength(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].fontStrength = event.target.valueAsNumber;
+    this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
+  }
+  changeText(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].text = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
+  }
+
+  changeLayerColor(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].layerColor = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
 
 

@@ -20,10 +20,14 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     {
       cursor: grab;
     }
+    .layerDragPreview{
+      position: absolute;
+      border: 2px dashed #dbdbdb;
+    }
   `]
 })
 export class ImageviewComponent{
-
+  @ViewChild('dragPreview', { static: false }) dragPreview: ElementRef;
   @ViewChild('imageviewContainer', { read: ViewContainerRef, static: false }) imageviewContainer: ViewContainerRef;
 
   private draggingView: boolean;
@@ -31,13 +35,20 @@ export class ImageviewComponent{
   private dragX: number;
   private dragY: number;
 
-  public viewScale = 1
+  public viewScale = 1;
   private minScale = 0.1;
   private maxScale = 4;
   private ctrlPressed = false;
   private scrollFactor = 1.1;
 
   public movingLayer: boolean;
+  public creatingGeometry = false;
+  private previewWidth = 0;
+  private previewHeight = 0;
+  private previewDisplay = "none";
+
+  private offsetLeft = 0;
+  private offsetTop = 0;
 
   constructor(private element: ElementRef, private opencvService: ImageProcessingService) {
     this.draggingView = false;
@@ -53,6 +64,15 @@ export class ImageviewComponent{
         this.movingLayer = true;
         this.dragX = $event.clientX;
         this.dragY = $event.clientY;
+      }
+      else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text") {
+        this.creatingGeometry = true;
+        this.offsetLeft = document.getElementById('toolbarContainer').offsetWidth;
+        this.offsetTop = document.getElementById('menubarContainer').offsetHeight;
+        this.dragX = $event.clientX - this.offsetLeft;
+        this.dragY = $event.clientY - this.offsetTop;
+        this.previewDisplay = "block";
+        
       }
     }
     if ($event.button === 1) {
@@ -75,6 +95,15 @@ export class ImageviewComponent{
         else if (this.opencvService.activeLayer != null && this.opencvService.layerArray[this.opencvService.activeLayer].dragRotation) {
           this.opencvService.layerArray[this.opencvService.activeLayer].endRotation();
         }
+      }
+      else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text") {
+        this.creatingGeometry = false;
+        if (this.previewWidth > 1 && this.previewHeight > 1) {
+          this.opencvService.addGeometryLayer(this.dragX, this.dragY, this.previewWidth, this.previewHeight);
+        }
+        this.previewWidth = 0;
+        this.previewHeight = 0;
+        this.previewDisplay = "none";
       }
     }
     if ($event.button === 1) {
@@ -101,14 +130,17 @@ export class ImageviewComponent{
       this.dragX = $event.clientX;
       this.dragY = $event.clientY;
     }
-    if (this.draggingView) {
+    else if (this.creatingGeometry) {
+      this.previewWidth = $event.clientX - this.offsetLeft - this.dragX;
+      this.previewHeight = $event.clientY - this.offsetTop - this.dragY;
+    }
+    else if (this.draggingView) {
       let differenceX = $event.clientX - this.dragX;
       let differenceY = $event.clientY - this.dragY;
       this.element.nativeElement.scrollLeft -= differenceX;
       this.element.nativeElement.scrollTop -= differenceY;
       this.dragX = $event.clientX;
       this.dragY = $event.clientY;
-
     }
   }
 

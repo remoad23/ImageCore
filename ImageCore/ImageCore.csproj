@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\assets\images\photoshop-cc.svg" />
     <None Remove="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 
@@ -51,6 +52,13 @@
     <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Update.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\src\assets\images\photoshop-cc.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
