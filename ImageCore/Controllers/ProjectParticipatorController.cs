@@ -36,7 +36,7 @@ namespace ImageCore.Controllers
          */
         [Authorize(Roles="Admin,User")]
         [HttpPost]
-        public IActionResult Store(string userId,int projectId)
+        public IActionResult Store(string userId,string projectId)
         {
             ProjectParticipatorModel participator = new ProjectParticipatorModel
             {

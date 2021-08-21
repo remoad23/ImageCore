@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="206" height="172" viewBox="0 0 206 172">
+  <g id="Group_206" data-name="Group 206" transform="translate(-15062 -1841)">
+    <g id="Rectangle_484" data-name="Rectangle 484" transform="translate(15062 1900)" fill="none" stroke="#707070" stroke-width="4">
+      <rect width="113" height="113" stroke="none"/>
+      <rect x="2" y="2" width="109" height="109" fill="none"/>
+    </g>
+    <g id="Rectangle_485" data-name="Rectangle 485" transform="translate(15155 1841)" fill="none" stroke="#707070" stroke-width="4">
+      <rect width="113" height="113" stroke="none"/>
+      <rect x="2" y="2" width="109" height="109" fill="none"/>
+    </g>
+    <text id="B" transform="translate(15155 1841)" fill="#fff" font-size="82" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="25.865" y="86">B</tspan></text>
+    <text id="S" transform="translate(15062 1900)" fill="#fff" font-size="82" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="24.744" y="86">S</tspan></text>
+  </g>
+</svg>

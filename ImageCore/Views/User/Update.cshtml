@@ -19,11 +19,8 @@
         }
         else
         {
-             <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+             <img class="UserProfileImageEdit" onclick="document.getElementById('ImageToUpload').click()" src="~/images/Icons/UserIconWhite.svg">
         }
-        
-
-       
         <div class="UserInformation">
             <label>Username</label>
             <p>@Model.Username</p>
@@ -54,9 +51,9 @@
                 <option selected="selected"  value="Admin">Admin</option>
             }
         </select>
-        <div class="buttonUpdateWrapper" style="display: flex;flex-direction: row"> 
+        <div class="buttonUpdateWrapper" style="display: flex;flex-direction: row;margin-top: 25px"> 
               <button type="submit" class="acceptContactRequestBtn" >Speichern</button>
-                    <button onclick="event.preventDefault();deleteElement()" class="acceptContactRequestBtn">Löschen</button>
+              <button onclick="event.preventDefault();deleteElement()" class="acceptContactRequestBtn">Löschen</button>
         </div>
     </div>
 </form>

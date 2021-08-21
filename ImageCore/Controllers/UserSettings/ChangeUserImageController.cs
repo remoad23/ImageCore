@@ -36,8 +36,9 @@ namespace ImageCore.Controllers.UserSettings
             return View("~/Views/UserSettings/ChangeUserImage/Index.cshtml");
         }
 
-        public async Task<IActionResult> Store(ChangeProfileImageViewModel model)
+        public async Task<IActionResult> Store([FromForm]ChangeProfileImageViewModel model)
         {
+            if (!ModelState.IsValid) return View("~/Views/UserSettings/ChangeUserImage/Index.cshtml");
             string user = Usermanager.GetUserId(User);
 
 

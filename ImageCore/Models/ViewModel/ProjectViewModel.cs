@@ -8,6 +8,6 @@ namespace ImageCore.Models.ViewModel
     public class ProjectViewModel
     {
         public List<string> Projectname = new List<string>();
-        public List<int> ProjectIds = new List<int>();
+        public List<string> ProjectIds = new List<string>();
     }
 }

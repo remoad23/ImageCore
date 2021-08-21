@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="24.173" viewBox="0 0 40 24.173">
+  <g id="NewMessageIcon" transform="translate(2053 3704)">
+    <path id="Differenzmenge_129" data-name="Differenzmenge 129" d="M16.271,24.173a.829.829,0,0,1-.542-.207.739.739,0,0,1-.252-.561L16.81,17h5.307a9.444,9.444,0,0,0,.607,2.145l-6.034,4.886A.66.66,0,0,1,16.271,24.173ZM22.013,16H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0H31a3,3,0,0,1,3,3V6.333A9.508,9.508,0,0,0,22,15.5c0,.166,0,.334.013.5Z" transform="translate(-2053 -3704)" fill="#fff"/>
+    <path id="Differenzmenge_128" data-name="Differenzmenge 128" d="M8.5,17A8.5,8.5,0,1,1,17,8.5,8.51,8.51,0,0,1,8.5,17Zm0-5a1,1,0,1,0,1,1A1,1,0,0,0,8.5,12Zm0-9a1,1,0,0,0-1,1v6a1,1,0,0,0,2,0V4A1,1,0,0,0,8.5,3Z" transform="translate(-2030 -3697)" fill="#a5def1"/>
+  </g>
+</svg>

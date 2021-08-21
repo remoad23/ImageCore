@@ -53,10 +53,7 @@ namespace ImageCore.Controllers
             }
             else
             {
-                //redirect back if not valid
-                ViewData["error"] = "Modelstate invalid";
-                return RedirectToAction("Index","Registration");
-                
+                return View("Index");
             }
             return RedirectToAction("Index","Registration");
         }

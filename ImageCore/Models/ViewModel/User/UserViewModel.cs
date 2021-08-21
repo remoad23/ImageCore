@@ -14,6 +14,8 @@ namespace ImageCore.Models.ViewModel.User
         [Required]
         public string Username { get; set; }
         
+        public string Description { get; set; }
+        
         // if the user visits his own profile 
         // to not get specific content to show like add contact
         [Required]

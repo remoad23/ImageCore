@@ -10,7 +10,7 @@ namespace ImageCore.Models
     public class ContactModel
     {
         [Key]
-        public int ContactId { get; private set; }
+        public string ContactId { get; private set; }
         
         [ForeignKey("UserId")]
         [Required]

@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutSettings";
 }
+@model ImageCore.ViewModel.UserSettings.ChangeProfileImageViewModel
 
 @if (TempData["Message"] is not null)
 {
@@ -20,6 +21,7 @@
 <form class="settingsForm" asp-controller="ChangeUserImage" asp-action="Store" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     <span>Profilbild</span>
-    <input class="settingsInput" type="file" required name="File">
+    <input class="settingsInput" type="file" asp-for="File" name="File">
+    <span class="warningText" asp-validation-for="File"></span>
     <button type="submit">Senden</button>
 </form>

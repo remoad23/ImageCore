@@ -8,6 +8,6 @@ namespace ImageCore.Models.ViewModel
     public class ProjectSharedViewModel
     {
         public string Projectname;
-        public int ProjectId;
+        public string ProjectId;
     }
 }

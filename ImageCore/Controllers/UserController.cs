@@ -237,6 +237,7 @@ namespace ImageCore.Controllers
                 isContact = contact is not null,
                 ProjectNames = projects,
                 Image = user.image,
+                Description =  user.Description ?? " ",
             };
 
             if (uservm.isContact)

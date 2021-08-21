@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace ImageCore.Controllers
     {
         private ContextDb Context;
         private UserManager<UserModel> UserManager;
+
         
         public ContactController(ContextDb context,UserManager<UserModel> userManager)
         {
@@ -65,7 +67,7 @@ namespace ImageCore.Controllers
 
             List<string> contactuserids = new List<string>();
             List<string> usernames = new List<string>();
-            List<int> contactIds = new List<int>();
+            List<string> contactIds = new List<string>();
             List<string> userImages = new List<string>();
 
             foreach (var contact in contacts)
@@ -127,7 +129,7 @@ namespace ImageCore.Controllers
                 )
                 .ToList();
 
-            List<int> contactids = new List<int>();
+            List<string> contactids = new List<string>();
             List<string> usernames = new List<string>();
             List<string> userids = new List<string>();
             List<string> userImages = new List<string>();

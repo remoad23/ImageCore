@@ -34,6 +34,8 @@ namespace ImageCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm]ChangePasswordViewModel model)
         {
+            if (!ModelState.IsValid) return View("~/Views/UserSettings/ChangePassword/Index.cshtml");
+            
             string id = UserManager.GetUserId(User);
             UserModel user = UserManager.FindByIdAsync(id).Result;
             
@@ -47,9 +49,7 @@ namespace ImageCore.Controllers
                 ViewData["Invalid"] = "Einiger deine Angaben sind nicht korrekt";
                 return RedirectToAction("Index");
             }
-            
-            Console.WriteLine(ViewData.Keys);
-            
+
             var token = await UserManager.GeneratePasswordResetTokenAsync(user);
             EmailSend.SendEmail($"Klicke auf die Bestätigungsemail, wenn du dein Passwort änder möchtest: <br>  <a href='{Url.Action("Store","ChangePassword",new {token = token,password = model.NewPassword},Request.Scheme)}'>Passwort ändern</a>", 
                 "Passwort zurücksetzen",

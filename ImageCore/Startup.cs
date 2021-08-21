@@ -53,7 +53,8 @@ namespace ImageCore
                     options.TokenValidationParameters = new TokenValidationParameters    
                     {
                         ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Application for the Imagecore Imageprocessing App"))    
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Application for the Imagecore Imageprocessing App")),
+                        
                     };
                 });
             
@@ -124,7 +125,7 @@ namespace ImageCore
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:4200");;
+                    .WithOrigins("http://localhost:4200");
             }));
             
         }

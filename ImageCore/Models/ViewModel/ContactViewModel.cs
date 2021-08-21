@@ -9,7 +9,7 @@ namespace ImageCore.Models.ViewModel
     {
         public List<string> Usernames;
         public List<string> UserIds;
-        public List<int> ContactIds;
+        public List<string> ContactIds;
         public List<string> UserImages;
     }
 }

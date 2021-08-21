@@ -25,6 +25,8 @@ namespace ImageCore.Controllers
         [Authorize(Roles="Admin,User")]
         public IActionResult Store([FromForm] ContactAdminViewModel model)
         {
+            if (!ModelState.IsValid) return View("Index");
+            
             Mail.SendEmail(model.Message,model.Topic,"imagecore23@gmail.com");
             Mail.SendEmail("Dies ist eine Email Bestätigung,dass deine E-Mail angekommen ist. Wir bitten um Geduld für eine Antwort.",model.Topic,model.Email);
             

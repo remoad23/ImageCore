@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutSettings";
 }
+@model ImageCore.ViewModel.UserSettings.ChangeEmailViewModel
 
 @if (ViewData["Notification"] is not null)
 {
@@ -26,10 +27,13 @@
 <form class="settingsForm" asp-controller="ChangeEmail" asp-action="Update">
     @Html.AntiForgeryToken()
     <span>Alte E-Mail</span>
-    <input class="settingsInput" type="email" required name="CurrentEmail">
+    <input class="settingsInput" asp-for="CurrentEmail" type="email" name="CurrentEmail">
+    <span class="warningText" asp-validation-for="CurrentEmail"></span>
     <span>Neue E-Mail</span>
-    <input class="settingsInput" type="email" required name="NewEmail">
+    <input class="settingsInput" asp-for="NewEmail" type="email" name="NewEmail">
+    <span class="warningText" asp-validation-for="NewEmail"></span>
     <span>Neue E-Mail wiederholen</span>
-    <input class="settingsInput" type="email" required name="NewEmailRepeat">
+    <input class="settingsInput" type="email" asp-for="NewEmailRepeat" name="NewEmailRepeat">
+    <span class="warningText" asp-validation-for="NewEmailRepeat"></span>
     <button type="submit">Senden</button>
 </form>

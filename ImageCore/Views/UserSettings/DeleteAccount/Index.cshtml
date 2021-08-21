@@ -1,12 +1,14 @@
 ﻿@{
     Layout = "_LayoutSettings";
 }
+@model ImageCore.ViewModel.UserSettings.DeleteUserViewModel
 
 <h1 class="settingsTitle">Account löschen</h1>
 <form class="settingsForm" asp-controller="DeleteUserAccount" asp-action="Store" method="post">
     @Html.AntiForgeryToken()
     <h2>Bist du sicher dass du deinen Account löschen möchtest?</h2>
     <span>Passwort</span>
-    <input class="settingsInput" type="password" required name="password">
+    <input class="settingsInput" type="password" asp-for="Password" name="password">
+    <span class="warningText" asp-validation-for="Password"></span>
     <button type="submit">Senden</button>
 </form>
