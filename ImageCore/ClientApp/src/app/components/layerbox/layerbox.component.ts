@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef, ViewContainerRef } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
+import { ImageProcessingService } from '../../services/image-processing.service';
 
 @Component({
   selector: 'layerbox',
@@ -31,7 +32,7 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
     #layerPreview
     {
       height: 70%;
-      width: 20%;
+      width: 35px;
       background-color: #ffffff;
       border: 1px solid black;
       margin-right:10px;
@@ -41,12 +42,33 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
       color: #ffffff;
       font-size: 13px;
     }
+    .activeLayer
+    {
+      background-color: #737373 !important;
+    }
   `]
 })
 export class LayerboxComponent{
   
+  @Input() previewImg: any;
 
-  constructor() {
+  @Input() layerIndex: number;
+
+
+  constructor(private element: ElementRef, private opencvService: ImageProcessingService) {
+
+  }
+
+  activateLayer() {
+    this.opencvService.setActiveLayer(this.layerIndex);
+
+    let layerboxes = Array.from(this.element.nativeElement.parentElement.children);
+    for (let i = 0; i < layerboxes.length; i++) {
+      (<HTMLElement>layerboxes[i]).firstElementChild.classList.remove("activeLayer");
+    }
+
+    this.element.nativeElement.firstElementChild.classList.add("activeLayer");
+    
   }
 
   

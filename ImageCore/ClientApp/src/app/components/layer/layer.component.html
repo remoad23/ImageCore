@@ -1,2 +1,19 @@
-<canvas id="layerView" #layerView></canvas>
-<canvas id="originalImgView" #originalImgView style="display:none"></canvas>
+<div #transformbox class="transformbox" [style.top.px]="viewTop" [style.left.px]="viewLeft" [style.transform-origin]="(viewCenterX-viewLeft)+'px '+ (viewCenterY-viewTop)+'px'">
+  <div #rotatebox class="rotatebox">
+    <div #rotationhandle class="rotationHandle" [style.width.px]="grabboxSize*2" [style.display]="display" [style.height.px]="grabboxSize*2" [style.top.px]="-padding*2" style="left:50%;transform: translate(-50%, 0px);" (mousedown)="startRotation($event)"></div>
+    <div #topleftbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:0px;left:0px" (mousedown)="startTransformDrag($event,-1,-1)"></div>
+    <div #topmiddlebox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:0;left:50%;transform: translate(-50%, 0px);" (mousedown)="startTransformDrag($event,0,-1)"></div>
+    <div #toprightbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:0px;right:0px" (mousedown)="startTransformDrag($event,1,-1)"></div>
+    <div #middleleftbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:50%;left:0px;transform: translate(0px, -50%);" (mousedown)="startTransformDrag($event,-1,0)"></div>
+    <div #middlerightbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:50%;right:0px;transform: translate(0px, -50%);" (mousedown)="startTransformDrag($event,1,0)"></div>
+    <div #bottomleftbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="bottom:0px;left:0px" (mousedown)="startTransformDrag($event,-1,1)"></div>
+    <div #bottommiddlebox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="bottom: 0px; left: 50%; transform: translate(-50%, 0px);" (mousedown)="startTransformDrag($event,0,1)"></div>
+    <div #bottomrightbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="bottom: 0px; right: 0px" (mousedown)="startTransformDrag($event,1,1)"></div>
+    <div #layerviewContainer [style.padding.px]="padding" class="layerviewContainer">
+      <canvas class="layerCanvas" #layerView></canvas>
+    </div>
+
+  </div>
+</div>
+
+<canvas #originalImgView style="display:none"></canvas>

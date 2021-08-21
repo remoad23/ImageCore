@@ -12,8 +12,7 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     {
       width: 100%;
       height: 5vh;
-      background-color: #C4B52C;
-      border-bottom: 2px solid #272727;
+      background-color: #2b6777;
       display: flex;
       flex-direction:row;
       align-items: center;
@@ -22,17 +21,23 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     }
     #logo
     {
-      width: 2vw;
-      height: 2vw;
+      width: 4vh;
+      height: 4vh;
       background-color: #5D5D5D;
-      margin: 3px;
-      border-radius: 12px;
+      margin-left: 0.5vw;
+      background-image: url("../../assets/images/photoshop-cc.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
     }
     .menuButton
     {
       color:#ffffff;
-      margin: 20px;
+      margin-left: 40px;
       border-radius: 12px;
+    }
+    .menuButton:hover{
+      color:#52ab98;
+      cursor: pointer;
     }
   `]
 })
