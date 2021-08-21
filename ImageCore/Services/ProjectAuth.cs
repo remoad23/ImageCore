@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace ImageCore.Services
@@ -27,12 +28,47 @@ namespace ImageCore.Services
             UserManager = userManager;
             Configuration = configuration;
         }
-        
-        public string CreateToken(UserModel user)
+
+        public string CreateToken(UserModel user, string projectId,ContextDb context)
         {
+            string role = "";
+            bool isAdmin = UserManager.IsInRoleAsync(user, "Admin").Result;
+            if (!isAdmin)
+            {
+                var participator = context.ProjectParticipator
+                    .Where(pp => pp.ProjectId.Equals(projectId) && pp.UserId.Equals(user.Id)).ToList();
+
+                if (participator.Count == 0)
+                {
+                    var owner = context.Project
+                        .Where(p => p.ProjectId.Equals(projectId) && p.UserId.Equals(user.Id))
+                        .ToList();
+
+                    if (owner.Count == 0)
+                    {
+                        
+                    }
+                    else
+                    {
+                        role = "ProjectOwner";
+                    }
+                }
+                else
+                {
+                    role = "ProjectEditor";
+                }
+            }
+            else
+            {
+                role = "Admin";
+            }
+
+
             var claims = new List<Claim>
             {
-                new Claim("User", user.Id)
+                new Claim("Project",projectId),
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.NameIdentifier,user.Id)
             };
             
             
@@ -46,6 +82,7 @@ namespace ImageCore.Services
                 claims,
                 expires: DateTime.Now.AddMinutes(600), signingCredentials: credentials
                 );
+            
             
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

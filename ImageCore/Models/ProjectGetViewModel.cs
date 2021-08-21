@@ -9,7 +9,7 @@ namespace ImageCore.Models.ViewModel
 {
     public class ProjectGetViewModel
     {
-        public int ProjectId { get;  set; }
+        public string ProjectId { get;  set; }
         public string ProjectName { get; set; }
     }
 }

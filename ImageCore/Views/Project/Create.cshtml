@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_Layout";
 }
+@model ImageCore.Models.ViewModel.ProjectStoreViewModel
 
 <div class="project">
     <div class="projectHeader">
@@ -16,23 +17,27 @@
     </div>
     <div class="projectList">
         <form asp-controller="Project" class="projectCreateForm" asp-action="Store" method="POST">
-                 @if (!Context.Request.Query["projectCreated"].ToString().Equals(""))
-                                    {
-                                        <p>Projekt wurde erfolgreich erstellt</p>
-                                    }
+            @if (!Context.Request.Query["projectCreated"].ToString().Equals(""))
+            {
+                <p>Projekt wurde erfolgreich erstellt</p>
+            }
             <h1>Projekt erstellen</h1>
             <label>Projektname</label>
-            <input type="text" name="projectname">
+            <input asp-for="ProjectName" type="text" name="projectname">
+            <span class="warningText" asp-validation-for="ProjectName"></span>
             <label>Projektgröße</label>
             <div class="projectSizeWrapper">
-                <input type="text" placeholder="breite" id="width" name="width">
-                <input type="text" placeholder="höhe" id="height" name="height">
+                <input asp-for="Width" type="text" placeholder="breite" id="width" name="width">
+                <input asp-for="Height" type="text" placeholder="höhe" id="height" name="height">
                 <select onchange="changeResolution(this)" class="resolutionDropdown">
                     <option value="3840x2160">4K (3840 x 2160)</option>
                     <option value="2048x1152">2K (2048 x 1152)</option>
                     <option value="1920x1080">Full HD (1920 x 1080)</option>
                     <option value="1280x720">HD (1280 x 720)</option>
                 </select>
+                <br>
+                <span class="warningText" asp-validation-for="Width"></span>
+                <span class="warningText" asp-validation-for="Height"></span>
             </div>
             <label>Kontakte einladen</label>
             <div class="inviteUserBarRecommendation">
@@ -88,7 +93,6 @@ function addInvitedUser(username,id)
        event.preventDefault();
        event.stopPropagation();
        getContact(`@Url.Action("QueryContacts", "Contact", new {contactId = ""}, ViewData["RequestScheme"].ToString())`)
-       
  });
 
  document.querySelector("body").addEventListener("click",() =>

@@ -49,11 +49,11 @@ namespace ImageCore.Controllers
         }
 
         [Authorize(Roles="User,Admin")]
-        public IActionResult Show([FromQuery] int projectId)
+        public IActionResult Show([FromQuery] string projectId)
         {
 
             UserModel user = UserManager.GetUserAsync(User).Result;
-            var token = ProjectAuth.CreateToken(user);
+            var token = ProjectAuth.CreateToken(user,projectId,Context);
 
             return Redirect("http://localhost:4200/?token=" + token );
         }
@@ -106,6 +106,8 @@ namespace ImageCore.Controllers
         [Authorize(Roles="User,Admin")]
         public IActionResult Store([FromForm] ProjectStoreViewModel projectval)
         {
+            ViewData["RequestScheme"] = Request.Scheme;
+            if (!ModelState.IsValid) return View("Create");
             string id = UserManager.GetUserId(User);
             
             ProjectModel project = new ProjectModel

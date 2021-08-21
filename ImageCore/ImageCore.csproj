@@ -44,6 +44,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\Guards" />
     <Folder Include="Models\ViewModel\Contacts" />
+    <Folder Include="wwwroot\images\Icons" />
     <Folder Include="wwwroot\profileimages" />
   </ItemGroup>
 
@@ -52,6 +53,7 @@
     <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Update.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\UserSettings\UserSessionList\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

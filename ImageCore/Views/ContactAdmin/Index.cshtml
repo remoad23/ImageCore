@@ -2,19 +2,24 @@
 @{
     Layout = "_Layout";
 }
+@model ImageCore.Models.ViewModel.ContactAdminViewModel
+
 <div class="loginArea">
     <form class="loginBlock" asp-controller="ContactAdmin" asp-action="Store" method="post">
         <h1>Kontaktiere uns!</h1>
         @if (!Context.Request.Query["emailSent"].ToString().Equals(""))
-            {
-                <p>Email wurde erfolgreich versendet</p>
-            }
+        {
+            <p>Email wurde erfolgreich versendet</p>
+        }
         <span>Betreff</span>
-        <input name="Topic" type="text" placeholder=" " required>
+        <input name="Topic" type="text" asp-for="Topic" placeholder=" " >
+        <span class="warningText" asp-validation-for="Topic"></span>
         <span>E-Mail</span>
-        <input name="Email" type="email" placeholder=" " required>
+        <input name="Email" type="email" asp-for="Email" placeholder=" " >
+        <span class="warningText" asp-validation-for="Email"></span>
         <span>Nachricht</span>
-        <input type="text" name="Message" required placeholder=" ">
+        <input type="text" name="Message" asp-for="Message" placeholder=" ">
+        <span class="warningText" asp-validation-for="Message"></span>
         <button type="submit">Senden</button>
     </form>
 </div>

@@ -20,6 +20,38 @@ a:hover
     color: #52ab98;
 }
 
+.DeleteBtn
+{
+    background-image: url("../images/Icons/TrashIconWhite.svg");
+    height: 40px !important;
+    width: 40px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.DeleteBtn:hover
+{
+    cursor: pointer;
+}
+
+.EditIcon
+{
+    background-image: url("../images/Icons/EditIconWhite.svg");
+    height: 40px !important;
+    width: 40px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.EyeIcon
+{
+    background-image: url("../images/visibility-24px.svg");
+    height: 40px !important;
+    width: 40px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 
 /* ------------------------------------navbar ----------------------------- */
 
@@ -54,12 +86,17 @@ nav
 
 .navImage
 {
-    background-color: red;
     height: 50px;
     width: 50px;
     align-self: center;
+    background-size: 90%;
+    border: 3px solid white;
     border-radius: 100%;
+    background-position-y: 8px;
+    background-position-x: 3px;
     margin-right: 2vw;
+    background-image: url(../images/Icons/UserIconWhite.svg);
+    background-repeat: no-repeat;
 }
 
 .navImage:hover,.navbar-header:hover
@@ -77,6 +114,8 @@ nav
 {
     display: flex;
     list-style: none;
+    flex-direction: row;
+    align-items: center;
 }
 
 .navbarRouteList > li{
@@ -293,7 +332,7 @@ footer{
 {
     display: flex;
     flex-flow: row;
-    width: 70vw;
+    width: 60vw;
     height: 50vh;
     justify-content: space-between;
 }
@@ -313,28 +352,51 @@ footer{
 .feature1,.feature2,.feature3
 {
     height: 200px;
-    width: 200px;
+    width: 230px;
 }
 
 .feature1 > h1,.feature2 > h1,.feature3 > h1
 {
     height: 200px;
-    width: 200px;
+    width: 230px;
     text-align: center;
     font-size: 1.7em;
 }
 
 .blockTextWrapper > p
 {
-    font-size: 1.3em;
+    font-size: 2.3em;
+}
+
+.blockTextWrapper > h1
+{
+    font-size: 3em;
 }
 
 .featureCircle
 {
-    background-color: #2b6777;
     border-radius: 100%;
     height: 200px;
     width: 200px;
+    background-size: contain;
+    border-radius: 0px !important;
+    background-repeat: no-repeat !important;
+    background-position: center;
+}
+
+.feature1Img
+{
+    background-image: url("../images/Icons/CloudIcon.svg");
+}
+
+.feature2Img
+{
+    background-image: url("../images/Icons/ShareIcon.svg");
+}
+
+.feature3Img
+{
+    background-image: url("../images/Icons/PlayIcon.svg");
 }
 
 .imageBlock
@@ -348,7 +410,8 @@ footer{
 
 .blockTextWrapper
 {
-    width: 35%;
+    width: 30%;
+    margin-right: 10%;
     height: 100%;
     align-items: center;
     padding-top: 10%;
@@ -369,9 +432,11 @@ footer{
     background-color: #2b6777;
     border: none;
     color: white;
-    font-size: 1.2em;
     font-weight: 450;
     transition: 0.2s background-color,0.2s color;
+    justify-content: center;
+    font-size: 2em;
+    align-items: center;
 }
 
 .imageblockBtn:hover
@@ -697,7 +762,7 @@ footer{
 {
     height: 60%;
     width: 25%;
-    background-image: url("../images/2016_01_29_06_52_16_2574220d-7737-4c39-a562-8e153a5d1497_website-hero3.png");
+    background-image: url(../images/Icons/UserIconWhite.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -752,9 +817,9 @@ footer{
     width: 20%;
     margin-right: 5%;
     height: 100%;
-    background-image: url("../images/Abstract-Background-Best-Wallpaper-14092.jpg");
     background-size: contain;
     border-radius: 20px;
+    background-image: url(../images/Icons/UserIconWhite.svg);
 }
 
 .userDescription
@@ -789,12 +854,6 @@ footer{
 .userActions
 {
     
-}
-
-.userActions > button
-{
-    height: 50%;
-    width: 15%;
 }
 
 .userProjects
@@ -835,6 +894,48 @@ footer{
     flex-wrap: wrap;
 }
 
+.AddUserToProject,.AddUserAsContactBtn,.DeleteUserAsContactBtn
+{
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    height: 75%;
+    width: 3vw;
+}
+
+.AddUserToProject
+{
+    background-image: url("../images/Icons/AddFileIcon.svg");
+}
+
+.AddUserToProject:hover,.AddUserAsContactBtn:hover,.DeleteUserAsContactBtn:hover
+{
+    cursor: pointer;
+}
+
+.userActions
+{
+    height: 20%;
+}
+
+.AddUserAsContactBtn
+{
+    background-image: url("../images/Icons/AddContactIcon.svg");
+}
+
+.DeleteUserAsContactBtn
+{
+    background-image: url("../images/Icons/DeleteContactIcon.svg");
+}
+
+#projectSelection
+{
+    width: 80%;
+    margin-left: 10%;
+    height: 4vh;
+}
+
 /* -------------------------------------user end --------------------------- */
 
 /* -------------------------------------user Edit start --------------------------- */
@@ -872,6 +973,7 @@ footer{
     padding-bottom: 2vh;
 }
 
+
 .UserInformation
 {
     display: flex;
@@ -898,7 +1000,7 @@ footer{
     height: 200px;
     width: 200px;
     border-radius: 50%;
-    background-color: white;
+    border: 5px solid white;
 }
 
 .UserProfileImageEdit:hover
@@ -946,6 +1048,12 @@ footer{
 {
     width: 20%;
     margin-top: 40px;
+}
+
+#userOrdering
+{
+    width: 15vw;
+    height: 4vh;
 }
 
 /* -------------------------------------user Edit end   --------------------------- */
@@ -1065,7 +1173,7 @@ footer{
     flex-flow: column;
     height: 100vh;
     background-color: #2b6777;
-    width: 17%;
+    width: 13%;
     align-items: center;
     padding: 4vh 0vh 2vw 0vw;
     box-shadow: 0 0 15px rgba(0 ,0, 0, 0.7);
@@ -1323,7 +1431,7 @@ footer{
 {
     display: flex;
     flex-direction: row;
-    width: 15%;
+    width: 60%;
     justify-content: space-evenly;
     color: #2b6777;
     font-size: 1.3em;
@@ -1477,6 +1585,10 @@ footer{
         cursor: pointer;
 }
 
+.paginationNumberIndex{
+    color: #447989 !important;
+}
+
 .UserPaginationBack , .UserPaginationForward
 {
     height: 100%;
@@ -1541,6 +1653,13 @@ footer{
     width: 90%;
 }
 
+
+.warningText
+{
+    color: red !important;
+    margin-top: -5px !important;
+    margin-bottom: 20px !important;
+}
 /* --------------------------------------- Error messages ---------------------------- */
 
 /* -------------------------------------Validation start --------------------------- */
@@ -1583,7 +1702,7 @@ and (min-device-width : 768px)
     
     .featureWrapper
     {
-        width: 75vw;   
+        width: 70vw;   
     }
     
     .imageBlock{
@@ -1680,7 +1799,7 @@ and (min-device-width : 768px)
     
     .settingsSidebar
     {
-        width: 26%;
+        width: 13%;
     }
     
     .settingsInput
@@ -1927,7 +2046,7 @@ and (min-width : 1025px)
 
     .featureWrapper
     {
-        width: 75vw;
+        width: 70vw;
     }
 
     .imageBlock{
@@ -1983,7 +2102,7 @@ and (min-width : 1025px)
 
     .settingsSidebar
     {
-        width: 26%;
+        width: 13%;
     }
 
     .settingsInput
@@ -2062,7 +2181,7 @@ and (min-width : 1201px)
 
     .featureWrapper
     {
-        width: 65vw;
+        width: 60vw;
     }
 
     .imageBlock{
@@ -2139,7 +2258,7 @@ and (min-width : 1201px)
 
     .settingsSidebar
     {
-        width: 26%;
+        width: 13%;
     }
 
     .settingsInput
@@ -2222,7 +2341,7 @@ and (min-width : 1920px)
 
     .featureWrapper
     {
-        width: 65vw;
+        width: 60vw;
     }
 
     .imageBlock{
@@ -2290,7 +2409,7 @@ and (min-width : 1920px)
 
     .settingsSidebar
     {
-        width: 26%;
+        width: 13%;
     }
 
     .settingsInput

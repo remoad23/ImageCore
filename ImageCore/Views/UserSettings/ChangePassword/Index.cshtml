@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutSettings";
 }
+@model ImageCore.ViewModel.UserSettings.ChangePasswordViewModel
 
 @if (ViewData["Confirmation"] is not null)
 {
@@ -20,10 +21,13 @@
 <form class="settingsForm" asp-controller="ChangePassword" asp-action="Update">
     @Html.AntiForgeryToken()
     <span>Alte Passwort</span>
-    <input class="settingsInput" type="password" required name="CurrentPassword">
+    <input class="settingsInput" type="password" asp-for="CurrentPassword" name="CurrentPassword">
+    <span class="warningText" asp-validation-for="CurrentPassword"></span>
     <span>Neue Passwort</span>
-    <input class="settingsInput" type="password" required name="NewPassword">
+    <input class="settingsInput" type="password" asp-for="NewPassword" name="NewPassword">
+    <span class="warningText" asp-validation-for="NewPassword"></span>
     <span>Neue Passwort wiederholen</span>
-    <input class="settingsInput" type="password" required name="NewPasswordRepeat">
+    <input class="settingsInput" type="password" asp-for="NewPasswordRepeat" name="NewPasswordRepeat">
+    <span class="warningText" asp-validation-for="NewPasswordRepeat"></span>
     <button type="submit">Senden</button>
 </form>

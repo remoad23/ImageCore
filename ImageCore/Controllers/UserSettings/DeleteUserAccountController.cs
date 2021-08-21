@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ImageCore.Models;
 using ImageCore.Services;
 using ImageCore.Services.Interfaces;
+using ImageCore.ViewModel.UserSettings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,12 +30,14 @@ namespace ImageCore.Controllers.UserSettings
         [Authorize]
         [Route("Usersettings/DeleteAccount")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Store(string password)
+        public async Task<IActionResult> Store([FromForm]DeleteUserViewModel model)
         {
             string id = UserManager.GetUserId(User);
             UserModel user = UserManager.FindByIdAsync(id).Result;
 
-            if (!UserManager.CheckPasswordAsync(user, password).Result)
+            if (!ModelState.IsValid) return View("~/Views/UserSettings/DeleteAccount/Index.cshtml");
+
+            if (!UserManager.CheckPasswordAsync(user, model.Password).Result)
             {
                 ViewData["Notification"] = "Das Passwort stimmt nicht überein";
                 return RedirectToAction("Index");

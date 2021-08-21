@@ -8,13 +8,11 @@ namespace ImageCore.ViewModel
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Benutzername benötigt")]
         [Display(Name = "userName")]
         public string userName { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "Das Passwort muss mindestens 8 Zeichen lang sein.", MinimumLength = 8)]
-   //     [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])")]
+        [Required(ErrorMessage = "Passwort benötigt")]
         [DataType(DataType.Password)]
         [Display(Name = "password")]
         public string password { get; set; }

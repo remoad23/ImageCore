@@ -27,15 +27,17 @@ namespace ImageCore.Controllers
         
         public async Task<IActionResult> login([FromForm]LoginViewModel model)
         {
+            if (!ModelState.IsValid) return View("Index");
             var user = await _signInManager.PasswordSignInAsync(
                 model.userName,
                 model.password,
                 false,
                 true
                 );
-            
+            Console.WriteLine(User.Identity);
             if (!ModelState.IsValid || !user.Succeeded) {
                 Console.WriteLine("Passt1");
+              
                 //redirect back if not valid
                 return RedirectToAction("Login","login");
             }

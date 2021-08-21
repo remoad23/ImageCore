@@ -13,15 +13,13 @@
         }
         else
         {
-            <img class="userImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="userImage" ></div>
         }
         <div class="userDescription">
             <div class="userInformation">
-                <h1>@Model.Username</h1>
+                <h1 style="font-size: 2.5em">@Model.Username</h1>
                 <ul>
-                    <li>Information 1</li>
-                    <li>Information 2</li>
-                    <li>Information 3</li>
+                    <li>@Model.Description</li>
                 </ul>
             </div>
             <div class="userActions">
@@ -29,18 +27,14 @@
                 {
                     if (Model.isContact)
                     {
-                        <button id="contactEdit" onclick="fetchConctact('@ViewData["contactAddUrl"]','DELETE')">
-                            Kontakt Entfernen
-                        </button>
+                        <button id="contactEdit" class="DeleteUserAsContactBtn" onclick="fetchConctact('@ViewData["contactAddUrl"]','DELETE')"></button>
                     }
                     else
                     {
-                        <button id="contactEdit" onclick="fetchConctact('@ViewData["contactAddUrl"]','POST')">
-                            Kontakt hinzufügen
-                        </button>
+                        <button id="contactEdit" class="AddUserAsContactBtn" onclick="fetchConctact('@ViewData["contactAddUrl"]','POST')"></button>
                     }
+                    <button class="AddUserToProject" onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)"></button>
                 }
-                <button onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)">Zu Projekt hinzufügen</button>
             </div>
         </div>
     </div>
@@ -77,6 +71,8 @@
 </div>
 
 <script>
+
+
     function fetchConctact(url,methodType)
     {
         fetch(url,{method: methodType})
@@ -85,10 +81,17 @@
              if (res)
              {
                  let contactbtn = document.getElementById("contactEdit");
-                 console.log(res);
-                 contactbtn.innerText = contactbtn.innerText === "Kontakt hinzufügen" 
-                 ?  "Kontakt entfernen" 
-                 : "Kontakt hinzufügen"
+
+                 if (contactbtn.className === "AddUserAsContactBtn")
+                 {
+                     contactbtn.classList.remove("AddUserAsContactBtn");
+                     contactbtn.classList.add("DeleteUserAsContactBtn");
+                 }
+                 else
+                 {
+                     contactbtn.classList.remove("DeleteUserAsContactBtn");
+                     contactbtn.classList.add("AddUserAsContactBtn");
+                 }
                  let method = methodType === "POST" ? "DELETE" : "POST";
                  contactbtn.setAttribute('onclick',`fetchConctact('${res}','${method}')`);
              }    

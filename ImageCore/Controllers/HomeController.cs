@@ -13,7 +13,7 @@ namespace ImageCore.Controllers
     public class HomeController : Controller
     {
 
-        [Authorize(Roles="Admin,User")]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

@@ -12,6 +12,9 @@
             <li>
                 <a asp-controller="Contact" asp-action="ContactRequests">Anfragen</a>
             </li>
+            <li style="display: none">
+                <a id="lookForUser" asp-controller="Contact" asp-action="ContactFind"></a>
+            </li>
         </ul>
         <input id="searchBar" type="text" placeholder="Neue Kontakt suchen">
     </div>

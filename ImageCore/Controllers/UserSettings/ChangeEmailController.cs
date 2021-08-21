@@ -35,6 +35,8 @@ namespace ImageCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm]ChangeEmailViewModel model)
         {
+            if (!ModelState.IsValid) return View("~/Views/UserSettings/ChangeEmail/Index.cshtml");
+            
             string id = UserManager.GetUserId(User);
             UserModel user = UserManager.FindByIdAsync(id).Result;
             

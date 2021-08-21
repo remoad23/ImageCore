@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ImageCore.ViewModel.LoginViewModel
+@{
     Layout = "_NoHeader";
 }
 
@@ -6,10 +7,11 @@
     <form class="loginBlock" asp-controller="Login" asp-action="login" method="post">
         <h1>Login</h1>
         <span>Username</span>
-        <input name="userName" type="text" placeholder=" " value="User1">
+        <input name="userName" asp-for="userName" type="text" placeholder=" " value="User1">
+        <span class="warningText" asp-validation-for="userName"></span>
         <span>Password</span>
-        <!-- mindestens ein: kleinen letter,großen letter,special character,zahl und mind 8 character lang oder mehr -->
-        <input type="password" name="password" required placeholder=" " value="Password23@@">
+        <input type="password" name="password" asp-for="password" placeholder=" " value="Password23@@">
+        <span class="warningText" asp-validation-for="password"></span>
         <button type="submit">Login</button>
     </form>
 </div>

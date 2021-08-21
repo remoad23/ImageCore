@@ -37,6 +37,9 @@
             <div class="UserEntryVerticalWrapper">
                 <p class="userEntryHeader userEntryHeaderHeader">Participators</p>
             </div>
+            <div class="UserEntryVerticalWrapper">
+                <p class="userEntryHeader userEntryHeaderHeader">Aktionen</p>
+            </div>
         </div>
         @foreach (ProjectListViewModel project in Model)
         {
@@ -54,6 +57,10 @@
                     <p class="userEntryHeader">Participators</p>
                     <p class="userEntryValue">@project.ParticipatorCount</p>
                 </div>
+                <div class="UserEntryVerticalWrapper">
+                    <p class="userEntryHeader">Aktionen</p>
+                    <p class="userEntryValue DeleteBtn" onclick="deleteElement(this,'@Url.Action("Destroy", "Project", new {projectId = project.ProjectId}, ViewData["RequestScheme"].ToString())')" ></p>
+                </div>
             </a>
         }
     </div>
@@ -65,7 +72,7 @@
             <div class="UserPagionationNumbers">
                 @for (int x = (int)ViewData["paginationMin"]; x < (int)ViewData["paginationMax"]; x++)
                 {
-                    <a asp-action="Index" asp-controller="User" asp-route-pagination="@x">@x</a>
+                    <a class="paginationNumberIndex"  asp-action="Index" asp-controller="User" asp-route-pagination="@x">@x</a>
                 }
             </div>
             <div class="UserPaginationForward">
@@ -73,9 +80,46 @@
             </div>
         </div>
     </div>
+    <template>
+                <div class="modalWindowConfirmWrapper" id="projectModalWindow">
+                    <div class="modalWindowConfirm">
+                        <h1>Do you really want to delete this Project?</h1>
+                        <div class="modalWindowBtnWrapper">
+                            <button id="deleteProjectBtn">Delete</button>
+                            <button id="cancelProjectBtn" onclick="this.parentNode.parentNode.parentElement.remove()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
 </div>
 
 <script>
+
+let selectedProject;
+let urlProject = "";
+
+function deleteElement(element,url)
+{
+    let template = document.getElementsByTagName("template")[0].content.cloneNode(true);
+    let wrapper = template.children[0];
+    document.body.appendChild(wrapper);
+    wrapper.style.display = "block";
+    let deleteBtn = wrapper.children[0].children[1].children[0];
+    selectedProject = element;
+    urlProject = url; 
+    deleteBtn.addEventListener('click',() => {
+        fetch(urlProject)
+            .then(res => {
+                if (res.status === 200)
+                {
+                    document.getElementById("cancelProjectBtn").click();
+                    if (selectedProject) selectedProject.parentElement.parentElement.remove();        
+                    selectedProject = null;
+                }
+            });
+    }); 
+}
+
 
 document.getElementById("lookForUser").addEventListener("keyup",() =>{
                 if (event.keyCode === 13) 

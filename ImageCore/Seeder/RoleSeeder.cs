@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ImageCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +12,16 @@ namespace ImageCore.Seeder
         {
             IdentityRole userRole = new IdentityRole("User");
             IdentityRole adminRole = new IdentityRole("Admin");
-            IdentityRole projectViewerRole = new IdentityRole("ProjectViewer");
             IdentityRole projectEditorRole = new IdentityRole("ProjectEditor");
             IdentityRole projectOwnerRole = new IdentityRole("ProjectOwner");
 
-            userRole.Id = "1";
-            adminRole.Id = "2";
-            projectViewerRole.Id = "3";
-            projectEditorRole.Id = "4";
-            projectOwnerRole.Id = "5";
+            userRole.Id = Guid.NewGuid().ToString();
+            adminRole.Id = Guid.NewGuid().ToString();
+            projectEditorRole.Id = Guid.NewGuid().ToString();
+            projectOwnerRole.Id = Guid.NewGuid().ToString();
             
             userRole.NormalizedName = "USER";
             adminRole.NormalizedName = "ADMIN";
-            projectViewerRole.NormalizedName = "PROJECTVIEWER";
             projectEditorRole.NormalizedName = "PROJECTEDITOR";
             projectOwnerRole.NormalizedName = "PROJECTOWNER";
             
@@ -31,7 +29,6 @@ namespace ImageCore.Seeder
             modelBuilder.Entity<IdentityRole>().HasData(
                 userRole,
                 adminRole,
-                projectViewerRole,
                 projectEditorRole,
                 projectOwnerRole
                 );
@@ -41,7 +38,6 @@ namespace ImageCore.Seeder
             
             roles.Add("User",userRole);
             roles.Add("Admin",adminRole);
-            roles.Add("Viewer",projectViewerRole);
             roles.Add("Editor",projectEditorRole);
             roles.Add("Owner",projectOwnerRole);
 
