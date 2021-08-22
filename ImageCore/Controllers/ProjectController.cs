@@ -112,8 +112,10 @@ namespace ImageCore.Controllers
             
             ProjectModel project = new ProjectModel
             {
+                ProjectId = Guid.NewGuid().ToString(),
                 UserId = id,
-                Name = projectval.ProjectName
+                Name = projectval.ProjectName,
+                Views = 0
             };
 
             Context.Project.Add(project);
