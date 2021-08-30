@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ImageCore.Models;
 using ImageCore.Models.ViewModel;
@@ -21,12 +22,15 @@ namespace ImageCore.Controllers
         private IProjectAuth ProjectAuth;
         private ContextDb Context;
         private UserManager<UserModel> UserManager;
+        private RoleManager<IdentityRole> RoleManager;
         
         public ProjectController(
             ContextDb context,
             UserManager<UserModel> userManager,
-            IProjectAuth projectAuth)
+            IProjectAuth projectAuth,
+            RoleManager<IdentityRole> roleManager)
         {
+            RoleManager = roleManager;
             ProjectAuth = projectAuth;
             Context = context;
             UserManager = userManager;
@@ -54,7 +58,7 @@ namespace ImageCore.Controllers
 
             UserModel user = UserManager.GetUserAsync(User).Result;
             var token = ProjectAuth.CreateToken(user,projectId,Context);
-
+            
             return Redirect("http://localhost:4200/?token=" + token );
         }
 
@@ -123,16 +127,61 @@ namespace ImageCore.Controllers
 
             if (projectval.UserIds is not null)
             {
+                string roleIdP = Context.Roles.Where(r => r.Name.Equals("ProjectEditor")).FirstOrDefault().Id;
+                Console.WriteLine("roleID:    "+roleIdP);
+                
                 foreach (var userId in projectval.UserIds)
                 {
                     ProjectParticipatorModel participator = new ProjectParticipatorModel
                     {
+                        ProjectParticipatorId = Guid.NewGuid().ToString(),
                         ProjectId = project.ProjectId,
+                        
                         UserId = userId
                     };
+
                     Context.ProjectParticipator.Add(participator);
+                    Context.SaveChanges();
+                    
+                    var roleclaimP = new RoleClaim();
+                    var userclaimP = new IdentityUserClaim<string>();
+                    
+                    Console.WriteLine("userId     "+userId);
+                    Console.WriteLine("project.ProjectId     "+project.ProjectId);
+                    Console.WriteLine("roleIdP     "+roleIdP);
+                    
+                    roleclaimP.ClaimType = ClaimTypes.Role;
+                    roleclaimP.ClaimValue = userId;
+                    roleclaimP.ClaimValue2 = project.ProjectId;
+                    roleclaimP.RoleId = roleIdP;
+                    Context.RoleClaims.Add(roleclaimP);
+                    Context.SaveChanges();
+                    
+                    userclaimP.ClaimType = ClaimTypes.NameIdentifier;
+                    userclaimP.ClaimValue = project.ProjectId;
+                    userclaimP.UserId = userId;
+                    Context.UserClaims.Add(userclaimP);
+                    Context.SaveChanges();
+                    
                 }
             }
+
+            string roleId = Context.Roles.Where(r => r.Name.Equals("ProjectOwner")).FirstOrDefault().Id;
+
+            var roleclaim = new RoleClaim();
+            var userclaim = new IdentityUserClaim<string>();
+            
+            roleclaim.ClaimType = ClaimTypes.Role;
+            roleclaim.ClaimValue = id;
+            roleclaim.ClaimValue2 = project.ProjectId;
+            roleclaim.RoleId = roleId;
+
+            userclaim.ClaimType = ClaimTypes.NameIdentifier;
+            userclaim.ClaimValue = project.ProjectId;
+            userclaim.UserId = id;
+            
+            Context.UserClaims.Add(userclaim);
+            Context.RoleClaims.Add(roleclaim); 
             
             Context.SaveChanges();
             return RedirectToAction("Create",new{projectCreated = true});
@@ -180,18 +229,15 @@ namespace ImageCore.Controllers
             return View("~/Views/Project/Shared.cshtml",sharedProjects);
         }
 
-        [Authorize]
         [Authorize(Roles="User,Admin")]
-        public IActionResult Destroy([FromQuery]int projectId)
+        public IActionResult Destroy([FromQuery]string projectId)
         {
             ProjectModel project = Context.Project.Find(projectId);
             Context.Project.Remove(project);
             Context.SaveChanges();
             return Ok();
         }
-
-      //  [Authorize]
-     //   [HttpGet]
+        
         [Authorize(Roles="User,Admin")]
         public IActionResult GetProjects([FromQuery] string userId)
         {
@@ -207,6 +253,9 @@ namespace ImageCore.Controllers
 
             foreach (var project in projects)
             {
+                if (Context.ProjectParticipator
+                        .Where(pp =>
+                            pp.UserId.Equals(userId) && pp.ProjectId.Equals(project.ProjectId)).FirstOrDefault() != null) continue;
                 projectsvm.Add(new ProjectGetViewModel
                 {
                     ProjectId = project.ProjectId,

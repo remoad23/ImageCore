@@ -28,12 +28,12 @@
                     if (Model.isContact)
                     {
                         <button id="contactEdit" class="DeleteUserAsContactBtn" onclick="fetchConctact('@ViewData["contactAddUrl"]','DELETE')"></button>
+                        <button class="AddUserToProject" id="AddProjectBtn"  onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)"></button>
                     }
                     else
                     {
                         <button id="contactEdit" class="AddUserAsContactBtn" onclick="fetchConctact('@ViewData["contactAddUrl"]','POST')"></button>
                     }
-                    <button class="AddUserToProject" onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)"></button>
                 }
             </div>
         </div>
@@ -84,15 +84,19 @@
 
                  if (contactbtn.className === "AddUserAsContactBtn")
                  {
+                     let addToProjectBtn = '<button id="AddProjectBtn" class="AddUserToProject" onclick="getProjects(`@Url.Action("GetProjects", "Project", new {userId = Model.UserId}, ViewData["RequestScheme"].ToString())`)"></button>';
                      contactbtn.classList.remove("AddUserAsContactBtn");
                      contactbtn.classList.add("DeleteUserAsContactBtn");
+                     contactbtn.parentElement.innerHTML += addToProjectBtn;
                  }
                  else
                  {
+                     document.getElementById("AddProjectBtn").remove();
                      contactbtn.classList.remove("DeleteUserAsContactBtn");
                      contactbtn.classList.add("AddUserAsContactBtn");
                  }
                  let method = methodType === "POST" ? "DELETE" : "POST";
+                 contactbtn.onclick = null;
                  contactbtn.setAttribute('onclick',`fetchConctact('${res}','${method}')`);
              }    
         });

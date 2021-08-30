@@ -9,7 +9,9 @@ namespace ImageCore.Models
     {
         [Key]
         public string ProjectParticipatorId { get; set; }
+        [Required]
         public string ProjectId { get; set; }
+        [Required]
         public string UserId { get; set; }
         
         public UserModel User { get; set; }

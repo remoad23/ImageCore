@@ -295,7 +295,7 @@ namespace ImageCore.Controllers
         [Authorize(Roles="Admin,User")]
         [HttpPut]
         [Route("Contact/Store")]
-        public IActionResult AcceptRequest([FromQuery]int contactId)
+        public IActionResult AcceptRequest([FromQuery]string contactId)
         {
             var contact = Context.Contact.Find(contactId);
             contact.RequestValidated = true;
@@ -320,10 +320,12 @@ namespace ImageCore.Controllers
         [Route("Contact/Store")]
         public IActionResult Store([FromQuery]string contactId)
         {
+            Console.WriteLine("test");
             string id = UserManager.GetUserId(User);
 
             ContactModel contact = new ContactModel
             {
+                ContactId = Guid.NewGuid().ToString(),
                 UserId = id,
                 ContactUserId = contactId,
                 RequestValidated = false
@@ -336,18 +338,14 @@ namespace ImageCore.Controllers
 
         [Authorize(Roles="Admin,User")]
         [HttpDelete]
-        public IActionResult Destroy([FromQuery] int contactId)
+        public IActionResult Destroy([FromQuery] string contactId)
         {
             string id = UserManager.GetUserId(User);
             ContactModel user = Context.Contact.Find(contactId);
             string contactToAddId = user.UserId.Equals(id) ? user.ContactUserId : user.UserId;
             Context.Contact.Remove(user);
             Context.SaveChanges();
-            return Json( Url.Action("Store", "Contact", new {contactId = contactToAddId}, Request.Scheme),
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                });
+            return Json( Url.Action("Store", "Contact", new {contactId = id}, Request.Scheme));
         }
     }
 }

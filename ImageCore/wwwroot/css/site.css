@@ -535,6 +535,11 @@ footer{
     background-color: #2b6777;
 }
 
+.projectListEntry:hover
+{
+    cursor: pointer;
+}
+
 .projectListEntry > img:hover
 {
     cursor: pointer;
@@ -666,6 +671,50 @@ footer{
     cursor: pointer;
     background-color: #52ab98;
     color: white;
+}
+
+.projectListEntryImageWrapper
+{
+    height: 70%;
+    width: 100%;
+}
+
+.projectListEntry:hover .projectListEntryInteractionList
+{
+    display: flex;
+    opacity: 1;
+}
+
+.projectListEntryImageWrapper > img
+{
+    height: 95%;
+    width: 100%;
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.projectListEntryInteractionList
+{
+    height: 5%;
+    width: 18.1%;
+    z-index: 2;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: blue;
+    border-radius: 18px 18px 0px 0px;
+    align-items: center;
+    background-color: #2b6777;
+    display: none;
+    transition: opacity 0.1s;
+    opacity: 0;
+}
+
+.projectlistEntryInteraction
+{
+    height: 100%;
+    width: 20%;
 }
 
 

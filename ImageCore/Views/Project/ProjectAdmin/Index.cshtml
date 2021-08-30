@@ -59,7 +59,10 @@
                 </div>
                 <div class="UserEntryVerticalWrapper">
                     <p class="userEntryHeader">Aktionen</p>
-                    <p class="userEntryValue DeleteBtn" onclick="deleteElement(this,'@Url.Action("Destroy", "Project", new {projectId = project.ProjectId}, ViewData["RequestScheme"].ToString())')" ></p>
+                    <div style="display: flex;flex-direction: row">
+                        <p class="userEntryValue DeleteBtn" onclick="deleteElement(this,'@Url.Action("Destroy", "Project", new {projectId = project.ProjectId}, ViewData["RequestScheme"].ToString())')"></p>
+                        <p class="userEntryValue EyeIcon" onclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = project.ProjectId}, ViewData["RequestScheme"].ToString())`"></p>
+                    </div>
                 </div>
             </a>
         }

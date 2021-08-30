@@ -70,9 +70,6 @@ namespace ImageCore
                     .AddAuthenticationSchemes("Application")
              //       .RequireClaim("role", "Admin")
                     .Build()); */
-                
-                
-                options.AddPolicy("IsProjectParticipator", policy => policy.Requirements.Add(new IsProjectParticipatorRequirement()));
             });
             
 
@@ -119,13 +116,13 @@ namespace ImageCore
             });
 
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:4200");
+                    .WithOrigins("http://localhost:4200","http://localhost:4200/");
             }));
             
         }
@@ -153,7 +150,7 @@ namespace ImageCore
             
             app.UseStatusCodePages();
             app.UseRouting();
-            app.UseCors("MyPolicy");
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,11 +16,13 @@ namespace ImageCore.Controllers
     {
         private ContextDb Context;
         private UserManager<UserModel> UserManager;
+        private RoleManager<IdentityRole> RoleManager;
         
-        public ProjectParticipatorController(ContextDb context,UserManager<UserModel> userManager)
+        public ProjectParticipatorController(ContextDb context,UserManager<UserModel> userManager,RoleManager<IdentityRole> roleManager)
         {
             Context = context;
             UserManager = userManager;
+            RoleManager = roleManager;
         }
         
         
@@ -40,9 +44,28 @@ namespace ImageCore.Controllers
         {
             ProjectParticipatorModel participator = new ProjectParticipatorModel
             {
+                ProjectParticipatorId = Guid.NewGuid().ToString(),
                 ProjectId = projectId,
                 UserId = userId
             };
+
+
+            string roleId = Context.Roles.Where(r => r.Name.Equals("ProjectEditor")).FirstOrDefault().Id;
+
+            var roleclaim = new RoleClaim();
+            var userclaim = new IdentityUserClaim<string>();
+            
+            roleclaim.ClaimType = ClaimTypes.Role;
+            roleclaim.ClaimValue = userId;
+            roleclaim.ClaimValue2 = projectId;
+            roleclaim.RoleId = roleId;
+
+            userclaim.ClaimType = ClaimTypes.NameIdentifier;
+            userclaim.ClaimValue = projectId;
+            userclaim.UserId = userId;
+            
+            Context.UserClaims.Add(userclaim);
+            Context.RoleClaims.Add(roleclaim); 
             Context.ProjectParticipator.Add(participator);
             Context.SaveChanges(); 
             return Ok();

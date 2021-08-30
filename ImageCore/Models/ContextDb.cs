@@ -13,7 +13,10 @@ namespace ImageCore.Models
     /**
      * Objectification of the database of the project
      */
-    public class ContextDb : IdentityDbContext<UserModel>
+    public class ContextDb : IdentityDbContext<
+        UserModel, IdentityRole, string,
+        IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>,
+        RoleClaim, IdentityUserToken<string>>
     {
         public DbSet<FilterModel> Filters { get; set; }
         public DbSet<ImageComponentModel> ImageComponent { get; set; }
@@ -49,7 +52,7 @@ namespace ImageCore.Models
             modelBuilder.Entity<IdentityRole>(entity =>  entity.ToTable(name: "Roles") );
             modelBuilder.Entity<IdentityUserRole<string>>(entity =>  entity.ToTable("UserRoles") );
             modelBuilder.Entity<IdentityUserClaim<string>>(entity =>  entity.ToTable("UserClaims") );
-            modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>  entity.ToTable("RoleClaims") );
+            modelBuilder.Entity<RoleClaim>(entity =>  entity.ToTable("RoleClaims") );
             modelBuilder.Entity<IdentityUserLogin<string>>(entity =>  entity.ToTable("UserLogins") );
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>  entity.ToTable("UserTokens") );
         }

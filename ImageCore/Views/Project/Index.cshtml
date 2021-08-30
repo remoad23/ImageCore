@@ -20,8 +20,16 @@
     <div class="projectList">
         @for(int x = 0; x < Model.Projectname.Count(); x++)
         {
-            <div class="projectListEntry" onclick="selectElement(this)" ondblclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())`">
-                <img src="images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntry" onclick="selectElement(this)">
+                <div class="projectListEntryImageWrapper">
+                    <div class="projectListEntryInteractionList">
+                        <div class="projectlistEntryInteraction EyeIcon" onclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())`"></div>
+                        <div onclick='deleteElement(this.parentElement.parentElement.parentElement,`@Url.Action("Destroy", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())`)'
+                            class="projectlistEntryInteraction DeleteBtn" style="margin-left: 20px;"></div>
+                    </div>
+                    <img src="images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                </div>
+                
                 <div class="projectListEntryText">
                     <p>@Model.Projectname[x]</p>
                     <div class="projectEntryInformation">
@@ -31,7 +39,7 @@
                         <p>5</p>
                     </div>
                 </div>
-                <a href="@Url.Action("Destroy", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())"  style="display: none"></a>
+                <a href="@Url.Action("Destroy", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())" style="display: none"></a>
             </div>
         }
         <template>
@@ -52,22 +60,21 @@
 
 let currentlySelectElement;
 
-function deleteElement()
+function deleteElement(element,url)
 {
     let template = document.getElementsByTagName("template")[0].content.cloneNode(true);
     let wrapper = template.children[0];
     document.body.appendChild(wrapper);
     wrapper.style.display = "block";
     let deleteBtn = wrapper.children[0].children[1].children[0];
-    console.log(deleteBtn);
-    console.log( deleteBtn.nextElementSibling);
+    
     deleteBtn.addEventListener('click',() => {
-        fetch(currentlySelectElement.lastElementChild.href)
+        fetch(url)
             .then(res => {
                 if (res.status === 200)
                 {
                     document.getElementById("cancelProjectBtn").click();
-                    if (currentlySelectElement) currentlySelectElement.remove();        
+                    element.remove();        
                     currentlySelectElement = "";
                 }
             });
@@ -76,8 +83,8 @@ function deleteElement()
 
 function selectElement(element)
 { 
-    if (currentlySelectElement) currentlySelectElement.style.border = "none";
-    element.style.border = "2px solid blue";
+    if (currentlySelectElement) currentlySelectElement.style.backgroundColor = "#2b6777";
+    element.style.backgroundColor = "#52ab98";
     currentlySelectElement = element;
 }
 

@@ -230,5 +230,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 /ClientApp/src/assets/images/photoshop-cc.svg
-/Migrations/20210711160027_InitialCreateImageCoreDb.cs
-/Migrations/20210711160027_InitialCreateImageCoreDb.Designer.cs
+/Migrations/

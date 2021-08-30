@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace ImageCore.Models
 {
@@ -23,6 +24,5 @@ namespace ImageCore.Models
         public List<ImageLayerModel> ImageLayers { get; set; }
         public List<ImageComponentModel> ImageComponents { get; set; }
         public List<FilterModel> Filters { get; set; }
-
     }
 }

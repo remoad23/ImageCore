@@ -18,8 +18,9 @@ function StartApp()
 let urlParams = new URLSearchParams(window.location.search);
 let token = urlParams.get('token');
 
+console.log(token);
 
-fetch("https://localhost:5001/Api", {
+fetch("https://localhost:5001/AuthApi", {
   method: 'GET',
   headers: {
     'Content-Type':  'application/json; charset=utf-8',
