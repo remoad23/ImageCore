@@ -45,11 +45,12 @@ a:hover
 
 .EyeIcon
 {
-    background-image: url("../images/visibility-24px.svg");
+    background-image: url("../images/Icons/EyeIcon.svg");
     height: 40px !important;
-    width: 40px !important;
+    width: 50px !important;
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 
@@ -76,7 +77,7 @@ nav
 
 .navbar-header
 {
-    background-image: url("../images/photoshop-cc.svg");
+    background-image: url("../images/logo.svg");
     background-size: contain;
     background-repeat: no-repeat;
     height: 4vh;
@@ -299,6 +300,8 @@ footer{
     display: flex;
     flex-flow: column;
     padding-top: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .introductionTitle
@@ -437,12 +440,13 @@ footer{
     justify-content: center;
     font-size: 2em;
     align-items: center;
+    display: flex;
 }
 
 .imageblockBtn:hover
 {
     cursor: pointer;
-    color: black;
+    color: #707070;
 }
 
 /* -------------------------------------home end --------------------------- */
@@ -591,17 +595,17 @@ footer{
 
 .viewIcon
 {
-    background-image: url("../images/visibility-24px.svg");
+    background-image: url("../images/Icons/EyeIcon.svg");
     background-repeat: no-repeat;
-    background-size: 50%;
+    background-size: 65%;
     height: 100%;
-    width: 18%;
+    width: 17%;
     background-position: center;
 }
 
 .userIcon
 {
-    background-image: url("../images/perm_identity-24px.svg");
+    background-image: url("../images/Icons/UserIconWhite.svg");
     background-repeat: no-repeat;
     background-size: 50%;
     height: 100%;
@@ -869,6 +873,7 @@ footer{
     background-size: contain;
     border-radius: 20px;
     background-image: url(../images/Icons/UserIconWhite.svg);
+    background-repeat: no-repeat;
 }
 
 .userDescription
@@ -1362,12 +1367,13 @@ footer{
 
 .aboutUsSubImage:nth-child(1)
 {
-    background-image: url("../images/woman-3083379_1920.jpg");
+    background-image: url("../images/aboutusapplication.PNG");
 }
 
 .aboutUsSubImage:nth-child(2)
 {
-    background-image: url("../images/woman-1594711_1920.jpg");
+    background-image: url("../images/teamworkaboutus.svg");
+    background-size: 75%;
 }
 
 .aboutUsSubImage:nth-child(3)
@@ -2211,7 +2217,7 @@ and (min-width : 1025px)
 and (min-width : 1201px)
 {
     nav{
-        height: 7vh !important;
+        height: 8vh !important;
     }
 
     .navbar-header
@@ -2249,13 +2255,18 @@ and (min-width : 1201px)
 
     .projectListEntry
     {
-        width: 28%;
-        height: 45vh;
+        width: 30%;
+        height: 53vh;
     }
 
+    .projectListEntryInteractionList {
+        width: 27.3%;
+        height: 8%;
+    }
+    
     .projectHeader > ul {
-        font-size: 1.5em;
-        width: 45%;
+        font-size: 1.3em;
+        width: 55%;
     }
     
     .contactWrapper
@@ -2275,7 +2286,35 @@ and (min-width : 1201px)
     {
         margin-top: 5vh;
     }
+    
+    .userNavigationWrapper
+    {
+        width: 15vw;
+    }
+    
+    .userNavigationWrapper > ul > li 
+    {
+        font-size: 1.1em;
+    }
+    
+    .userNavigationHeader
+    {
+        flex-direction: column-reverse;
+    }
+    
+    .CloseNavigation
+    {
+        width: 20%;
+        margin-top: 0;
+        margin-bottom: 0;
+        align-self: flex-end;
+    }
+    }
 
+    .userNavigationWrapper > ul
+    {
+        width: 100%;
+    }
     .contactHeader
     {
         height: 10vh;
@@ -2300,14 +2339,14 @@ and (min-width : 1201px)
         display: flex;
         flex-flow: row;
         margin-left: 2%;
-        width: 40%;
+        width: 30%;
         justify-content: space-between;
         margin-top: 25px;
     }
 
     .settingsSidebar
     {
-        width: 13%;
+        width: 18%;
     }
 
     .settingsInput
@@ -2336,13 +2375,17 @@ and (min-width : 1201px)
         margin: 0;
     }
 
+    .UserListEntry {
+        height: 16vh;
+    }
+    
     .UserEntryVerticalWrapper {
         width: 15%;
     }
 
     .userEntryImage
     {
-        height: 60%;
+        height: 50%;
     }
     .filterOption > p{
         align-self: center;
@@ -2353,7 +2396,7 @@ and (min-width : 1201px)
         width: 50%;
     }
     .projectListEntryText > p {
-        margin-bottom: 8%;
+        margin-bottom: 5%;
     }
 
     .user {
@@ -2362,7 +2405,68 @@ and (min-width : 1201px)
     }
 
     .footerLinkWrapper {
-        width: 65%;
+        width: 90%;
+    }
+
+    .loginBlock {
+        width: 35%;
+    }
+    
+    .acceptContactRequestBtn, .declineContactRequestBtn {
+        width: 10vw;
+    }
+
+    .contactBlockRequests {
+        width: 65% !important;
+    }
+        
+    .EditUserWrapper {
+        height: 85vh;
+        width: 40vw;
+        margin-left: 27vw;
+    }
+    
+    .contactBlock{
+        width: 50%;
+    }
+    
+    .contactList {
+        flex-direction: column;
+    }
+
+    .UserInputRow > input {
+        width: 60%;
+        margin-bottom: 2vh;
+        height: 3vh;
+    }
+
+    .UserInputRow > select {
+        width: 50%;
+        height: 4vh;
+    }
+    
+    .acceptContactRequestBtn, .declineContactRequestBtn {
+        height: 4vh;
+    }
+
+    .imageblockBtn
+    {
+        font-size: 1.4em;
+    }
+    
+    .modalWindowConfirm {
+        width: 35%;
+        height: 25%;
+    }
+    
+    #projectSelection
+    {
+        height: 6vh;
+    }
+
+    .modalWindowBtnWrapper > button {
+        width: 40%;
+        height: 4vh;
     }
 }
 
@@ -2514,5 +2618,377 @@ and (min-width : 1920px)
 
     .footerLinkWrapper {
         width: 50%;
+    }
+}
+
+@media only screen
+and (min-width : 3840px)
+{
+    nav{
+        height: 6vh !important;
+    }
+
+    .navbarRouteList > li {
+        margin-right: 2vw;
+        font-size: 2em;
+    }
+
+    .navbar-header
+    {
+        margin-left: 2vw;
+    }
+
+    .navImage
+    {
+        margin-right: 3vw;
+        height: 80px;
+        width: 80px;
+    }
+
+    .userNavigationWrapper > ul > li {
+        font-size: 2em;
+    }
+    .userNavigationHeader > h1
+    {
+        font-size: 3em;    
+    }
+
+    .CloseNavigation {
+        width: 7%;
+    }
+    
+    .introductionTitle
+    {
+        font-size: 10em;
+    }
+    
+    .introductionSubTitle
+    {
+        font-size: 5em;
+    }
+    
+    .featureCircle
+    {
+        height: 300px;
+        width: 500px;
+    }
+
+    .projectHeader > ul > li  {
+        font-size: 2.2em;
+    }
+
+    .projectListEntryInteractionList {
+        width: 18.1%;
+    }
+
+    .DeleteBtn {
+        height: 50px !important;
+        width: 60px !important;
+    }
+
+    .projectListEntryText > p {
+        font-size: 2.8em;
+    }
+
+    .contactHeader > ul > li {
+        font-size: 2em;
+    }
+
+    .acceptContactRequestBtn, .declineContactRequestBtn {
+        width: 10vw;
+        font-size: 2em;
+    }
+
+    .userInformation > h1 {
+        font-size: 3.5em !important;
+    }
+
+    .userInformation > ul {
+        font-size: 1.8em;
+    }
+
+    .feature1, .feature2, .feature3 {
+        height: 655px;
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .feature1 > h1, .feature2 > h1, .feature3 > h1 {
+        height: 500px;
+        width: 600px;
+        font-size: 3em;
+    }
+
+    .featureWrapper
+    {
+        width: 60vw;
+    }
+
+    .imageBlock{
+        background-size: 90%;
+    }
+
+    .blockTextWrapper > p {
+        font-size: 3em;
+    }
+
+    .blockTextWrapper > h1 {
+        font-size: 6em;
+    }
+
+    .imageblockBtn {
+        height: 8vh;
+        width: 18vw;
+        margin-top: 5vh;
+        font-size: 4em;
+    }
+
+    .projectListEntry
+    {
+        width: 20%;
+        height: 40vh;
+    }
+
+    .projectHeader > ul {
+        font-size: 1.5em;
+        width: 45%;
+    }
+
+    .contactBlock {
+        width: 40%;
+    }
+
+    .contactList
+    {
+        margin-top: 5vh;
+    }
+
+    .contactHeader
+    {
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .contactHeader > input{
+        height: 4vh;
+        padding-left: 20px;
+        margin-right: 10%;
+        margin-top: 20px;
+        width: 45%;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .contactHeader > ul{
+        display: flex;
+        flex-flow: row;
+        margin-left: 3%;
+        width: 16%;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .settingsSidebar
+    {
+        width: 13%;
+    }
+
+    .settingsSidebar > h1 {
+        font-size: 3em;
+    }
+
+    .settingsSidebar > ul > li {
+        font-size: 2em;
+    }
+
+    .settingsTitle {
+        font-size: 3em;
+    }
+    
+    .settingsForm > span{
+        font-size: 2em;
+    }
+
+    .settingsForm > button {
+        width: 30vw;
+        height: 5vh;
+        font-size: 2.5em;
+    }
+
+    .settingsInput
+    {
+        width: 30vw;
+        font-size: 2.5em;
+    }
+
+    .searchInput {
+        font-size: 2em;
+    }
+    
+    .settingsForm > button
+    {
+        width: 30vw;
+    }
+
+    .loginBlock
+    {
+        width: 25%;
+    }
+
+    .loginArea
+    {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+
+    .userEntryHeader {
+        font-size: 1.6em;
+    }
+    
+    .userEntryValue {
+        font-size: 2em;
+    }
+
+    .UserEntryVerticalWrapper {
+        width: 15%;
+    }
+
+    .userEntryImage
+    {
+        border-radius: 100px;
+        height: 60%;
+    }
+    .filterOption > p{
+        align-self: center;
+        color: #2b6777;
+    }
+
+    .UserListHeaderLower > input {
+        font-size: 2em;
+    }
+
+    #userOrdering{
+        font-size: 1.4em;
+    }
+
+    .filterOptionWrapper {
+        width: 50%;
+    }
+    .projectListEntryText > p {
+        margin-bottom: 8%;
+    }
+
+    .user {
+        height: 30vh;
+        padding-bottom: 10vh;
+    }
+
+    .footerLinkWrapper {
+        width: 60%;
+        font-size: 2.6em;
+    }
+
+    .footerChildWrapper {
+        height: 70%;
+        width: 30%;
+    }
+    
+    .footerChildWrapper > p {
+        font-size: 2em;
+    }
+    
+    .loginBlock{
+        width: 20%;
+    }
+    
+    #projectSelection
+    {
+        font-size: 2.5em;
+    }
+
+    .modalWindowBtnWrapper > button
+    {
+        font-size: 2em;
+    }
+
+    .modalWindowConfirm > h1 {
+        font-size: 3em;
+    }
+
+    .UserInputRow > label {
+        font-size: 2em;
+    }
+
+    .UserInputRow > input {
+        font-size: 2em;
+    }
+
+    .UserInputRow > select {
+        font-size: 2em;
+    }
+
+    .EditUserWrapper > h1 {
+        font-size: 3.5em;
+    }
+
+    .UserInformation > label {
+        font-weight: 700;
+        font-size: 1.5em;
+    }
+
+    .UserInformation > p {
+        font-size: 2em;
+    }
+
+    .UserProfileImageEdit {
+        height: 270px;
+        width: 270px;
+    }
+
+    .loginBlock > span {
+        font-size: 2em;
+    }
+
+    .loginBlock > input {
+        font-size: 2em;
+    }
+
+    .loginBlock > button {
+        width: 95%;
+        height: 77px;
+    }
+
+    .userEntryValue {
+        height: 70px !important;
+        width: 14vw !important;
+    }
+    
+    .EyeIcon,.EditIcon{
+        width: 2vw !important;
+        height: 50px !important;
+    }
+
+    .EyeIcon{
+        width: 3vw !important;
+        height: 60px !important;
+    }
+
+    .DeleteBtn {
+        width: 100px !important;
+    }
+
+    .WrapText > h1 {
+        font-size: 4em;
+    }
+
+    .WrapText > p {
+        font-size: 2em;
     }
 }

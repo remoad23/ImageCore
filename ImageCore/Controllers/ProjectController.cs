@@ -47,7 +47,14 @@ namespace ImageCore.Controllers
             {
                 project.Projectname.Add(p.Name);
                 project.ProjectIds.Add(p.ProjectId);
+                project.ProjectViews.Add(p.Views);
+                project.ParticipatorCounts.Add(Context.ProjectParticipator
+                    .Where(pp => pp.ProjectId == p.ProjectId)
+                    .ToList()
+                    .Count);
             }
+     
+            
             ViewData["RequestScheme"] = Request.Scheme;
             return View(project);
         }
@@ -58,7 +65,9 @@ namespace ImageCore.Controllers
 
             UserModel user = UserManager.GetUserAsync(User).Result;
             var token = ProjectAuth.CreateToken(user,projectId,Context);
-            
+            ProjectModel project = Context.Project.Find(projectId);
+            project.Views++;
+            Context.SaveChanges();
             return Redirect("http://localhost:4200/?token=" + token );
         }
 
@@ -145,11 +154,7 @@ namespace ImageCore.Controllers
                     
                     var roleclaimP = new RoleClaim();
                     var userclaimP = new IdentityUserClaim<string>();
-                    
-                    Console.WriteLine("userId     "+userId);
-                    Console.WriteLine("project.ProjectId     "+project.ProjectId);
-                    Console.WriteLine("roleIdP     "+roleIdP);
-                    
+
                     roleclaimP.ClaimType = ClaimTypes.Role;
                     roleclaimP.ClaimValue = userId;
                     roleclaimP.ClaimValue2 = project.ProjectId;
@@ -200,6 +205,11 @@ namespace ImageCore.Controllers
             {
                 project.Projectname.Add(p.Name);
                 project.ProjectIds.Add(p.ProjectId);
+                project.ProjectViews.Add(p.Views);
+                project.ParticipatorCounts.Add(Context.ProjectParticipator
+                    .Where(pp => pp.ProjectId == p.ProjectId)
+                    .ToList()
+                    .Count);
             }
             ViewData["RequestScheme"] = Request.Scheme;
          

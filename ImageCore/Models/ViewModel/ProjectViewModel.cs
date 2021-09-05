@@ -9,5 +9,7 @@ namespace ImageCore.Models.ViewModel
     {
         public List<string> Projectname = new List<string>();
         public List<string> ProjectIds = new List<string>();
+        public List<int> ProjectViews = new List<int>();
+        public List<int> ParticipatorCounts = new List<int>();
     }
 }
