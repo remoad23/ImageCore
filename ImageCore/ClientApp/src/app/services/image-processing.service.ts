@@ -33,6 +33,10 @@ export class ImageProcessingService {
   public toolColor = ["#ffffff", "#000000"];
   public activeColor = 0;
 
+  //masks
+  public masksEnabled = false;
+  private maskPreview = null;
+
 
   constructor(private transmitter: DataTransmitterServiceService, private ngOpenCVService: NgOpenCVService, private componentFactory: ComponentFactoryResolver)
   {
@@ -64,6 +68,15 @@ export class ImageProcessingService {
     for (let i = 0; i < this.layerArray.length; i++) {
       this.layerArray[i].updateZIndex(i);
     }
+  }
+
+  createMask(layerIdx) {
+    this.layerArray[layerIdx].createMask(this.maskPreview);
+  }
+
+  toggleMaskUI(enabled, maskPreview) {
+    this.masksEnabled = enabled;
+    this.maskPreview = maskPreview;
   }
 
   setActiveLayer(idx: number) {

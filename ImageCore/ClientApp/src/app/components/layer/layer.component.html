@@ -1,4 +1,4 @@
-<div #transformbox class="transformbox" [style.top.px]="viewTop" [style.left.px]="viewLeft" [style.transform-origin]="(viewCenterX-viewLeft)+'px '+ (viewCenterY-viewTop)+'px'">
+<div #transformbox class="transformbox" [style.display]="isHidden ? 'none' : 'block'" [style.top.px]="viewTop" [style.left.px]="viewLeft" [style.transform-origin]="(viewCenterX-viewLeft)+'px '+ (viewCenterY-viewTop)+'px'">
   <div #rotatebox class="rotatebox">
     <div #rotationhandle class="rotationHandle" [style.width.px]="grabboxSize*2" [style.display]="display" [style.height.px]="grabboxSize*2" [style.top.px]="-padding*2" style="left:50%;transform: translate(-50%, 0px);" (mousedown)="startRotation($event)"></div>
     <div #topleftbox class="grabbox" [style.width.px]="grabboxSize" [style.height.px]="grabboxSize" [style.display]="display" style="top:0px;left:0px" (mousedown)="startTransformDrag($event,-1,-1)"></div>
@@ -17,3 +17,4 @@
 </div>
 
 <canvas #originalImgView style="display:none"></canvas>
+<canvas #maskImgView class="layerCanvas" style="display:none"></canvas>

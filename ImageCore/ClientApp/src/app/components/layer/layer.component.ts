@@ -48,6 +48,7 @@ export class LayerComponent{
   @ViewChild('layerviewContainer', { static: false }) layerviewContainer: ElementRef;
   @ViewChild('layerView', { static: false }) layerView: ElementRef;
   @ViewChild('originalImgView', { static: false }) originalImgView: ElementRef;
+  @ViewChild('maskImgView', { static: false }) maskImgView: ElementRef;
 
   //css
   public startPadding = 20;
@@ -62,19 +63,20 @@ export class LayerComponent{
   public width;
   public height;
 
-  private imageLeft;
-  private imageTop;
+  public imageLeft;
+  public imageTop;
 
-  private imageCenterX;
-  private imageCenterY;
+  public imageCenterX;
+  public imageCenterY;
 
   public viewCenterX;
   public viewCenterY;
 
   private display = "none";
+  public isHidden = false;
 
   private previewScale = 1;
-  private scaleValue = 1;
+  public scaleValue = 1;
   private rotationAngle = 0;
 
   private componentRef: any;
@@ -84,11 +86,14 @@ export class LayerComponent{
   private processedImg: any;
   private mask: any;
 
+  private masked = false;
+
   private imgSource;
 
   private layers: any;
 
   public canvasURL: any;
+  public maskURL: any;
 
   public dragRotation = false;
   public dragTransform = false;
@@ -113,6 +118,7 @@ export class LayerComponent{
   constructor(private ngOpenCVService: NgOpenCVService) {
 
     this.canvasURL == "";
+    this.maskURL == "";
     
   }
 
@@ -153,7 +159,7 @@ export class LayerComponent{
     this.originalImg = cv.imread(this.originalImgView.nativeElement.id);
     this.processedImg = new cv.Mat();
     this.originalImg.copyTo(this.processedImg);
-    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(255, 255, 255, 255));
+    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(0, 0, 0, 255));
     cv.imshow(this.layerView.nativeElement.id, this.processedImg);
     this.canvasURL = this.layerView.nativeElement.toDataURL();
     this.centerImage();
@@ -169,10 +175,9 @@ export class LayerComponent{
     this.originalImg = new cv.Mat(this.layerSize[1], this.layerSize[0], cv.CV_8UC4, new cv.Scalar(0, 0, 0, 0));
     this.processedImg = new cv.Mat();
     this.originalImg.copyTo(this.processedImg);
-    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(255, 255, 255, 255));
+    this.mask = new cv.Mat(this.originalImg.rows, this.originalImg.cols, this.originalImg.type(), new cv.Scalar(0, 0, 0, 255));
     cv.imshow(this.layerView.nativeElement.id, this.processedImg);
     this.canvasURL = this.layerView.nativeElement.toDataURL();
-
     this.width = this.processedImg.cols;
     this.height = this.processedImg.rows;
     this.layers.push(this);
@@ -185,9 +190,16 @@ export class LayerComponent{
 
   scaleImage(scaleX: number, scaleY: number) {
     cv.resize(this.processedImg, this.processedImg, new cv.Size(scaleX, scaleY), 0, 0, cv.INTER_AREA);
-    cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+    cv.resize(this.mask, this.mask, new cv.Size(scaleX, scaleY), 0, 0, cv.INTER_AREA);
     this.width = this.processedImg.cols;
     this.height = this.processedImg.rows;
+    if (this.masked) {
+      this.applyMask();
+    }
+    else {
+      cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+    }
+    
 
     this.layerView.nativeElement.style.width = (this.width) + "px";
     this.layerView.nativeElement.style.height = (this.height) + "px";
@@ -201,7 +213,7 @@ export class LayerComponent{
     this.imageLeft = left;
     this.imageTop = top;
     console.log(left, top);
-    this.viewLeft = 
+    //this.viewLeft = 
     this.layers = layerArray;
     this.componentRef = cmp;
     this.scaleValue = this.componentRef._view.component.viewScale;
@@ -397,6 +409,55 @@ export class LayerComponent{
   endTransform() {
     this.dragTransform = false;
     this.scaleImage(this.transformbox.nativeElement.offsetWidth - this.padding * 2, this.transformbox.nativeElement.offsetHeight - this.padding * 2);
+  }
+
+  toggleLayer(show: boolean) {
+    if (show) {
+      this.isHidden = false;
+
+    }
+    else {
+      this.isHidden = true;
+    }
+  }
+
+  createMask(maskPreview) {
+    var boundingRect = this.layerView.nativeElement.getBoundingClientRect();
+    if ((maskPreview.right > boundingRect.left && maskPreview.left < boundingRect.right) && (maskPreview.bottom > boundingRect.top && maskPreview.top < boundingRect.bottom)) {
+      let scale = this.width / boundingRect.width;
+      let startX = Math.max(0, (maskPreview.left - boundingRect.left) * scale);
+      let endX = Math.min(this.width, (maskPreview.right - boundingRect.left) * scale);
+      let startY = Math.max(0, (maskPreview.top - boundingRect.top) * scale);
+      let endY = Math.min(this.height, (maskPreview.bottom - boundingRect.top) * scale);
+      this.masked = true;
+      for (let i = startX; i < endX; i++) {
+        for (let j = startY; j < endY; j++) {
+          for (let c = 0; c < 3; c++) {
+            this.mask.ucharPtr(j, i)[c] = 255;
+          }
+        }
+      }
+      cv.imshow(this.maskImgView.nativeElement, this.mask);
+      this.maskURL = this.maskImgView.nativeElement.toDataURL();
+      this.applyMask();
+    }
+    
+  }
+
+  applyMask() {
+    if (this.masked) {
+      let maskedImg = new cv.Mat();
+      this.processedImg.copyTo(maskedImg);
+      for (let i = 0; i < this.width; i++) {
+        for (let j = 0; j < this.height; j++) {
+          if (this.mask.ucharPtr(j, i)[0] != 255) {
+            maskedImg.ucharPtr(j, i)[3] = 0;
+          }
+        }
+      }
+      cv.imshow(this.layerView.nativeElement.id, maskedImg);
+      maskedImg.delete();
+    }
   }
 
   deleteLayer() {

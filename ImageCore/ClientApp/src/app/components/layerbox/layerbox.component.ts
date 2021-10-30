@@ -37,6 +37,14 @@ import { ImageProcessingService } from '../../services/image-processing.service'
       border: 1px solid black;
       margin-right:10px;
     }
+    #maskButton
+    {
+      height:50%;
+      width: 20px;
+      background-color: #ffffff;
+      border: 1px solid black;
+      margin-right:10px;
+    }
     #layername
     {
       color: #ffffff;
@@ -51,8 +59,11 @@ import { ImageProcessingService } from '../../services/image-processing.service'
 export class LayerboxComponent{
   
   @Input() previewImg: any;
+  @Input() previewMask: any;
 
   @Input() layerIndex: number;
+
+  @ViewChild('visibilityCheckbox', { static: false }) visibilityCheckbox: ElementRef;
 
 
   constructor(private element: ElementRef, private opencvService: ImageProcessingService) {
@@ -60,15 +71,23 @@ export class LayerboxComponent{
   }
 
   activateLayer() {
-    this.opencvService.setActiveLayer(this.layerIndex);
+    if (this.visibilityCheckbox.nativeElement.checked) {
+      this.opencvService.setActiveLayer(this.layerIndex);
 
-    let layerboxes = Array.from(this.element.nativeElement.parentElement.children);
-    for (let i = 0; i < layerboxes.length; i++) {
-      (<HTMLElement>layerboxes[i]).firstElementChild.classList.remove("activeLayer");
+      let layerboxes = Array.from(this.element.nativeElement.parentElement.children);
+      for (let i = 0; i < layerboxes.length; i++) {
+        (<HTMLElement>layerboxes[i]).firstElementChild.classList.remove("activeLayer");
+      }
+
+      this.element.nativeElement.firstElementChild.classList.add("activeLayer");
     }
-
-    this.element.nativeElement.firstElementChild.classList.add("activeLayer");
     
+  }
+
+  toggleVisibility(event) {
+    
+    this.opencvService.layerArray[this.layerIndex].toggleLayer(this.visibilityCheckbox.nativeElement.checked);
+    event.stopPropagation();
   }
 
   

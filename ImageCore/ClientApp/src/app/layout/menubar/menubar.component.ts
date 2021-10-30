@@ -23,11 +23,11 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     {
       width: 4vh;
       height: 4vh;
-      background-color: #5D5D5D;
       margin-left: 0.5vw;
-      background-image: url("../../assets/images/photoshop-cc.svg");
+      background-image: url("../../assets/images/logo.svg");
       background-size: contain;
       background-repeat: no-repeat;
+      background-position: center;
     }
     .menuButton
     {

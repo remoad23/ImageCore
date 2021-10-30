@@ -48,7 +48,7 @@
   <div class="propertyContainer">
     <h5>Layer</h5>
     <div #layerContainer class="layerContainer" cdkDropList (cdkDropListDropped)="drop($event)">
-      <layerbox class="layerBox" *ngFor="let layer of opencvService.layerArray; index as i" [previewImg]="layer.canvasURL" [layerIndex]="i" cdkDrag>{{layer}}>
+      <layerbox class="layerBox" *ngFor="let layer of opencvService.layerArray; index as i" [previewImg]="layer.canvasURL" [previewMask]="layer.maskURL" [layerIndex]="i" cdkDrag>{{layer}}>
         <div *cdkDragPreview></div>
         <div *cdkDragPlaceholder></div>
       </layerbox>

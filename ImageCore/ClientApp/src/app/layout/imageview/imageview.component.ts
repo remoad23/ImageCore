@@ -23,6 +23,7 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     .layerDragPreview{
       position: absolute;
       border: 2px dashed #dbdbdb;
+      z-index: 99;
     }
   `]
 })
@@ -65,7 +66,9 @@ export class ImageviewComponent{
         this.dragX = $event.clientX;
         this.dragY = $event.clientY;
       }
-      else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text") {
+      else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text" || this.opencvService.selectedTool == "selectRect") {
+        this.previewWidth = 0;
+        this.previewHeight = 0;
         this.creatingGeometry = true;
         this.offsetLeft = document.getElementById('toolbarContainer').offsetWidth;
         this.offsetTop = document.getElementById('menubarContainer').offsetHeight;
@@ -101,9 +104,18 @@ export class ImageviewComponent{
         if (this.previewWidth > 1 && this.previewHeight > 1) {
           this.opencvService.addGeometryLayer(this.dragX, this.dragY, this.previewWidth, this.previewHeight);
         }
-        this.previewWidth = 0;
-        this.previewHeight = 0;
         this.previewDisplay = "none";
+      }
+      else if (this.opencvService.selectedTool == "selectRect") {
+        this.creatingGeometry = false;
+        if (this.previewWidth > 1 && this.previewHeight > 1) {
+          let previewRect = this.dragPreview.nativeElement.getBoundingClientRect();
+          this.opencvService.toggleMaskUI(true, previewRect);
+        }
+        else {
+          this.opencvService.toggleMaskUI(false, null);
+          this.previewDisplay = "none";
+        }
       }
     }
     if ($event.button === 1) {
