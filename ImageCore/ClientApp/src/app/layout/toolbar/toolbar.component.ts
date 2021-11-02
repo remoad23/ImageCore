@@ -3,6 +3,8 @@ import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
+import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
+
 
 @Component({
   selector: 'toolbar',
@@ -10,7 +12,7 @@ import { ImageProcessingService } from '../../services/image-processing.service'
   styles: [`
     #toolbarContainer
     {
-      width: 3vw;
+      width: 57px;
       height: 100%;
       background-color: #2b6777;
       display: flex;
@@ -23,8 +25,8 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     }
     .toolButton
     {
-      width: 2.2vw;
-      height: 2.2vw;
+      width: 42px;
+      height: 42px;
       background-color: #ffffff;
       margin: 3px;
       border-radius: 12px;
@@ -40,8 +42,8 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     {
       position:relative;
       margin: 10px;
-      width:2.2vw;
-      height: 2.2vw;
+      width:42px;
+      height: 42px;
     }
     .colorPreview
     {
@@ -86,7 +88,7 @@ export class ToolbarComponent{
 
   @ViewChild('toolbarContainer', { static: false }) toolbarContainer: ElementRef;
 
-  constructor(private opencvService: ImageProcessingService) {
+  constructor(private opencvService: ImageProcessingService, private transmitter: DataTransmitterServiceService) {
   }
 
   activateTool($event, tool: string) {

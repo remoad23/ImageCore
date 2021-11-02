@@ -57,7 +57,9 @@ import { ImageProcessingService } from '../../services/image-processing.service'
   `]
 })
 export class LayerboxComponent{
-  
+
+  @Input() layerType: boolean;
+
   @Input() previewImg: any;
   @Input() previewMask: any;
 

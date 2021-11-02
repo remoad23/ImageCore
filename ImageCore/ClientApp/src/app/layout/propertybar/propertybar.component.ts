@@ -28,6 +28,10 @@ import { ImageProcessingService } from '../../services/image-processing.service'
       width: 100%;
       padding: 6%;
       border-top: 2px solid #272727;
+
+    }
+    #inputContainer{
+      height: 400px;
     }
     .colorContainer
     {
@@ -196,6 +200,32 @@ export class PropertybarComponent{
     this.opencvService.layerArray[this.opencvService.activeLayer].layerColor = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
+
+  changeBrightness(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].brightness = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer-1].applyFilter();
+  }
+
+  changeContrast(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].contrast = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
+  }
+
+  changeHue(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].hue = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
+  }
+
+  changeSaturation(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].saturation = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
+  }
+
+  changeValue(event) {
+    this.opencvService.layerArray[this.opencvService.activeLayer].value = event.target.value;
+    this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
+  }
+
 
 
   

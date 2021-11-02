@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr"
+import { ImageProcessingService } from '../services/image-processing.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class DataTransmitterServiceService {
   // signalR connection
   private connection;
 
-  constructor()
+  constructor(private opencvService: ImageProcessingService)
   {
     this.receivedData = [];
     this.connection = new signalR.HubConnectionBuilder()
@@ -27,7 +29,14 @@ export class DataTransmitterServiceService {
       .build();
     this.startConnection();
 
-    this.connection.on('message',e => (document.getElementById('inn') as HTMLInputElement).value = e );
+    this.connection.on('message', e => {
+      var array = e.split(',');
+      if (array[0] == "addGeometryLayer") {
+        this.opencvService.addGeometryLayer(array[1], array[2], array[3], array[4],array[5],array[6]);
+      }
+      
+      
+    });
   }
 
   updateData(text:string)

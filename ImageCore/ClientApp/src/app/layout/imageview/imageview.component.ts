@@ -3,6 +3,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
+import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
 @Component({
   selector: 'imageview',
@@ -51,7 +52,7 @@ export class ImageviewComponent{
   private offsetLeft = 0;
   private offsetTop = 0;
 
-  constructor(private element: ElementRef, private opencvService: ImageProcessingService) {
+  constructor(private element: ElementRef, private opencvService: ImageProcessingService, private transmitter: DataTransmitterServiceService) {
     this.draggingView = false;
   }
 
@@ -102,7 +103,8 @@ export class ImageviewComponent{
       else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text") {
         this.creatingGeometry = false;
         if (this.previewWidth > 1 && this.previewHeight > 1) {
-          this.opencvService.addGeometryLayer(this.dragX, this.dragY, this.previewWidth, this.previewHeight);
+          this.transmitter.updateData("addGeometryLayer," + this.dragX + "," + this.dragY + "," + this.previewWidth + "," + this.previewHeight + "," + this.opencvService.toolColor[this.opencvService.activeColor] + "," + this.opencvService.selectedTool);
+          //this.opencvService.addGeometryLayer(this.dragX, this.dragY, this.previewWidth, this.previewHeight);
         }
         this.previewDisplay = "none";
       }

@@ -14,6 +14,7 @@ import { PropertybarComponent } from './layout/propertybar/propertybar.component
 import { ImageviewComponent } from './layout/imageview/imageview.component';
 import { LayerboxComponent } from './components/layerbox/layerbox.component';
 import { LayerComponent } from './components/layer/layer.component';
+import { FilterComponent } from './components/layer/filter.component';
 import {AuthGuard} from "./Guards/auth.guard";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -35,6 +36,7 @@ const openCVConfig: OpenCVOptions = {
     ImageviewComponent,
     LayerboxComponent,
     LayerComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,9 +54,11 @@ const openCVConfig: OpenCVOptions = {
   ],
   exports: [
     LayerComponent,
+    FilterComponent,
   ],
   entryComponents: [
     LayerComponent,
+    FilterComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

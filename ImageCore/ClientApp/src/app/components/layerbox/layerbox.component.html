@@ -2,8 +2,9 @@
   <div class="visibilityContainer">
     <input type="checkbox" id="visibilityCheckbox" #visibilityCheckbox (click)="toggleVisibility($event)" checked />
   </div>
-  <img id="layerPreview" #layerPreview src="{{previewImg}}">
-  <div id="maskButton" #maskButton *ngIf="this.opencvService.masksEnabled && !this.opencvService.layerArray[this.layerIndex].masked" (click)="this.opencvService.createMask(layerIndex)"></div>
-  <img id="layerPreview" #maskPreview *ngIf="this.opencvService.layerArray[this.layerIndex].masked" src="{{previewMask}}">
-  <div id="layername" #layername>Layer</div>
+  <img *ngIf="this.layerType" id="layerPreview" #layerPreview src="{{previewImg}}">
+  <div id="maskButton" #maskButton *ngIf="this.layerType && this.opencvService.masksEnabled && !this.opencvService.layerArray[this.layerIndex].masked" (click)="this.opencvService.createMask(layerIndex)"></div>
+  <img id="layerPreview" #maskPreview *ngIf="this.layerType && this.opencvService.layerArray[this.layerIndex].masked" src="{{previewMask}}">
+  <div *ngIf="this.layerType" id="layername" #layername>Layer</div>
+  <div *ngIf="!this.layerType" id="layername" #layername>{{this.opencvService.layerArray[this.layerIndex].filterType}}</div>
 </div>

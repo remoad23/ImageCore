@@ -3,6 +3,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
+import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
 @Component({
   selector: 'menubar',
@@ -45,13 +46,15 @@ export class MenubarComponent{
   
   @ViewChild('imageInput', { static: false }) imageInput: ElementRef;
 
-  constructor(private opencvService: ImageProcessingService) {
+  constructor(private transmitter: DataTransmitterServiceService, private opencvService: ImageProcessingService) {
 
   }
 
 
   sendEvent(event) {
     this.opencvService.addLayer(event);
+    console.log(JSON.stringify(event.target));
+    //this.transmitter.updateData("addLayer" + event.stringify());
   }
 
   
@@ -59,6 +62,7 @@ export class MenubarComponent{
   openFileMenu() {
     this.imageInput.nativeElement.click();
   }
+
 
   
 }

@@ -3,6 +3,8 @@ import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
+import { FilterComponent } from '../../components/layer/filter.component';
+import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
 @Component({
   selector: 'layer',
@@ -114,11 +116,16 @@ export class LayerComponent{
   public fontStrength = 2;
   public text = "Placeholder";
 
+  //Filter
+  public filter: FilterComponent;
+  public imageLayer = true;
 
-  constructor(private ngOpenCVService: NgOpenCVService) {
+
+  constructor(private ngOpenCVService: NgOpenCVService,) {
 
     this.canvasURL == "";
     this.maskURL == "";
+    this.filter = null;
     
   }
 
@@ -183,7 +190,6 @@ export class LayerComponent{
     this.layers.push(this);
     this.updateZIndex(this.index);
     this.scaleView(this.scaleValue);
-    this.layerColor = this.opencvService.toolColor[this.opencvService.activeColor];
 
     this.addGeometry();
   }
@@ -209,7 +215,7 @@ export class LayerComponent{
 
   }
 
-  setLayer(left, top, layerArray, cmp, i, service, layerType, layerSize) {
+  setLayer(left, top, layerArray, cmp, i, service, layerType, layerSize, color) {
     this.imageLeft = left;
     this.imageTop = top;
     console.log(left, top);
@@ -222,6 +228,7 @@ export class LayerComponent{
     this.layerType = layerType;
     this.layerSize[0] = layerSize[0] / this.scaleValue;
     this.layerSize[1] = layerSize[1] / this.scaleValue;
+    this.layerColor = color;
     this.placeImage();
   }
 
@@ -447,7 +454,12 @@ export class LayerComponent{
   applyMask() {
     if (this.masked) {
       let maskedImg = new cv.Mat();
-      this.processedImg.copyTo(maskedImg);
+      if (this.filter != null) {
+        this.filter.filteredImg.copyTo(maskedImg);
+      }
+      else {
+        this.processedImg.copyTo(maskedImg);
+      }
       for (let i = 0; i < this.width; i++) {
         for (let j = 0; j < this.height; j++) {
           if (this.mask.ucharPtr(j, i)[0] != 255) {
@@ -457,6 +469,14 @@ export class LayerComponent{
       }
       cv.imshow(this.layerView.nativeElement.id, maskedImg);
       maskedImg.delete();
+    }
+  }
+
+  applyFilter() {
+    if (this.filter != null) {
+      this.filter.apply(this.processedImg, this.layerView.nativeElement.id, this);
+      
+      this.applyMask();
     }
   }
 

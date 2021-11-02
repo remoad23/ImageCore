@@ -1,9 +1,9 @@
 import { Injectable, Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ReflectiveInjector, HostListener} from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { DataTransmitterServiceService } from "./data-transmitter-service.service";
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { LayerComponent } from '../components/layer/layer.component';
+import { FilterComponent } from '../components/layer/filter.component';
 import { ImageviewComponent } from '../layout/imageview/imageview.component';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class ImageProcessingService {
 
   private imgViewComponent;
 
-  public layerArray: LayerComponent[];
+  public layerArray: any;
   public activeLayer: number;
 
   private factoryResolver: any;
@@ -38,7 +38,7 @@ export class ImageProcessingService {
   private maskPreview = null;
 
 
-  constructor(private transmitter: DataTransmitterServiceService, private ngOpenCVService: NgOpenCVService, private componentFactory: ComponentFactoryResolver)
+  constructor(private ngOpenCVService: NgOpenCVService, private componentFactory: ComponentFactoryResolver)
   {
     this.factoryResolver = componentFactory;
     this.layerArray = [];
@@ -53,10 +53,26 @@ export class ImageProcessingService {
     newLayer.instance.setImgSource(event, this.layerArray, this.imgViewComponent, this.layerArray.length, this);
   }
 
-  addGeometryLayer(left, top, width, height) {
+  addGeometryLayer(left, top, width, height, color, selectedTool) {
     let newLayerFactory = this.factoryResolver.resolveComponentFactory(LayerComponent);
     let newLayer = this.imgViewComponent.createComponent(newLayerFactory);
-    newLayer.instance.setLayer(left, top, this.layerArray, this.imgViewComponent, this.layerArray.length, this, this.selectedTool, [width, height]);
+    newLayer.instance.setLayer(left, top, this.layerArray, this.imgViewComponent, this.layerArray.length, this, selectedTool, [width, height], color);
+  }
+
+  addFilter(type: string) {
+    let newFilterFactory = this.factoryResolver.resolveComponentFactory(FilterComponent);
+    let newFilter = this.imgViewComponent.createComponent(newFilterFactory);
+    newFilter.instance.setFilter(type, this.imgViewComponent, this.layerArray.length, this);
+    if (this.activeLayer != null && this.activeLayer != this.layerArray.length - 1) {
+      this.layerArray.splice(this.activeLayer + 1, 0, newFilter.instance);
+      newFilter.instance.setFilter(type, this.imgViewComponent, this.activeLayer + 1, this);
+      this.layerArray[this.activeLayer].filter = newFilter.instance;
+    }
+    else {
+      this.layerArray.push(newFilter.instance);
+      newFilter.instance.setFilter(type, this.imgViewComponent, this.layerArray.length - 1, this);
+      this.layerArray[this.layerArray.length-2].filter = newFilter.instance;
+    }
   }
 
 
@@ -66,7 +82,9 @@ export class ImageProcessingService {
 
   updateLayerArray() {
     for (let i = 0; i < this.layerArray.length; i++) {
-      this.layerArray[i].updateZIndex(i);
+      if (this.layerArray[i].imageLayer) {
+        this.layerArray[i].updateZIndex(i);
+      }
     }
   }
 
@@ -80,11 +98,11 @@ export class ImageProcessingService {
   }
 
   setActiveLayer(idx: number) {
-    if (this.activeLayer != null) {
+    if (this.activeLayer != null && this.layerArray[this.activeLayer].imageLayer) {
       this.layerArray[this.activeLayer].deactivateTransformBox();
     }
     this.activeLayer = idx;
-    if (this.selectedTool == 'move') {
+    if (this.selectedTool == 'move' && this.layerArray[this.activeLayer].imageLayer) {
       this.layerArray[this.activeLayer].activateTransformBox();
     }
 
