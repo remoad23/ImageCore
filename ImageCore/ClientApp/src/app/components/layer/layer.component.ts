@@ -145,6 +145,7 @@ export class LayerComponent{
       load$
         .pipe(
           switchMap(() => {
+            console.log(reader.result);
             return this.ngOpenCVService.loadImageToHTMLCanvas(`${reader.result}`, this.originalImgView.nativeElement);
           })
         )

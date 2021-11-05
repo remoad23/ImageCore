@@ -34,14 +34,23 @@ export class DataTransmitterServiceService {
       if (array[0] == "addGeometryLayer") {
         this.opencvService.addGeometryLayer(array[1], array[2], array[3], array[4],array[5],array[6]);
       }
-      
-      
     });
+
+      this.connection.on('newLayerUploaded', e => {
+        
+      
+      
+      });
   }
 
   updateData(text:string)
   {
     this.connection.send("Send",text);
+  }
+
+  notifyNewImageUploaded()
+  {
+    this.connection.send("NotifyNewImageUploaded",true);
   }
 
   reconnect()
