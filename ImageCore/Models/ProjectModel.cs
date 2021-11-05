@@ -24,5 +24,6 @@ namespace ImageCore.Models
         public List<ImageLayerModel> ImageLayers { get; set; }
         public List<ImageComponentModel> ImageComponents { get; set; }
         public List<FilterModel> Filters { get; set; }
+        public List<ImageModel> Images { get; set; }
     }
 }

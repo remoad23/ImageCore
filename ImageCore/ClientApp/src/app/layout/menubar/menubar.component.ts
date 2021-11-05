@@ -49,45 +49,50 @@ export class MenubarComponent{
 
   private http: HttpClient;
   private baseUrl: string;
+  private pId: string;
+  private token: string;
 
   constructor(
     private transmitter: DataTransmitterServiceService,
     private opencvService: ImageProcessingService,
     private client: HttpClient,
-    @Inject("BASE_BACKEND_URL") _baseUrl: string) {
-
+    @Inject("BASE_BACKEND_URL") _baseUrl: string,
+    @Inject("P_ID") _pId,
+    @Inject("TOKEN") _token  ) {
+    this.pId = _pId;
     this.http = client;
     this.baseUrl = _baseUrl;
-
+    this.token = _token;
   }
 
 
   async sendEvent(event) {
-    this.opencvService.addLayer(event);
-    console.log(JSON.stringify(event.target));
+
+    //this.opencvService.addLayer(event);
+    console.log(event.target.files[0]);
 
     const formData = new FormData();
-    formData.append('file', event.target.files[0]);
-    console.log(this.baseUrl + "uploadimagelayer");
+    formData.append('File', event.target.files[0]);
+    formData.append('ProjectId', this.pId)
+
     const headers = new HttpHeaders()
-      .set('Content-Type', 'multipart/form-data');
-     // .set("Authorization", "Basic " + btoa("username:password"));
+      .set("Authorization", this.token);
 
-    const httpOptions = {
-      headers: headers
-    };
+    const httpOptions = { headers: headers };
 
-    await this.http.post<any>(this.baseUrl + "uploadimagelayer?=projectId=", formData,httpOptions).subscribe(
+    await this.http.post<any>(this.baseUrl + "uploadimagelayer", formData,httpOptions).subscribe(
 
       (res) =>
       {
-        if (res.status == 200)
-          this.transmitter.notifyNewImageUploaded();
+        let result = res;
+        if (result) {
+          this.transmitter.notifyNewImageUploaded(result);
+        }
+          
       },
       (err) => console.log(err)
     );
 
-    //this.transmitter.updateData("addLayer" + event.stringify());
   }
 
   

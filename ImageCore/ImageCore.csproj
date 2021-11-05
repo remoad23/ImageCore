@@ -45,6 +45,7 @@
     <Folder Include="ClientApp\src\app\Guards" />
     <Folder Include="Models\ViewModel\Contacts" />
     <Folder Include="wwwroot\images\Icons" />
+    <Folder Include="wwwroot\Imagelayers\" />
     <Folder Include="wwwroot\profileimages" />
   </ItemGroup>
 

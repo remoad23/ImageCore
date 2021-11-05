@@ -139,13 +139,29 @@ export class LayerComponent{
   }
 
   loadImage() {
-    if (this.imgSource.target.files.length) {
+    console.log(`data:image/jpeg;base64,${this.imgSource}`);
+    //var image = new Image();
+
+
+    //this.originalImgView.nativeElement.drawImage(new Image(), 0, 0);
+
+
+    this.ngOpenCVService.loadImageToHTMLCanvas(`data:image/jpeg;base64,${this.imgSource}`, this.originalImgView.nativeElement).subscribe(
+      () => {
+        this.loadImageToCanvas();
+      },
+      err => {
+        console.log('Error loading image', err);
+      }
+    );
+    
+    /*if (this.imgSource.target.files.length) {
       const reader = new FileReader();
       const load$ = fromEvent(reader, 'load');
       load$
         .pipe(
           switchMap(() => {
-            console.log(reader.result);
+            console.log(JSON.stringify(reader.result));
             return this.ngOpenCVService.loadImageToHTMLCanvas(`${reader.result}`, this.originalImgView.nativeElement);
           })
         )
@@ -158,7 +174,7 @@ export class LayerComponent{
           }
       );
       reader.readAsDataURL(this.imgSource.target.files[0]);
-    }
+    }*/
   }
 
   loadImageToCanvas() {

@@ -1,6 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import {Inject, Injectable} from '@angular/core';
 import * as signalR from "@microsoft/signalr"
 import { ImageProcessingService } from '../services/image-processing.service';
+import { HttpClient} from '@angular/common/http';
 
 
 @Injectable({
@@ -16,12 +18,21 @@ export class DataTransmitterServiceService {
 
   // signalR connection
   private connection;
-  private pId;
+  private http: HttpClient;
+  private baseUrl: string;
+  private pId: string;
+  private token: string;
 
-  constructor(private opencvService: ImageProcessingService,@Inject("P_ID") pId_: string)
+  constructor(private opencvService: ImageProcessingService, private client: HttpClient, @Inject("BASE_BACKEND_URL") _baseUrl: string,
+    @Inject("P_ID") _pId,
+    @Inject("TOKEN") _token)
   {
-    this.pId = pId_;
+      this.pId = _pId;
+      this.http = client;
+      this.baseUrl = _baseUrl;
+      this.token = _token;
     this.receivedData = [];
+
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl("https://localhost:5001/Chathub",{
         skipNegotiation: true,
@@ -31,7 +42,7 @@ export class DataTransmitterServiceService {
       .build();
     this.startConnection();
     this.connection.on('message', e => {
-      console.log("TRIGGERD     "+e);
+
       var array = e.split(',');
       if (array[0] == "addGeometryLayer") {
         this.opencvService.addGeometryLayer(array[1], array[2], array[3], array[4],array[5],array[6]);
@@ -45,11 +56,7 @@ export class DataTransmitterServiceService {
 
 
 
-    this.connection.on('newLayerUploaded', e => {
-
-
-
-    });
+    this.connection.on('NewImageUploaded', e => this.getImage(e));
 
   }
 
@@ -60,9 +67,9 @@ export class DataTransmitterServiceService {
 
   }
 
-  notifyNewImageUploaded()
+  notifyNewImageUploaded(imageId: string)
   {
-    this.connection.send("NotifyNewImageUploaded",true);
+    this.connection.send("NotifyNewImageUploaded",imageId,this.pId);
   }
 
   reconnect()
@@ -84,5 +91,25 @@ export class DataTransmitterServiceService {
   private initEvenets()
   {
 
+  }
+
+  private async getImage(imageId: string) {
+    const headers = new HttpHeaders()
+      .set("responseType", "application/json")
+      .set("Authorization", this.token);
+
+    const httpOptions = {headers: headers};
+
+    await this.http.get<any>(this.baseUrl + "getimagelayer?fileId=" + imageId, httpOptions).subscribe(
+
+      (res) => {
+        let result = res;
+        if (result) {
+          this.opencvService.addLayer(result);
+        }
+
+      },
+      (err) => console.log(err)
+    );
   }
 }

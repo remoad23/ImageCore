@@ -24,6 +24,7 @@ namespace ImageCore.Models
         public DbSet<ProjectModel> Project { get; set; }
         public DbSet<ProjectParticipatorModel> ProjectParticipator { get; set; }
         public DbSet<ContactModel> Contact { get; set; }
+        public DbSet<ImageModel> Image { get; set; }
         
         public ContextDb(DbContextOptions<ContextDb> options): base(options)
         {

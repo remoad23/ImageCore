@@ -17,5 +17,10 @@ namespace ImageCore.Controllers.api.SignalR
         {
             await Clients.Group(projectId).SendAsync("message", message);
         }
+
+        public async Task NotifyNewImageUploaded(string imageId,string projectId)
+        {
+            await Clients.Group(projectId).SendAsync("NewImageUploaded", imageId);
+        }
     }
 }

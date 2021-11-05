@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using ImageCore.Models;
+using ImageCore.Models.ViewModel;
 using ImageCore.Services;
 using ImageCore.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -26,35 +27,60 @@ namespace ImageCore.Controllers.api
         }
         
         [AllowAnonymous]
+        [HttpPost]
         [Route("uploadimagelayer")]
-        public async Task<IActionResult> UploadImageLayer([FromForm]IFormFile file,[FromQuery] string projectId)
+        public async Task<IActionResult> UploadImageLayer([FromForm]FileUploadViewModel upload)
         {
+
             Console.WriteLine("sdgsdgsgd");
             bool auth = ProjectAuth.VerifyToken(HttpContext, ContextDb);
 
+            ImageModel model = new ImageModel()
+            {
+                FileName = "",
+                Path = "",
+                ProjectId = upload.ProjectId
+            };
+
+            ContextDb.Add(model);
+            ContextDb.SaveChanges();
           
-              string imageId = "";
-              if (file.Length > 0)
+              if (upload.File.Length > 0)
               {
 
-                  var filePath = Path.GetTempFileName();
+                  var filePath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
-                  using (var stream = System.IO.File.Create(filePath + imageId))
+                  using (var stream = System.IO.File.Create($"{filePath}/Imagelayers/{model.ImageId}"+".jpg"))
                   {
-                      await file.CopyToAsync(stream);
+                      await upload.File.CopyToAsync(stream);
                   }
               }
 
 
-            return auth ? Ok(imageId) : Unauthorized();
+            return auth ? Ok(model.ImageId) : Unauthorized();
         }
 
         [AllowAnonymous]
         [Route("getimagelayer")]
-        public IActionResult GetImageLayer(string fileName, [FromQuery] string fileId)
+        public async Task< IActionResult> GetImageLayer([FromQuery] string fileId)
         {
-            return null;
-          //  return auth ? Ok() : Unauthorized();
+            bool auth = ProjectAuth.VerifyToken(HttpContext, ContextDb);
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Imagelayers/");
+            var imageFileStream = System.IO.File.OpenRead(path+ fileId +".jpg");
+
+            byte[] data = null;
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await imageFileStream.CopyToAsync(memoryStream);
+
+                        data = memoryStream.ToArray();
+                    }
+                
+            
+            return Ok(data);
+            //  return auth ? File(imageFileStream, "image/jpg") : Unauthorized();
         }
     }
 }
