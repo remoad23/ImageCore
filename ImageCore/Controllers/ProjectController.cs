@@ -68,7 +68,7 @@ namespace ImageCore.Controllers
             ProjectModel project = Context.Project.Find(projectId);
             project.Views++;
             Context.SaveChanges();
-            return Redirect("http://localhost:4200/?token=" + token );
+            return Redirect("http://localhost:4200/?token=" + token +"&pid=" + projectId );
         }
 
         /*

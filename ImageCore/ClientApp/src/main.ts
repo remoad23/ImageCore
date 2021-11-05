@@ -17,8 +17,8 @@ function StartApp()
 
 let urlParams = new URLSearchParams(window.location.search);
 let token = urlParams.get('token');
+let projectid = urlParams.get('pid');
 
-console.log(token);
 
 fetch("https://localhost:5001/AuthApi", {
   method: 'GET',
@@ -42,8 +42,9 @@ fetch("https://localhost:5001/AuthApi", {
 const providers = [
   { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
   { provide: 'TOKEN',useValue:token },
-  { provide: 'REDIRECTION_URL', useValue: 'https://localhost:5001' },
-  { provide: 'BASE_BACKEND_URL', useValue: 'https://localhost:5001/' }
+  { provide: 'REDIRECTION_URL' ,useValue: 'https://localhost:5001'},
+{ provide: 'P_ID', useValue: projectid },
+{ provide: 'BASE_BACKEND_URL', useValue: 'https://localhost:5001/' }
 ];
 
 

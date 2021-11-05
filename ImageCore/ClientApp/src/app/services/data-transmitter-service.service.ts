@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import * as signalR from "@microsoft/signalr"
 import { ImageProcessingService } from '../services/image-processing.service';
 
@@ -16,9 +16,11 @@ export class DataTransmitterServiceService {
 
   // signalR connection
   private connection;
+  private pId;
 
-  constructor(private opencvService: ImageProcessingService)
+  constructor(private opencvService: ImageProcessingService,@Inject("P_ID") pId_: string)
   {
+    this.pId = pId_;
     this.receivedData = [];
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl("https://localhost:5001/Chathub",{
@@ -28,24 +30,34 @@ export class DataTransmitterServiceService {
       .withAutomaticReconnect()
       .build();
     this.startConnection();
-
     this.connection.on('message', e => {
+      console.log("TRIGGERD     "+e);
       var array = e.split(',');
       if (array[0] == "addGeometryLayer") {
         this.opencvService.addGeometryLayer(array[1], array[2], array[3], array[4],array[5],array[6]);
       }
+
     });
 
-      this.connection.on('newLayerUploaded', e => {
-        
-      
-      
-      });
+    this.connection.on('RegisterSession', e => {
+      console.log(e)
+    });
+
+
+
+    this.connection.on('newLayerUploaded', e => {
+
+
+
+    });
+
   }
 
   updateData(text:string)
   {
-    this.connection.send("Send",text);
+    console.log("triggered");
+    this.connection.send("Send",text,this.pId);
+
   }
 
   notifyNewImageUploaded()
@@ -58,9 +70,10 @@ export class DataTransmitterServiceService {
 
   }
 
-  startConnection()
+  async startConnection()
   {
-    this.connection.start();
+    await this.connection.start();
+    await this.connection.send("RegisterSession",this.pId);
   }
 
   abortConnection()
