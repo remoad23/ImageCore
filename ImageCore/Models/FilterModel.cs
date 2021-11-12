@@ -9,10 +9,16 @@ namespace ImageCore.Models
         [Key]
         public Guid FilterId { get; private set; }
         public string FilterType { get; set; }
-        public int ImageLayerId { get; set; }
+        public int LayerIndex { get; set; }
+        public int Brightness { get; set; }
+        public float Contrast { get; set; }
+        public int Hue { get; set; }
+        public float Saturation { get; set; }
+        public float Value { get; set; }
+        
+        
         public int ProjectId { get; set; }
         
-        public ImageLayerModel ImageLayer{ get; set; }
         public ProjectModel Project { get; set; }
 
     }
