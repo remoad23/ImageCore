@@ -4,7 +4,6 @@ import { switchMap } from 'rxjs/operators';
 import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
 import { FilterComponent } from '../../components/layer/filter.component';
-import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
 @Component({
   selector: 'layer',
@@ -51,6 +50,9 @@ export class LayerComponent{
   @ViewChild('layerView', { static: false }) layerView: ElementRef;
   @ViewChild('originalImgView', { static: false }) originalImgView: ElementRef;
   @ViewChild('maskImgView', { static: false }) maskImgView: ElementRef;
+
+  public layerId = null;
+  public loadedFromDB: false;
 
   //css
   public startPadding = 20;
@@ -121,7 +123,7 @@ export class LayerComponent{
   public imageLayer = true;
 
 
-  constructor(private ngOpenCVService: NgOpenCVService,) {
+  constructor(private ngOpenCVService: NgOpenCVService) {
 
     this.canvasURL == "";
     this.maskURL == "";
@@ -130,12 +132,18 @@ export class LayerComponent{
   }
 
   ngAfterViewInit() {
-    if (this.layerType === "rectangle" || this.layerType === "text") {
-      this.loadEmptyCanvas();
+    if (!this.loadedFromDB) {
+      if (this.layerType === "rectangle" || this.layerType === "text") {
+        this.loadEmptyCanvas();
+      }
+      else {
+        this.loadImage();
+      }
     }
     else {
-      this.loadImage();
+      this.loadFromDB();
     }
+    
   }
 
   loadImage() {
@@ -191,6 +199,7 @@ export class LayerComponent{
     this.height = this.processedImg.rows;
     this.layers.push(this);
     this.updateZIndex(this.index);
+    this.opencvService.saveLayer(this.index);
   }
 
   loadEmptyCanvas() {
@@ -211,6 +220,13 @@ export class LayerComponent{
     this.addGeometry();
   }
 
+  loadFromDB() {
+    cv.imshow(this.layerView.nativeElement, this.processedImg);
+    this.canvasURL = this.layerView.nativeElement.toDataURL();
+    this.layers.push(this);
+    //this.centerImage();
+  }
+
   scaleImage(scaleX: number, scaleY: number) {
     cv.resize(this.processedImg, this.processedImg, new cv.Size(scaleX, scaleY), 0, 0, cv.INTER_AREA);
     cv.resize(this.mask, this.mask, new cv.Size(scaleX, scaleY), 0, 0, cv.INTER_AREA);
@@ -229,6 +245,7 @@ export class LayerComponent{
 
     this.transformbox.nativeElement.style.width = (this.width + this.padding * 2) + "px";
     this.transformbox.nativeElement.style.height = (this.height + this.padding * 2) + "px";
+
 
   }
 
@@ -272,6 +289,8 @@ export class LayerComponent{
     let rgb = this.opencvService.hexToRgb(this.layerColor);
     cv.rectangle(this.processedImg, new cv.Point(0, 0), new cv.Point(this.width, this.height), new cv.Scalar(rgb[0], rgb[1], rgb[2], 255), -1);
     cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+
+    this.opencvService.saveLayer(this.index);
   }
 
   addText() {
@@ -279,6 +298,8 @@ export class LayerComponent{
     let rgb = this.opencvService.hexToRgb(this.layerColor);
     cv.putText(this.processedImg, this.text, new cv.Point(0, this.height / 2), font, this.fontSize, new cv.Scalar(rgb[0], rgb[1], rgb[2], 255), this.fontStrength, cv.LINE_AA);
     cv.imshow(this.layerView.nativeElement.id, this.processedImg);
+
+    this.opencvService.saveLayer(this.index);
   }
 
   setImgSource(event, layerArray,cmp,i,service) {
@@ -339,7 +360,7 @@ export class LayerComponent{
     this.viewCenterY = imageView.offsetTop + imageView.offsetHeight / 2;
     console.log(this.imageLeft, this.viewCenterX);
     this.viewLeft = this.viewCenterX - (this.viewCenterX - this.imageLeft) / this.scaleValue - this.padding;
-    this.viewTop = this.viewCenterY - (this.viewCenterY - this.imageTop) / this.scaleValue  - this.padding / 2;
+    this.viewTop = this.viewCenterY - (this.viewCenterY - this.imageTop) / this.scaleValue - this.padding / 2;
   }
 
   activateTransformBox() {
@@ -443,6 +464,7 @@ export class LayerComponent{
     else {
       this.isHidden = true;
     }
+    this.opencvService.saveLayer(this.index);
   }
 
   createMask(maskPreview) {
@@ -471,7 +493,7 @@ export class LayerComponent{
   applyMask() {
     if (this.masked) {
       let maskedImg = new cv.Mat();
-      if (this.filter != null) {
+      if (this.filter != null && this.filter.filteredImg != null) {
         this.filter.filteredImg.copyTo(maskedImg);
       }
       else {
@@ -484,14 +506,15 @@ export class LayerComponent{
           }
         }
       }
-      cv.imshow(this.layerView.nativeElement.id, maskedImg);
+      cv.imshow(this.layerView.nativeElement, maskedImg);
       maskedImg.delete();
+      this.opencvService.saveLayer(this.index);
     }
   }
 
   applyFilter() {
     if (this.filter != null) {
-      this.filter.apply(this.processedImg, this.layerView.nativeElement.id, this);
+      this.filter.apply(this.processedImg, this.layerView.nativeElement, this);
       
       this.applyMask();
     }

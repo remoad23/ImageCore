@@ -5,6 +5,7 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { LayerComponent } from '../components/layer/layer.component';
 import { FilterComponent } from '../components/layer/filter.component';
 import { ImageviewComponent } from '../layout/imageview/imageview.component';
+import { DataTransmitterServiceService } from './data-transmitter-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,8 @@ export class ImageProcessingService {
   //masks
   public masksEnabled = false;
   private maskPreview = null;
+
+  private transmitter: DataTransmitterServiceService;
 
 
   constructor(private ngOpenCVService: NgOpenCVService, private componentFactory: ComponentFactoryResolver)
@@ -75,9 +78,98 @@ export class ImageProcessingService {
     }
   }
 
+  loadFromDB(layers: any) {
+    this.ngOpenCVService.isReady$.subscribe(() => { this.loadImageLayers(layers); });
+  }
+
+  loadImageLayers(layers: any) {
+    
+    for (let layer of layers) {
+      let newLayerFactory = this.factoryResolver.resolveComponentFactory(LayerComponent);
+      let newLayer = this.imgViewComponent.createComponent(newLayerFactory);
+      newLayer.instance.loadedFromDB = true;
+      newLayer.instance.layerId = layer.imageLayerId;
+      newLayer.instance.viewLeft = layer.x;
+      newLayer.instance.viewTop = layer.y;
+      newLayer.instance.index = layer.z;
+      newLayer.instance.isHidden = !layer.visible;
+      newLayer.instance.width = layer.width;
+      newLayer.instance.height = layer.height;
+      newLayer.instance.rotationAngle = layer.rotation;
+      newLayer.instance.layerType = layer.layerType;
+      newLayer.instance.layerColor = layer.layerColor;
+      newLayer.instance.fontSize = layer.fontSize;
+      newLayer.instance.fontStrength = layer.fontStrength;
+      newLayer.instance.text = layer.text;
+      newLayer.instance.filter = layer.filterId;
+
+      newLayer.instance.originalImg = this.parseMat(layer.originalImageMat, layer.width, layer.height);
+      newLayer.instance.processedImg = this.parseMat(layer.processedImageMat, layer.width, layer.height);
+      newLayer.instance.mask = this.parseMat(layer.maskMat, layer.width, layer.height);
+
+      newLayer.instance.opencvService = this;
+      newLayer.instance.componentRef = this.imgViewComponent;
+      newLayer.instance.layers = this.layerArray;
+
+
+
+    }
+  }
+
+  parseMat(matString: string, width: number, height: number) {
+    let result = new cv.Mat(height, width, cv.CV_8UC4, new cv.Scalar(0, 0, 0, 255));
+    if (matString != "") {
+      let mat = JSON.parse(matString);
+      let rows = mat.length;
+      let cols = mat[0].length;
+      let channels = mat[0][0].length;
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          for (let c = 0; c < channels; c++) {
+            result.ucharPtr(j, i)[c] = mat[j][i][c];
+          }
+        }
+      }
+    }
+    return result;
+  }
+
 
   setImgViewComponent(reference: any) {
     this.imgViewComponent = reference;
+  }
+
+  setTransmitter(reference: any) {
+    this.transmitter = reference;
+    
+  }
+
+  loadProject() {
+    this.transmitter.loadProject();
+  }
+
+  saveLayer(index: number) {
+    this.transmitter.saveLayer(index);
+  }
+
+  stringifyMat(mat: any) {
+    let valueArray = [];
+    for (let i = 0; i < mat.rows; i++) {
+      let row = [];
+      for (let j = 0; j < mat.cols; j++) {
+        let pixelValues = [];
+        for (let c = 0; c < 4; c++) {
+          pixelValues.push(mat.ucharPtr(i, j)[c]);
+        }
+        row.push(pixelValues);
+      }
+      valueArray.push(row);
+      
+    }
+
+    return JSON.stringify(valueArray);
+
   }
 
   updateLayerArray() {

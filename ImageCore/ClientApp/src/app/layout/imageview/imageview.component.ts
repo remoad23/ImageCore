@@ -58,6 +58,8 @@ export class ImageviewComponent{
 
   ngAfterViewInit() {
     this.opencvService.setImgViewComponent(this.imageviewContainer);
+    this.opencvService.setTransmitter(this.transmitter);
+    this.opencvService.loadProject();
   }
 
   @HostListener('mousedown', ['$event']) onMouseDown($event) {
@@ -98,6 +100,10 @@ export class ImageviewComponent{
         }
         else if (this.opencvService.activeLayer != null && this.opencvService.layerArray[this.opencvService.activeLayer].dragRotation) {
           this.opencvService.layerArray[this.opencvService.activeLayer].endRotation();
+        }
+        else if (this.opencvService.activeLayer != null) {
+          this.transmitter.updateData("moveLayer," + this.opencvService.layerArray[this.opencvService.activeLayer].viewLeft + "," + this.opencvService.layerArray[this.opencvService.activeLayer].viewTop + "," + this.opencvService.activeLayer);
+          this.opencvService.saveLayer(this.opencvService.activeLayer);
         }
       }
       else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text") {
