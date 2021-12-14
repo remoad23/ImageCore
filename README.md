@@ -1,6 +1,6 @@
 # ImageCore
 
-About ASP.NET Core functionalities: \n
+About ASP.NET Core functionalities:  
 Realtime photoshoplike application with multiple users.
 -User,Admin Roles
 -User can upload own information (imageprofile,profile description
