@@ -12,7 +12,6 @@ namespace ImageCore.Services
             try
             {
                 MailMessage mail = new MailMessage();
-                /// mail.To.Add("d.waelsch@gmail.com");
                 mail.To.Add(to ?? "");
                 mail.From = new MailAddress("imagecore23@gmail.com");
                 mail.Subject = subject ?? "";

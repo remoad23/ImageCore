@@ -17,10 +17,15 @@
         <input class="searchInput" id="projectSearchBar" type="text" placeholder="Search for Project">
     </div>
     <div class="projectList">
-        @foreach(var sharedProject in Model)
+        @foreach (var sharedProject in Model)
         {
-            <div class="projectListEntry" onclick="selectElement(this)" ondblclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = sharedProject.ProjectId}, ViewData["RequestScheme"].ToString())`">
-                <img src="images/Abstract-Background-Best-Wallpaper-14092.jpg">
+            <div class="projectListEntry" onclick="selectElement(this)">
+                <div class="projectListEntryImageWrapper">
+                    <div class="projectListEntryInteractionList">
+                        <div class="projectlistEntryInteraction viewIcon" onclick="window.location.href = `@Url.Action("Show", "Project", new { projectId = sharedProject.ProjectId }, ViewData["RequestScheme"].ToString())`"></div>
+                    </div>
+                    <p class="firstLetterProject">@sharedProject.Projectname[0]</p>
+                </div>
                 <div class="projectListEntryText">
                     <p>@sharedProject.Projectname</p>
                     <div class="projectEntryInformation">
@@ -39,8 +44,8 @@
 
 function selectElement(element)
 { 
-    if (currentlySelectElement) currentlySelectElement.style.border = "none";
-    element.style.border = "2px solid blue";
+ //   if (currentlySelectElement) currentlySelectElement.style.border = "none";
+  //  element.style.border = "2px solid blue";
     currentlySelectElement = element;
 }
 

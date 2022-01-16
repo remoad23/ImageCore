@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ImageCore.ViewModel
 {
-    public class LoginViewModel
+    public class 
+        LoginViewModel
     {
         [Required(ErrorMessage = "Benutzername benötigt")]
         [Display(Name = "userName")]

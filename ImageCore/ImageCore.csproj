@@ -45,8 +45,6 @@
     <Folder Include="ClientApp\src\app\Guards" />
     <Folder Include="Models\ViewModel\Contacts" />
     <Folder Include="wwwroot\images\Icons" />
-    <Folder Include="wwwroot\Imagelayers\" />
-    <Folder Include="wwwroot\profileimages" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,13 +53,6 @@
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\AddPhonenumber\Update.cshtml" />
     <_ContentIncludedByDefault Remove="Views\UserSettings\UserSessionList\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ClientApp\src\assets\images\photoshop-cc.svg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

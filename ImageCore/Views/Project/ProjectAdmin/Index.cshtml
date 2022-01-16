@@ -44,7 +44,7 @@
         @foreach (ProjectListViewModel project in Model)
         {
             <a class="UserListEntry" ondblclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = project.ProjectId}, ViewData["RequestScheme"].ToString())`">
-                <img class="userEntryImage" src="~/images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                <p class="firstLetterProjectList">@project.Name[0]</p>
                 <div class="UserEntryVerticalWrapper">
                     <p class="userEntryHeader">Name</p>
                     <p class="userEntryValue">@project.Name</p>

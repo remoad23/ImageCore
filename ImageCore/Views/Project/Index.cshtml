@@ -25,9 +25,9 @@
                     <div class="projectListEntryInteractionList">
                         <div class="projectlistEntryInteraction viewIcon" onclick="window.location.href = `@Url.Action("Show", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())`"></div>
                         <div onclick='deleteElement(this.parentElement.parentElement.parentElement,`@Url.Action("Destroy", "Project", new {projectId = Model?.ProjectIds[x]}, ViewData["RequestScheme"].ToString())`)'
-                            class="projectlistEntryInteraction DeleteBtn" style="margin-left: 20px;"></div>
+                            class="projectlistEntryInteraction DeleteBtn" style="margin-left: 15px;margin-right: 20px;"></div>
                     </div>
-                    <img src="images/Abstract-Background-Best-Wallpaper-14092.jpg">
+                    <p class="firstLetterProject">@Model.Projectname[x][0]</p>
                 </div>
                 
                 <div class="projectListEntryText">
@@ -83,8 +83,8 @@ function deleteElement(element,url)
 
 function selectElement(element)
 { 
-    if (currentlySelectElement) currentlySelectElement.style.backgroundColor = "#2b6777";
-    element.style.backgroundColor = "#52ab98";
+  //  if (currentlySelectElement) currentlySelectElement.style.backgroundColor = "#2b6777";
+//    element.style.backgroundColor = "#52ab98";
     currentlySelectElement = element;
 }
 

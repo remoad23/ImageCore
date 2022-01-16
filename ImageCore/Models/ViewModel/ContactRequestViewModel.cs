@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace ImageCore.Models.ViewModel
 {
-    public class ContactRequestViewModel
+    public class 
+        ContactRequestViewModel
     {
         public List<string> ContactIds;
         public List<string> UserIds;
