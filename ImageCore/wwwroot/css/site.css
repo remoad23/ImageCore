@@ -292,15 +292,17 @@ footer{
     width: 100%;
 }
 
-.introduction
-{
+.introduction {
     background-color: #52ab98;
     background-size: contain;
     display: flex;
     flex-flow: column;
     padding-top: 20vh;
+    background-image: url("../images/imageCoreWebsite.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 60%;
+    background-position-x: 90%;
+    background-position-y: 30%;
 }
 
 .introductionTitle
@@ -401,13 +403,20 @@ footer{
     background-image: url("../images/Icons/PlayIcon.svg");
 }
 
-.imageBlock
-{
+.imageBlock {
     width: 50%;
     height: 100%;
-    background-image: url("../images/2016_01_29_06_52_16_2574220d-7737-4c39-a562-8e153a5d1497_website-hero3.png");
+    background-image: url("../images/imageCoreWebsite.png");
     background-repeat: no-repeat;
-    background-position: center;
+    background-size: 60%;
+    background-position-x: 50%;
+    background-position-y: 30%;
+}
+
+.bigImage {
+    background-size: 150% !important;
+    background-position-x: 130%;
+    background-position-y: 30%;
 }
 
 .blockTextWrapper
@@ -1379,9 +1388,9 @@ footer{
     margin-bottom: 15vh;
 }
 
-.aboutUsSubImage:nth-child(1)
-{
-    background-image: url("../images/aboutusapplication.PNG");
+.aboutUsSubImage:nth-child(1) {
+    background-image: url("../images/imageCoreWebsite.PNG");
+    background-position-y: -10%;
 }
 
 .aboutUsSubImage:nth-child(2)

@@ -18,6 +18,7 @@ import { FilterComponent } from './components/layer/filter.component';
 import {AuthGuard} from "./Guards/auth.guard";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 const openCVConfig: OpenCVOptions = {
@@ -44,6 +45,7 @@ const openCVConfig: OpenCVOptions = {
     HttpClientModule,
     FormsModule,
     DragDropModule,
+    MatMenuModule,
     RouterModule.forRoot([
       {
         path: '',component: AppComponent, canActivate: [AuthGuard],

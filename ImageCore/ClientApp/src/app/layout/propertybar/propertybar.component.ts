@@ -6,6 +6,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { ImageProcessingService } from '../../services/image-processing.service';
 
+/**
+ * shows and manipulates the properties of an image layer
+ * */
 @Component({
   selector: 'propertybar',
   templateUrl: './propertybar.component.html',
@@ -88,6 +91,41 @@ import { ImageProcessingService } from '../../services/image-processing.service'
       background-color: #ffffff;
       margin: 5px;
       border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .icon
+    {
+      pointer-events: none;
+      width: 70%;
+      height: 70%;
+      text-align: center;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .contrastIcon{
+      background-image: url("../../assets/images/contrastIcon.svg");
+      background-size: contain;
+      background-position: 58% 53%;
+      background-repeat: no-repeat;
+    }
+    .hsvIcon{
+      background-image: url("../../assets/images/hsvIcon.svg");
+      background-size: 80%;
+      background-position: 58% 53%;
+      background-repeat: no-repeat;
+    }
+    .deleteIcon{
+      background-image: url("../../assets/images/deleteIcon.svg");
+      background-size: 80%;
+      background-position: 58% 53%;
+      background-repeat: no-repeat;
+    }
+    .filterButton:hover{
+      background-color: #D9D9D9;
+      cursor: pointer;
     }
     input[type="number"]
     {
@@ -134,10 +172,17 @@ import { ImageProcessingService } from '../../services/image-processing.service'
     .deleteButton
     {
       margin-top:2%;
-      width:20px;
-      height:20px;
+      width:25px;
+      height:25px;
       border-radius: 5px;
       background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .deleteButton:hover{
+      background-color: #D9D9D9;
+      cursor: pointer;
     }
   `]
 })
@@ -152,6 +197,10 @@ export class PropertybarComponent{
     this.service = opencvService;
   }
 
+  /**
+   * implements the drag and drop in the layer list and updates the order  
+   * @param event
+   */
   drop(event: CdkDragDrop<string[]>) {
     console.log(event.previousIndex, this.opencvService.layerArray.length - 1 - event.currentIndex);
     moveItemInArray(this.opencvService.layerArray, event.previousIndex, this.opencvService.layerArray.length - 1 - event.currentIndex);
@@ -159,22 +208,41 @@ export class PropertybarComponent{
     this.opencvService.setActiveLayer(this.opencvService.layerArray.length - 1 - event.currentIndex);
   }
 
+  /**
+   * changes the x position of a layer
+   * @param event
+   */
   changeX(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].viewLeft = event.target.valueAsNumber + this.opencvService.layerArray[this.opencvService.activeLayer].viewCenterX;
   }
 
+  /**
+   * changes the y position of a layer
+   * @param event
+   */
   changeY(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].viewTop = event.target.valueAsNumber * -1 + this.opencvService.layerArray[this.opencvService.activeLayer].viewCenterY;
   }
 
+  /**
+   * changes the width of a layer
+   * @param event
+   */
   changeWidth(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].scaleImage(event.target.valueAsNumber, this.opencvService.layerArray[this.opencvService.activeLayer].height);
   }
-
+  /**
+   * changes the height of a layer
+   * @param event
+   */
   changeHeight(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].scaleImage(this.opencvService.layerArray[this.opencvService.activeLayer].width, event.target.valueAsNumber);
   }
 
+  /**
+   * changes the selected tool color
+   * @param event
+   */
   changeToolColor(event, idx) {
     this.opencvService.toolColor[idx] = event.target.value;
     let rgb = this.opencvService.hexToRgb(event.target.value);
@@ -183,44 +251,82 @@ export class PropertybarComponent{
     }
   }
 
+  /**
+   * changes the font size of a layer
+   * @param event
+   */
   changeFontSize(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].fontSize = event.target.valueAsNumber;
     this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
+
+  /**
+   * changes the font strength of a layer
+   * @param event
+   */
   changeFontStrength(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].fontStrength = event.target.valueAsNumber;
     this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
+
+  /**
+   * changes the text of a layer
+   * @param event
+   */
   changeText(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].text = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
 
+  /**
+   * changes the color of a layer
+   * @param event
+   */
   changeLayerColor(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].layerColor = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer].updateGeometry();
   }
 
+  /**
+   * changes the brightness of a filter
+   * @param event
+   */
   changeBrightness(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].brightness = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer-1].applyFilter();
   }
 
+  /**
+   * changes the contrast of a filter
+   * @param event
+   */
   changeContrast(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].contrast = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
   }
 
+  /**
+   * changes the hue value of a filter
+   * @param event
+   */
   changeHue(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].hue = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
   }
 
+  /**
+   * changes the saturation of a filter
+   * @param event
+   */
   changeSaturation(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].saturation = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();
   }
 
+  /**
+   * changes the value of a filter
+   * @param event
+   */
   changeValue(event) {
     this.opencvService.layerArray[this.opencvService.activeLayer].value = event.target.value;
     this.opencvService.layerArray[this.opencvService.activeLayer - 1].applyFilter();

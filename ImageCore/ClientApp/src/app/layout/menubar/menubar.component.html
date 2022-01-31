@@ -1,9 +1,36 @@
 <div id="menubarContainer">
   <div id="logo"></div>
-  <div id="fileButton" (click)="openFileMenu()" class="menuButton">File</div>
-  <div class="menuButton">Edit</div>
-  <div class="menuButton">Image</div>
-  <div class="menuButton">Layer</div>
-  <div class="menuButton">Filter</div>
+
+  <button class="menuButton" mat-button [matMenuTriggerFor]="filemenu">File</button>
+  <button class="menuButton" mat-button [matMenuTriggerFor]="editmenu">Edit</button>
+  <button class="menuButton" mat-button [matMenuTriggerFor]="imagemenu">Image</button>
+  <button class="menuButton" mat-button [matMenuTriggerFor]="layermenu">Layer</button>
+  <button class="menuButton" mat-button [matMenuTriggerFor]="filtermenu">Filter</button>
+
+
+  <mat-menu #filemenu="matMenu">
+    <button mat-menu-item (click)="openFileMenu()">Import Image</button>
+    <button mat-menu-item (click)="this.opencvService.exportProject()">Export Project</button>
+  </mat-menu>
+
+  <mat-menu #editmenu="matMenu">
+    <button mat-menu-item (click)="this.opencvService.undo()">Undo</button>
+    <button mat-menu-item (click)="this.opencvService.redo()">Redo</button>
+  </mat-menu>
+
+  <mat-menu #imagemenu="matMenu">
+    <button mat-menu-item (click)="this.opencvService.changeImagesize()">Imagesize</button>
+    <button mat-menu-item (click)="this.opencvService.changeBackgroundColor()">Background Color</button>
+  </mat-menu>
+
+  <mat-menu #layermenu="matMenu">
+    <button mat-menu-item (click)="this.opencvService.deleteActiveLayer()">Delete Layer</button>
+  </mat-menu>
+
+  <mat-menu #filtermenu="matMenu">
+    <button mat-menu-item (click)="this.opencvService.addFilter('brightness_contrast')">Brightness/Contrast</button>
+    <button mat-menu-item (click)="this.opencvService.addFilter('hsv_change')">HSV-Change</button>
+  </mat-menu>
+
   <input type="file" accept="image/png, image/jpeg" id="imageInput" #imageInput style="display:none;" (change)="sendEvent($event)" />
 </div>

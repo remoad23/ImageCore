@@ -51,12 +51,8 @@
     <div class="propertyContainer">
       <h5>Filter</h5>
       <div class="filterContainer">
-        <div class="filterButton" (click)="this.opencvService.addFilter('brightness_contrast')"></div>
-        <div class="filterButton" (click)="this.opencvService.addFilter('hsv_change')"></div>
-        <div class="filterButton"></div>
-        <div class="filterButton"></div>
-        <div class="filterButton"></div>
-        <div class="filterButton"></div>
+        <div class="filterButton" (click)="this.opencvService.addFilter('brightness_contrast')"><div class="icon contrastIcon"></div></div>
+        <div class="filterButton" (click)="this.opencvService.addFilter('hsv_change')"><div class="icon hsvIcon"></div></div>
       </div>
     </div>
     <div class="propertyContainer">
@@ -68,6 +64,6 @@
           <div *cdkDragPlaceholder></div>
         </layerbox>
       </div>
-      <div class="deleteButton" (click)="this.opencvService.deleteActiveLayer()"></div>
+      <div class="deleteButton" (click)="this.opencvService.deleteActiveLayer()"><div class="icon deleteIcon"></div></div>
     </div>
   </div>

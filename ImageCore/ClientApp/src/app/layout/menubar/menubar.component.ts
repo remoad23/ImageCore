@@ -6,6 +6,9 @@ import { ImageProcessingService } from '../../services/image-processing.service'
 import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+/**
+ * Implements the navigation menus of the programm
+ * */
 @Component({
   selector: 'menubar',
   templateUrl: './menubar.component.html',
@@ -35,11 +38,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     {
       color:#ffffff;
       margin-left: 40px;
-      border-radius: 12px;
+      background-color: transparent;
+      border-color:transparent;
     }
     .menuButton:hover{
       color:#52ab98;
       cursor: pointer;
+    }
+    .mat-menu-item:hover {
+      background-color: #52ab98 !important;
+    }
+    .mat-menu-content {
+      background-color: #2b6777 !important;
     }
   `]
 })
@@ -65,7 +75,10 @@ export class MenubarComponent{
     this.token = _token;
   }
 
-
+  /**
+   * uploads the uploaded file and notifies the transmitter service about the new image 
+   * @param event
+   */
   async sendEvent(event) {
 
     //this.opencvService.addLayer(event);
@@ -96,7 +109,9 @@ export class MenubarComponent{
   }
 
   
-
+  /**
+   * opens the upload file prompt
+   * */
   openFileMenu() {
     this.imageInput.nativeElement.click();
   }

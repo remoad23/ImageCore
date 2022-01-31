@@ -5,7 +5,9 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
 import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
-
+/**
+ * Holds the usable tools
+ * */
 @Component({
   selector: 'toolbar',
   templateUrl: './toolbar.component.html',
@@ -67,20 +69,31 @@ import { DataTransmitterServiceService } from "../../services/data-transmitter-s
       align-items: center;
     }
     .mouseIcon{
-      background-image: url("https://img.icons8.com/material-sharp/48/000000/cursor.png");
+      background-image: url("../../assets/images/mouseIcon.svg");
       background-size: contain;
+      background-position: 60% 50%;
     }
     .rectangleIcon{
-      background-color: white;
-      border: 3px solid black;
-      height:50% !important;
-      width: 60% !important;
+      background-image: url("../../assets/images/rectangle.svg");
+      background-size: 80%;
+      background-position: 58% 53%;
+      background-repeat: no-repeat;
     }
     .textIcon{
-      font-size: 25px;
-      color: black;
-      font-weight: 900;
-      margin: auto;
+      background-image: url("../../assets/images/textIcon.svg");
+      background-size: 60%;
+      background-position: 58% 53%;
+      background-repeat: no-repeat;
+    }
+    .selectIcon{
+      border: 2px dashed black;
+      transform: translateX(1px);
+      height:40% !important;
+      width: 55% !important;
+    }
+    .toolButton:hover{
+      background-color: #D9D9D9;
+      cursor: pointer;
     }
   `]
 })
@@ -91,6 +104,11 @@ export class ToolbarComponent{
   constructor(private opencvService: ImageProcessingService, private transmitter: DataTransmitterServiceService) {
   }
 
+  /**
+   * activates the selected tool button
+   * @param $event
+   * @param tool
+   */
   activateTool($event, tool: string) {
     $event.stopPropagation();
     this.opencvService.selectedTool = tool;
@@ -101,6 +119,9 @@ export class ToolbarComponent{
     $event.target.classList.add("selected");
   }
 
+  /**
+   * toggles the active colors
+   * */
   toggleActiveColor() {
     if (this.opencvService.activeColor == 0) {
       this.opencvService.activeColor = 1;

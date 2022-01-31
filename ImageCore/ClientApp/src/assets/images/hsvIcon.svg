@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="322" height="221" viewBox="0 0 322 221">
+  <defs>
+    <linearGradient id="linear-gradient" y1="1" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0"/>
+      <stop offset="0" stop-color="#0c0c0c"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="hsvIcon" stroke="#000" stroke-width="30" fill="url(#linear-gradient)">
+    <rect width="322" height="221" stroke="none"/>
+    <rect x="15" y="15" width="292" height="191" fill="none"/>
+  </g>
+</svg>

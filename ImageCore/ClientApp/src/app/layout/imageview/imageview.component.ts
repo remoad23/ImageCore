@@ -5,6 +5,9 @@ import { NgOpenCVService, OpenCVLoadResult } from 'ng-open-cv';
 import { ImageProcessingService } from '../../services/image-processing.service';
 import { DataTransmitterServiceService } from "../../services/data-transmitter-service.service";
 
+/**
+ * is the main workplace and handles drag and drop eventhandlers
+ * */
 @Component({
   selector: 'imageview',
   templateUrl: './imageview.component.html',
@@ -26,10 +29,14 @@ import { DataTransmitterServiceService } from "../../services/data-transmitter-s
       border: 2px dashed #dbdbdb;
       z-index: 99;
     }
+    #exportButton{
+      display: none;
+    }
   `]
 })
 export class ImageviewComponent{
   @ViewChild('dragPreview', { static: false }) dragPreview: ElementRef;
+  @ViewChild('exportButton', { static: false }) exportButton: ElementRef;
   @ViewChild('imageviewContainer', { read: ViewContainerRef, static: false }) imageviewContainer: ViewContainerRef;
 
   private draggingView: boolean;
@@ -56,18 +63,28 @@ export class ImageviewComponent{
     this.draggingView = false;
   }
 
+  /**
+   * calls for the load of the layers as soon as the view is initialized
+   * */
   ngAfterViewInit() {
     this.opencvService.setImgViewComponent(this.imageviewContainer);
     this.opencvService.setTransmitter(this.transmitter);
     this.opencvService.loadProject();
   }
 
+  /**
+   * checks for drag and drop events and handles them accordingly to the selected tool
+   * @param $event
+   */
   @HostListener('mousedown', ['$event']) onMouseDown($event) {
     if ($event.button === 0) {
       if (this.opencvService.selectedTool == "move") {
-        this.movingLayer = true;
-        this.dragX = $event.clientX;
-        this.dragY = $event.clientY;
+        if (this.opencvService.activeLayer != null) {
+          this.opencvService.addUndo("changeLayer", this.opencvService.activeLayer);
+          this.movingLayer = true;
+          this.dragX = $event.clientX;
+          this.dragY = $event.clientY;
+        }
       }
       else if (this.opencvService.selectedTool == "rectangle" || this.opencvService.selectedTool == "text" || this.opencvService.selectedTool == "selectRect") {
         this.previewWidth = 0;
@@ -191,10 +208,20 @@ export class ImageviewComponent{
     //$event.srcElement.style.setProperty('transform', "scale(" + 1.25 + ")")
   }
 
+  /**
+   * scales the view of every layer to zoom in or out of the project
+   * */
   scaleLayerViews() {
     for (let i = 0; i < this.opencvService.layerArray.length; i++) {
       this.opencvService.layerArray[i].scaleView(this.viewScale);
     }
+  }
+
+  @HostListener('window:keydown', ['$event']) keyEvent($event) {
+    if (($event.ctrlKey || $event.metaKey) && $event.keyCode == 90)
+      this.opencvService.undo();
+    if (($event.ctrlKey || $event.metaKey) && $event.keyCode == 89)
+      this.opencvService.redo();
   }
 
   @HostListener('document:keydown.control', ['$event']) keydownEvent($event) {

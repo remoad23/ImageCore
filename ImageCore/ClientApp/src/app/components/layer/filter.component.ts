@@ -44,6 +44,13 @@ export class FilterComponent{
     
   }
 
+  /**
+   * sets the values of the filter
+   * @param filterType 
+   * @param cmp 
+   * @param i
+   * @param service
+   */
   setFilter(filterType, cmp, i, service) {
     this.filterType = filterType;
     this.componentRef = cmp;
@@ -52,6 +59,12 @@ export class FilterComponent{
 
   }
 
+  /**
+   * determines which methods will be used to apply the correct filter
+   * @param image image mat
+   * @param id canvas id
+   * @param mask potential mask
+   */
   apply(image, id, mask) {
     if (this.filterType == "brightness_contrast") {
       this.applyBrightnessContrast(image, id);
@@ -61,6 +74,11 @@ export class FilterComponent{
     }
   }
 
+  /**
+   * applies a brightness and contrast filter to the image and shows it on the canvas
+   * @param image filtered image
+   * @param id canvas id
+   */
   applyBrightnessContrast(image, id) {
     image.copyTo(this.filteredImg);
     
@@ -76,8 +94,15 @@ export class FilterComponent{
     cv.imshow(id, this.filteredImg);
   }
 
+  /**
+   * applies a hsv-filter to the given image and presents it on the canvas
+   * @param image filtered image
+   * @param id canvas id
+   * @param mask potential mask
+   */
   applyHSVChange(image, id, mask) {
     image.copyTo(this.filteredImg);
+    // converting color from RGB to HSV
     cv.cvtColor(this.filteredImg, this.filteredImg, cv.COLOR_BGR2HSV, 0);
 
     for (let i = 0; i < image.cols; i++) {
@@ -90,6 +115,7 @@ export class FilterComponent{
         this.filteredImg.ucharPtr(j, i)[2] = Math.max(newValue, 0);
       }
     }
+    // converting the colors back 
     cv.cvtColor(this.filteredImg, this.filteredImg, cv.COLOR_HSV2BGR);
     cv.cvtColor(this.filteredImg, this.filteredImg, cv.COLOR_BGR2BGRA);
 
@@ -97,9 +123,27 @@ export class FilterComponent{
     
   }
 
+  /**
+   * updates the filter by the given values
+   * @param bright
+   * @param contr
+   * @param hue
+   * @param sat
+   * @param value
+   */
+  updateFilter(bright, contr, hue, sat, value) {
+    this.brightness = bright;
+    this.contrast = contr;
+    this.hue = hue;
+    this.saturation = sat;
+    this.value = value;
+  }
+
 
   
-
+  /**
+   * deletes the filter component
+   * */
   deleteLayer() {
     this.componentRef.remove(this.index);
     this.filteredImg.delete();

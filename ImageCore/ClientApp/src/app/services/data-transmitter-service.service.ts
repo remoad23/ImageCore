@@ -64,6 +64,10 @@ export class DataTransmitterServiceService {
 
   }
 
+  /**
+   * sends a message with new data to the signalR connection
+   * @param text updated parameters
+   */
   updateData(text:string)
   {
     console.log("triggered");
@@ -71,11 +75,19 @@ export class DataTransmitterServiceService {
 
   }
 
+
+  /**
+   * notifies the signalr connection that a new image was added to the project and can be loaded from the database
+   * @param imageId id of the added image
+   */
   notifyNewImageUploaded(imageId: string)
   {
     this.connection.send("NotifyNewImageUploaded",imageId,this.pId);
   }
 
+  /**
+   * saves every layer of the project
+   * */
   async saveProject() {
     
     let stringifiedData = "";
@@ -131,6 +143,10 @@ export class DataTransmitterServiceService {
     );
   }
 
+  /**
+   * uploads a single layer to the database
+   * @param index index of the layer
+   */
   async saveLayer(index: number) {
 
     //this.connection.send("SaveProject", projectData, this.pId);
@@ -179,6 +195,9 @@ export class DataTransmitterServiceService {
     );
   }
 
+  /**
+   * loads the project from the database
+   * */
   async loadProject() {
     const headers = new HttpHeaders()
       .set("responseType", "application/json")
@@ -203,12 +222,18 @@ export class DataTransmitterServiceService {
 
   }
 
+  /**
+   * starts the signalR connection
+   * */
   async startConnection()
   {
     await this.connection.start();
     await this.connection.send("RegisterSession",this.pId);
   }
 
+  /**
+   * stops the signalR connection
+   * */
   abortConnection()
   {
     this.connection.stop();
@@ -219,6 +244,10 @@ export class DataTransmitterServiceService {
 
   }
 
+  /**
+   * loads an image from the database after it has been added by another user
+   * @param imageId
+   */
   private async getImage(imageId: string) {
     const headers = new HttpHeaders()
       .set("responseType", "application/json")

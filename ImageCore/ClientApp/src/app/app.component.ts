@@ -37,6 +37,10 @@ export class AppComponent implements OnInit {
     this.openCVLoadResult = this.ngOpenCVService.isReady$;
   }
 
+  /**
+   * loads an image from an upload event (early functionality tests)
+   * @param event
+   */
   loadImage(event) {
     if (event.target.files.length) {
       const reader = new FileReader();
